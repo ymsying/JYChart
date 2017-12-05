@@ -232,7 +232,6 @@
 }
 
 // 柱子采用平铺方式，不进行重叠，平铺是平分重叠时柱子的宽度
-// 默认灰色，选中SYPColor_TextColor_Minor
 - (void)addBarWithPointsAtIndex:(NSInteger)index {
     
     NSArray *points = [NSMutableArray arrayWithArray:self.keyPointsList[index]];
@@ -246,6 +245,7 @@
         shape.strokeStart = 0.0;
         shape.strokeEnd = 1.0;
         shape.lineWidth = barWidth;
+        // 默认灰色，选中SYPColor_TextColor_Minor
         shape.strokeColor = SYPColor_TextColor_Minor.CGColor;
         shape.fillColor = [UIColor clearColor].CGColor;
         shape.path = path.CGPath;
