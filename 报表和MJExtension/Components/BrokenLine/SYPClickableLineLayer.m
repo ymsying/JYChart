@@ -191,13 +191,14 @@
                 x = [self moveBarPointXaxisWithOriginalX:x index:tempBarGroupCount];
             }
             
-            
             CGPoint point = CGPointMake(x, y);
             [points addObject:NSStringFromCGPoint(point)];
         }
+        
         if ([@"bar" isEqualToString:type]) {
             tempBarGroupCount++;
         }
+        
         [keyPointsListTemp addObject:[points copy]];
     }
     
@@ -206,6 +207,7 @@
 /**
  有多组柱状图时，对每组柱状进行适当的移动
  移动量按2的等差数列进行移动
+ an = a1 + (n - 1) * d
 
  @param x 多组柱在同一x坐标的位置
  @param idx 当前分组的下表
