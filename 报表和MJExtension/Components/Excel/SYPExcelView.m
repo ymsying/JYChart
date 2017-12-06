@@ -8,7 +8,7 @@
 
 #import "SYPExcelView.h"
 
-#import "SYPExcelModel.h"
+#import "SYPTablesModel.h"
 #import "SYPCursor.h"
 #import "SYPSheetView.h"
 

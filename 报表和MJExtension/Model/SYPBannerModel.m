@@ -1,0 +1,27 @@
+//
+//  SYPBannerModel.m
+//  MJExtension_Using
+//
+//  Created by 应明顺 on 2017/11/29.
+//  Copyright © 2017年 应明顺. All rights reserved.
+//
+
+#import "SYPBannerModel.h"
+
+@implementation SYPBannerModel
+//
+//- (NSString *)description {
+//    return [NSString stringWithFormat:@"<%@ : %p> %@", [self class], self, [self mj_keyValues]];
+//}
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    NSMutableDictionary *replaced = [NSMutableDictionary dictionaryWithDictionary:[super mj_replacedKeyFromPropertyName]];
+    [replaced setValuesForKeysWithDictionary:@{
+                                               @"date": @"config.date",
+                                               @"info": @"config.info",
+                                               @"title": @"config.title",
+                                               }];
+    return replaced;
+}
+
+@end

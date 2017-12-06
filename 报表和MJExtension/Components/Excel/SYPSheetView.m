@@ -8,11 +8,10 @@
 
 #import "SYPSheetView.h"
 
-#import "SYPSheetModel.h"
+#import "SYPTablesModel.h"
 #import "SYPFreezeWindowView.h"
 #import "SYPHudView.h"
 
-#import "SYPSubDataModlel.h"
 #import "SYPSubSheetView.h"
 
 #define kFreezePoint (CGPointMake(60, kSheetHeadHeight))
@@ -27,7 +26,7 @@ static NSString *rowCellID = @"rowCell";
     BOOL recoverFlag; // YES时箭头向下、降序排列
 }
 
-@property (nonatomic, strong) SYPSheetModel *sheetModel;
+@property (nonatomic, strong) SYPTableConfigModel *configModel;
 @property (nonatomic, strong) SYPFreezeWindowView *freezeView;
 
 @end
@@ -46,7 +45,7 @@ static NSString *rowCellID = @"rowCell";
 - (void)layoutSubviews {
     
     [self initializeSubView];
-    [self.freezeView setSignViewWithContent:self.sheetModel.headNames[0]];
+    [self.freezeView setSignViewWithContent:self.configModel.leadLineTitle[0]];
 }
 
 - (SYPFreezeWindowView *)freezeView {

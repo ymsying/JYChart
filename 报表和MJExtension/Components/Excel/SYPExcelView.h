@@ -6,12 +6,12 @@
 //  Copyright © 2017年 YMS. All rights reserved.
 //
 
-#import "SYPModuleTwoBaseView.h"
+#import "SYPBaseComponentView.h"
 
 /**
  Excel页
  */
-@interface SYPExcelView : SYPModuleTwoBaseView
+@interface SYPExcelView : SYPBaseComponentView
 
 
 

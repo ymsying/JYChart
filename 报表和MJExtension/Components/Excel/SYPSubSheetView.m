@@ -55,11 +55,11 @@
     return _closePageBtn;
 }
 
-- (void)setSheetModel:(SYPSheetModel *)sheetModel {
+- (void)setSheetModel:(SYPTableRowModel *)sheetModel {
     if (![_sheetModel isEqual:sheetModel]) {
         _sheetModel = sheetModel;
     }
-    self.sheetTitleLabel.text = _sheetModel.sheetTitle;
+    self.sheetTitleLabel.text = _sheetModel.rowTitle;
     self.sheetView.moduleModel = _sheetModel;
     
     [self addSubview:_sheetView];
