@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SYPSheetModel.h"
+#import "SYPTablesModel.h"
 
 
 /**
@@ -15,7 +15,7 @@
  */
 @interface SYPSubSheetView : UIView
 
-@property (nonatomic, strong) SYPSheetModel *sheetModel;
+@property (nonatomic, strong) SYPTableConfigModel *sheetModel;
 
 - (void)showSubSheetView;
 

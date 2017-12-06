@@ -6,7 +6,7 @@
 //  Copyright © 2017年 YMS. All rights reserved.
 //
 
-#import "SYPModuleTwoBaseView.h"
+#import "SYPBaseComponentView.h"
 
 #define kMianCellHeight (44)
 #define kSheetHeadHeight (30)
@@ -14,7 +14,7 @@
 /**
  Excel中的工作表
  */
-@interface SYPSheetView : SYPModuleTwoBaseView
+@interface SYPSheetView : SYPBaseComponentView
 
 @property (nonatomic, assign) BOOL flexibleHeight;
 

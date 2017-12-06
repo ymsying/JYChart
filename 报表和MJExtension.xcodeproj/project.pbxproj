@@ -11,17 +11,6 @@
 		236520611FD3106B006356A3 /* SYPLandscapeBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2365205D1FD3106B006356A3 /* SYPLandscapeBarView.m */; };
 		23A146D41FD4E66700F9BC5B /* SYPClickableLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A146D01FD4E66700F9BC5B /* SYPClickableLineView.m */; };
 		23A146D51FD4E66700F9BC5B /* SYPClickableLineLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A146D31FD4E66700F9BC5B /* SYPClickableLineLayer.m */; };
-		23A285871FD1390100360E7E /* SYPBaseChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A285711FD1390100360E7E /* SYPBaseChartModel.m */; };
-		23A285881FD1390100360E7E /* SYPPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A285721FD1390100360E7E /* SYPPageModel.m */; };
-		23A285891FD1390100360E7E /* SYPSingleValueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A285731FD1390100360E7E /* SYPSingleValueModel.m */; };
-		23A2858A1FD1390100360E7E /* SYPBargraphModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A285741FD1390100360E7E /* SYPBargraphModel.m */; };
-		23A2858B1FD1390100360E7E /* SYPFilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2857A1FD1390100360E7E /* SYPFilterModel.m */; };
-		23A2858C1FD1390100360E7E /* SYPBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2857E1FD1390100360E7E /* SYPBannerModel.m */; };
-		23A2858D1FD1390100360E7E /* SYPColourPointModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2857F1FD1390100360E7E /* SYPColourPointModel.m */; };
-		23A2858E1FD1390100360E7E /* SYPTablesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A285821FD1390100360E7E /* SYPTablesModel.m */; };
-		23A2858F1FD1390100360E7E /* SYPChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A285831FD1390100360E7E /* SYPChartModel.m */; };
-		23A285901FD1390100360E7E /* SYPPartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A285841FD1390100360E7E /* SYPPartModel.m */; };
-		23A285911FD1390100360E7E /* SYPInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A285861FD1390100360E7E /* SYPInfoModel.m */; };
 		23A285951FD14D9700360E7E /* SYPBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A285931FD14D9700360E7E /* SYPBannerView.m */; };
 		23A285991FD14DE600360E7E /* SYPHelpInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A285981FD14DE600360E7E /* SYPHelpInfoView.m */; };
 		23A2859D1FD15B7C00360E7E /* SYPInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2859C1FD15B7C00360E7E /* SYPInfoView.m */; };
@@ -92,28 +81,6 @@
 		23A146D11FD4E66700F9BC5B /* SYPClickableLineLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPClickableLineLayer.h; sourceTree = "<group>"; };
 		23A146D21FD4E66700F9BC5B /* SYPClickableLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPClickableLineView.h; sourceTree = "<group>"; };
 		23A146D31FD4E66700F9BC5B /* SYPClickableLineLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPClickableLineLayer.m; sourceTree = "<group>"; };
-		23A285711FD1390100360E7E /* SYPBaseChartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPBaseChartModel.m; sourceTree = "<group>"; };
-		23A285721FD1390100360E7E /* SYPPageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPPageModel.m; sourceTree = "<group>"; };
-		23A285731FD1390100360E7E /* SYPSingleValueModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPSingleValueModel.m; sourceTree = "<group>"; };
-		23A285741FD1390100360E7E /* SYPBargraphModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPBargraphModel.m; sourceTree = "<group>"; };
-		23A285751FD1390100360E7E /* SYPColourPointModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPColourPointModel.h; sourceTree = "<group>"; };
-		23A285761FD1390100360E7E /* SYPBannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPBannerModel.h; sourceTree = "<group>"; };
-		23A285771FD1390100360E7E /* SYPChartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPChartModel.h; sourceTree = "<group>"; };
-		23A285781FD1390100360E7E /* SYPTablesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPTablesModel.h; sourceTree = "<group>"; };
-		23A285791FD1390100360E7E /* SYPInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPInfoModel.h; sourceTree = "<group>"; };
-		23A2857A1FD1390100360E7E /* SYPFilterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPFilterModel.m; sourceTree = "<group>"; };
-		23A2857B1FD1390100360E7E /* SYPPartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPPartModel.h; sourceTree = "<group>"; };
-		23A2857C1FD1390100360E7E /* SYPPageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPPageModel.h; sourceTree = "<group>"; };
-		23A2857D1FD1390100360E7E /* SYPBaseChartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPBaseChartModel.h; sourceTree = "<group>"; };
-		23A2857E1FD1390100360E7E /* SYPBannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPBannerModel.m; sourceTree = "<group>"; };
-		23A2857F1FD1390100360E7E /* SYPColourPointModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPColourPointModel.m; sourceTree = "<group>"; };
-		23A285801FD1390100360E7E /* SYPBargraphModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPBargraphModel.h; sourceTree = "<group>"; };
-		23A285811FD1390100360E7E /* SYPSingleValueModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPSingleValueModel.h; sourceTree = "<group>"; };
-		23A285821FD1390100360E7E /* SYPTablesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPTablesModel.m; sourceTree = "<group>"; };
-		23A285831FD1390100360E7E /* SYPChartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPChartModel.m; sourceTree = "<group>"; };
-		23A285841FD1390100360E7E /* SYPPartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPPartModel.m; sourceTree = "<group>"; };
-		23A285851FD1390100360E7E /* SYPFilterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPFilterModel.h; sourceTree = "<group>"; };
-		23A285861FD1390100360E7E /* SYPInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPInfoModel.m; sourceTree = "<group>"; };
 		23A285931FD14D9700360E7E /* SYPBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPBannerView.m; sourceTree = "<group>"; };
 		23A285941FD14D9700360E7E /* SYPBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPBannerView.h; sourceTree = "<group>"; };
 		23A285971FD14DE600360E7E /* SYPHelpInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPHelpInfoView.h; sourceTree = "<group>"; };
@@ -251,36 +218,6 @@
 			path = BrokenLine;
 			sourceTree = "<group>";
 		};
-		23A285701FD1390100360E7E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				23A2857C1FD1390100360E7E /* SYPPageModel.h */,
-				23A285721FD1390100360E7E /* SYPPageModel.m */,
-				23A2857B1FD1390100360E7E /* SYPPartModel.h */,
-				23A285841FD1390100360E7E /* SYPPartModel.m */,
-				23A285851FD1390100360E7E /* SYPFilterModel.h */,
-				23A2857A1FD1390100360E7E /* SYPFilterModel.m */,
-				23A285751FD1390100360E7E /* SYPColourPointModel.h */,
-				23A2857F1FD1390100360E7E /* SYPColourPointModel.m */,
-				23A2857D1FD1390100360E7E /* SYPBaseChartModel.h */,
-				23A285711FD1390100360E7E /* SYPBaseChartModel.m */,
-				23A285811FD1390100360E7E /* SYPSingleValueModel.h */,
-				23A285731FD1390100360E7E /* SYPSingleValueModel.m */,
-				23A285761FD1390100360E7E /* SYPBannerModel.h */,
-				23A2857E1FD1390100360E7E /* SYPBannerModel.m */,
-				23A285791FD1390100360E7E /* SYPInfoModel.h */,
-				23A285861FD1390100360E7E /* SYPInfoModel.m */,
-				23A285801FD1390100360E7E /* SYPBargraphModel.h */,
-				23A285741FD1390100360E7E /* SYPBargraphModel.m */,
-				23A285771FD1390100360E7E /* SYPChartModel.h */,
-				23A285831FD1390100360E7E /* SYPChartModel.m */,
-				23A285781FD1390100360E7E /* SYPTablesModel.h */,
-				23A285821FD1390100360E7E /* SYPTablesModel.m */,
-			);
-			name = Model;
-			path = ../../MJExtension_Using/MJExtension_Using/Model;
-			sourceTree = "<group>";
-		};
 		23A285921FD14D9700360E7E /* Headline */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,7 +270,6 @@
 				23EAD2421FD1303100B8A488 /* ViewController.m */,
 				23EAD2441FD1303100B8A488 /* Main.storyboard */,
 				23EAD28D1FD1309500B8A488 /* Components */,
-				23A285701FD1390100360E7E /* Model */,
 				23EAD3311FD130A600B8A488 /* Category */,
 				23EAD3011FD1309A00B8A488 /* CommonView */,
 				23EAD3361FD130A600B8A488 /* ConstantMacro */,
@@ -620,15 +556,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				23A2859D1FD15B7C00360E7E /* SYPInfoView.m in Sources */,
-				23A2858E1FD1390100360E7E /* SYPTablesModel.m in Sources */,
 				23EAD2861FD1305E00B8A488 /* MJExtensionConst.m in Sources */,
 				23EAD3291FD1309A00B8A488 /* SYPRootScrollViewManager.m in Sources */,
 				23EAD3221FD1309A00B8A488 /* SYPBlockButton.m in Sources */,
 				23A285991FD14DE600360E7E /* SYPHelpInfoView.m in Sources */,
-				23A2858D1FD1390100360E7E /* SYPColourPointModel.m in Sources */,
 				23EAD3561FD130A600B8A488 /* NSTimer+SYPTimer.m in Sources */,
 				23A146D51FD4E66700F9BC5B /* SYPClickableLineLayer.m in Sources */,
-				23A285891FD1390100360E7E /* SYPSingleValueModel.m in Sources */,
 				236520611FD3106B006356A3 /* SYPLandscapeBarView.m in Sources */,
 				23EAD3571FD130A600B8A488 /* UIColor+SYPUtility.m in Sources */,
 				23EAD32F1FD1309A00B8A488 /* SYPItemManager.m in Sources */,
@@ -636,19 +569,15 @@
 				23EAD2891FD1305E00B8A488 /* NSString+MJExtension.m in Sources */,
 				23EAD2E11FD1309500B8A488 /* SYPBaseComponentView.m in Sources */,
 				23EAD32A1FD1309A00B8A488 /* SYPAnimationTool.m in Sources */,
-				23A2858A1FD1390100360E7E /* SYPBargraphModel.m in Sources */,
+                23A2858A1FD1390100360E7E /* SYPBargraphModel.m in Sources */,
 				23EAD3281FD1309A00B8A488 /* SYPRootScrollView.m in Sources */,
-				23A285881FD1390100360E7E /* SYPPageModel.m in Sources */,
 				23EAD32E1FD1309A00B8A488 /* SYPSortButton.m in Sources */,
 				23EAD2871FD1305E00B8A488 /* NSObject+MJProperty.m in Sources */,
 				23EAD2851FD1305E00B8A488 /* NSObject+MJCoding.m in Sources */,
 				23EAD2881FD1305E00B8A488 /* NSObject+MJClass.m in Sources */,
 				23EAD32C1FD1309A00B8A488 /* UIColor+RGBA.m in Sources */,
-				23A2858C1FD1390100360E7E /* SYPBannerModel.m in Sources */,
 				23EAD3301FD1309A00B8A488 /* SYPSortItemView.m in Sources */,
 				23EAD3251FD1309A00B8A488 /* SYPInvertView.m in Sources */,
-				23A285871FD1390100360E7E /* SYPBaseChartModel.m in Sources */,
-				23A285901FD1390100360E7E /* SYPPartModel.m in Sources */,
 				23EAD2431FD1303100B8A488 /* ViewController.m in Sources */,
 				23A146D41FD4E66700F9BC5B /* SYPClickableLineView.m in Sources */,
 				23EAD3231FD1309A00B8A488 /* SYPTrendTypeImageView.m in Sources */,
@@ -658,9 +587,7 @@
 				23EAD32D1FD1309A00B8A488 /* UIView+Extension.m in Sources */,
 				23EAD28C1FD1305E00B8A488 /* MJFoundation.m in Sources */,
 				23EAD28A1FD1305E00B8A488 /* MJPropertyKey.m in Sources */,
-				23A2858B1FD1390100360E7E /* SYPFilterModel.m in Sources */,
 				23EAD3271FD1309A00B8A488 /* SYPRootScrollViewCell.m in Sources */,
-				23A2858F1FD1390100360E7E /* SYPChartModel.m in Sources */,
 				23EAD2FF1FD1309500B8A488 /* SYPCompareSaleView.m in Sources */,
 				236520601FD3106B006356A3 /* SYPLandscapeBarLayer.m in Sources */,
 				23EAD3261FD1309A00B8A488 /* SYPScrollNavBar.m in Sources */,
@@ -668,7 +595,6 @@
 				23EAD2821FD1305E00B8A488 /* MJPropertyType.m in Sources */,
 				23EAD24E1FD1303100B8A488 /* main.m in Sources */,
 				23EAD2831FD1305E00B8A488 /* NSObject+MJKeyValue.m in Sources */,
-				23A285911FD1390100360E7E /* SYPInfoModel.m in Sources */,
 				23EAD2401FD1303100B8A488 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
