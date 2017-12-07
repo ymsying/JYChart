@@ -16,6 +16,7 @@
 #import "SYPInfoView.h"
 #import "SYPLandscapeBarView.h"
 #import "SYPClickableLineView.h"
+#import "SYPExcelView.h"
 
 @interface ViewController ()
 
@@ -34,6 +35,7 @@
 
 @property (weak, nonatomic) IBOutlet SYPClickableLineView *ClickLine;
 
+@property (weak, nonatomic) IBOutlet SYPExcelView *ExcelView;
 
 @end
 
@@ -69,6 +71,10 @@
             if ([obj isKindOfClass:[SYPChartModel class]]) {
                 self.ClickLine.moduleModel = obj;
             }
+            if ([obj isKindOfClass:[SYPTablesModel class]]) {
+                self.ExcelView.moduleModel = obj;
+//                self.ExcelView.autoLayoutHeight = YES;
+            }
         }];
     }];
 }
@@ -76,7 +82,7 @@
 - (SYPPageModel *)pageModel {
     if (!_pageModel) {
         // 数据准备
-        NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"template1_01" ofType:@"json"];
+        NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"template1_03-1" ofType:@"json"];
         
         id data = [NSData dataWithContentsOfFile:dataPath];
         NSError *error = nil;

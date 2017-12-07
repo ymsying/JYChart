@@ -34,7 +34,8 @@
             {
                 _style = style;
                 _titleLabel = [[UILabel alloc] init];
-                _titleLabel.textAlignment = NSTextAlignmentCenter;                
+                _titleLabel.textAlignment = NSTextAlignmentLeft;
+                _titleLabel.numberOfLines = 0;
                 _titleLabel.textColor = SYPColor_TextColor_Chief;
                 _titleLabel.font = [UIFont systemFontOfSize:13];
                 [self addSubview:_titleLabel];
@@ -123,8 +124,9 @@
     [super layoutSubviews];
     self.clickBtn.frame = self.bounds;
     if (self.style == SYPSectionViewCellStyleDefault) {
-        CGSize size = [self.titleLabel.text boundingRectWithSize:self.titleLabel.frame.size options:0 attributes:@{NSFontAttributeName: self.titleLabel.font} context:nil].size;
-        [self.titleLabel setFrame:CGRectMake((self.frame.size.width - size.width) / 2 - 6, 0, size.width, self.frame.size.height)];
+        NSStringDrawingOptions opts = NSStringDrawingUsesLineFragmentOrigin;
+        CGFloat width = [self.titleLabel.text boundingRectWithSize:self.titleLabel.frame.size options:opts attributes:@{NSFontAttributeName: self.titleLabel.font} context:nil].size.width;
+        [self.titleLabel setFrame:CGRectMake((self.frame.size.width - width) / 2 - 6, 0, width, self.frame.size.height)];
         [self.sortIcon setFrame:CGRectMake(CGRectGetMaxX(self.titleLabel.frame) + 4, (CGRectGetHeight(self.titleLabel.frame) - 12) / 2, 6, 12)];
     }
     if (self.separatorStyle == SYPSectionViewCellSeparatorStyleSingleLine) {

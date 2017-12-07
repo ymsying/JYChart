@@ -12,7 +12,7 @@
 
 ////////////////////////////////////////////////////////////
 #pragma mark - SYPTableRowModel
-@interface SYPTableRowModel : NSObject
+@interface SYPTableRowModel : SYPBaseChartModel
 
 /**
  每一行中的cell的数据
@@ -27,12 +27,13 @@
 
 @end
 
-
-
 ////////////////////////////////////////////////////////////
 #pragma mark - SYPTableConfigModel
 
-@interface SYPTableConfigModel : NSObject
+/**
+ 工作表
+ */
+@interface SYPTableConfigModel : SYPBaseChartModel
 
 @property (nonatomic, copy) NSString *title;
 /**
@@ -52,8 +53,16 @@
  */
 @property (nonatomic, copy, readonly) NSArray <NSString *> *columnLongestValue;
 
+- (void)sortMainDataListWithSection:(NSInteger)section ascending:(BOOL)ascending;
+
 @end
 
+////////////////////////////////////////////////////////////
+#pragma mark - SYPTableSubSheetModel
+@interface SYPTableSubSheetModel : SYPTableConfigModel
+
+
+@end
 
 ////////////////////////////////////////////////////////////////
 #pragma mark - SYPTablesModel
@@ -63,5 +72,8 @@
 @interface SYPTablesModel : SYPBaseChartModel
 
 @property (nonatomic, copy) NSArray <SYPTableConfigModel *> *config;
+@property (nonatomic, copy, readonly) NSArray <NSString *> *configTitles;
 
 @end
+
+

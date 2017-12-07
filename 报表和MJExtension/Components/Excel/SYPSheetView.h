@@ -9,7 +9,7 @@
 #import "SYPBaseComponentView.h"
 
 #define kMianCellHeight (44)
-#define kSheetHeadHeight (30)
+#define kSheetHeadHeight (40)
 
 /**
  Excel中的工作表
