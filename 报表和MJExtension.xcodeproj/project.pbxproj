@@ -18,6 +18,16 @@
 		2359ED2C1FD782A200AD4405 /* SYPChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED201FD782A200AD4405 /* SYPChartModel.m */; };
 		2359ED2D1FD782A200AD4405 /* SYPPartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED211FD782A200AD4405 /* SYPPartModel.m */; };
 		2359ED2E1FD782A200AD4405 /* SYPInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED231FD782A200AD4405 /* SYPInfoModel.m */; };
+		2359ED431FD789FF00AD4405 /* SYPExcelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED321FD789FF00AD4405 /* SYPExcelView.m */; };
+		2359ED441FD789FF00AD4405 /* SYPSignView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED361FD789FF00AD4405 /* SYPSignView.m */; };
+		2359ED451FD789FF00AD4405 /* SYPFreezeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED371FD789FF00AD4405 /* SYPFreezeViewCell.m */; };
+		2359ED461FD789FF00AD4405 /* SYPFreezeWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED3A1FD789FF00AD4405 /* SYPFreezeWindowView.m */; };
+		2359ED471FD789FF00AD4405 /* SYPRowViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED3B1FD789FF00AD4405 /* SYPRowViewCell.m */; };
+		2359ED481FD789FF00AD4405 /* SYPSectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED3E1FD789FF00AD4405 /* SYPSectionViewCell.m */; };
+		2359ED491FD789FF00AD4405 /* SYPMainViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED3F1FD789FF00AD4405 /* SYPMainViewCell.m */; };
+		2359ED4A1FD789FF00AD4405 /* SYPSubSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED401FD789FF00AD4405 /* SYPSubSheetView.m */; };
+		2359ED4B1FD789FF00AD4405 /* SYPSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED411FD789FF00AD4405 /* SYPSheetView.m */; };
+		2359ED531FD8241200AD4405 /* template1_03-1.json in Resources */ = {isa = PBXBuildFile; fileRef = 2359ED521FD8241200AD4405 /* template1_03-1.json */; };
 		236520601FD3106B006356A3 /* SYPLandscapeBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2365205C1FD3106B006356A3 /* SYPLandscapeBarLayer.m */; };
 		236520611FD3106B006356A3 /* SYPLandscapeBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2365205D1FD3106B006356A3 /* SYPLandscapeBarView.m */; };
 		23A146D41FD4E66700F9BC5B /* SYPClickableLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A146D01FD4E66700F9BC5B /* SYPClickableLineView.m */; };
@@ -55,11 +65,8 @@
 		23EAD3291FD1309A00B8A488 /* SYPRootScrollViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD3141FD1309A00B8A488 /* SYPRootScrollViewManager.m */; };
 		23EAD32A1FD1309A00B8A488 /* SYPAnimationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD3151FD1309A00B8A488 /* SYPAnimationTool.m */; };
 		23EAD32B1FD1309A00B8A488 /* SYPCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD31A1FD1309A00B8A488 /* SYPCursor.m */; };
-		23EAD32C1FD1309A00B8A488 /* UIColor+RGBA.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD31C1FD1309A00B8A488 /* UIColor+RGBA.m */; };
 		23EAD32D1FD1309A00B8A488 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD31E1FD1309A00B8A488 /* UIView+Extension.m */; };
-		23EAD32E1FD1309A00B8A488 /* SYPSortButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD31F1FD1309A00B8A488 /* SYPSortButton.m */; };
 		23EAD32F1FD1309A00B8A488 /* SYPItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD3201FD1309A00B8A488 /* SYPItemManager.m */; };
-		23EAD3301FD1309A00B8A488 /* SYPSortItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD3211FD1309A00B8A488 /* SYPSortItemView.m */; };
 		23EAD3561FD130A600B8A488 /* NSTimer+SYPTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD3321FD130A600B8A488 /* NSTimer+SYPTimer.m */; };
 		23EAD3571FD130A600B8A488 /* UIColor+SYPUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD3331FD130A600B8A488 /* UIColor+SYPUtility.m */; };
 		23EAD3581FD130A600B8A488 /* template1_05.json in Resources */ = {isa = PBXBuildFile; fileRef = 23EAD33E1FD130A600B8A488 /* template1_05.json */; };
@@ -67,7 +74,6 @@
 		23EAD35A1FD130A600B8A488 /* template1_03.json in Resources */ = {isa = PBXBuildFile; fileRef = 23EAD3401FD130A600B8A488 /* template1_03.json */; };
 		23EAD35B1FD130A600B8A488 /* template1_02.json in Resources */ = {isa = PBXBuildFile; fileRef = 23EAD3411FD130A600B8A488 /* template1_02.json */; };
 		23EAD35C1FD130A600B8A488 /* template1_01.json in Resources */ = {isa = PBXBuildFile; fileRef = 23EAD3421FD130A600B8A488 /* template1_01.json */; };
-		23EAD35D1FD130A600B8A488 /* template1_07.json in Resources */ = {isa = PBXBuildFile; fileRef = 23EAD3431FD130A600B8A488 /* template1_07.json */; };
 		23EAD35E1FD130A600B8A488 /* template1_06.json in Resources */ = {isa = PBXBuildFile; fileRef = 23EAD3441FD130A600B8A488 /* template1_06.json */; };
 		23EAD3631FD130A600B8A488 /* down_yellowarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EAD34A1FD130A600B8A488 /* down_yellowarrow.png */; };
 		23EAD3641FD130A600B8A488 /* pop_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 23EAD34B1FD130A600B8A488 /* pop_close@2x.png */; };
@@ -106,6 +112,25 @@
 		2359ED211FD782A200AD4405 /* SYPPartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPPartModel.m; sourceTree = "<group>"; };
 		2359ED221FD782A200AD4405 /* SYPFilterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPFilterModel.h; sourceTree = "<group>"; };
 		2359ED231FD782A200AD4405 /* SYPInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPInfoModel.m; sourceTree = "<group>"; };
+		2359ED301FD789FF00AD4405 /* SYPSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPSheetView.h; sourceTree = "<group>"; };
+		2359ED311FD789FF00AD4405 /* SYPSubSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPSubSheetView.h; sourceTree = "<group>"; };
+		2359ED321FD789FF00AD4405 /* SYPExcelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPExcelView.m; sourceTree = "<group>"; };
+		2359ED341FD789FF00AD4405 /* SYPFreezeWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPFreezeWindowView.h; sourceTree = "<group>"; };
+		2359ED351FD789FF00AD4405 /* SYPRowViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPRowViewCell.h; sourceTree = "<group>"; };
+		2359ED361FD789FF00AD4405 /* SYPSignView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPSignView.m; sourceTree = "<group>"; };
+		2359ED371FD789FF00AD4405 /* SYPFreezeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPFreezeViewCell.m; sourceTree = "<group>"; };
+		2359ED381FD789FF00AD4405 /* SYPMainViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPMainViewCell.h; sourceTree = "<group>"; };
+		2359ED391FD789FF00AD4405 /* SYPSectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPSectionViewCell.h; sourceTree = "<group>"; };
+		2359ED3A1FD789FF00AD4405 /* SYPFreezeWindowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPFreezeWindowView.m; sourceTree = "<group>"; };
+		2359ED3B1FD789FF00AD4405 /* SYPRowViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPRowViewCell.m; sourceTree = "<group>"; };
+		2359ED3C1FD789FF00AD4405 /* SYPFreezeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPFreezeViewCell.h; sourceTree = "<group>"; };
+		2359ED3D1FD789FF00AD4405 /* SYPSignView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPSignView.h; sourceTree = "<group>"; };
+		2359ED3E1FD789FF00AD4405 /* SYPSectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPSectionViewCell.m; sourceTree = "<group>"; };
+		2359ED3F1FD789FF00AD4405 /* SYPMainViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPMainViewCell.m; sourceTree = "<group>"; };
+		2359ED401FD789FF00AD4405 /* SYPSubSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPSubSheetView.m; sourceTree = "<group>"; };
+		2359ED411FD789FF00AD4405 /* SYPSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPSheetView.m; sourceTree = "<group>"; };
+		2359ED421FD789FF00AD4405 /* SYPExcelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPExcelView.h; sourceTree = "<group>"; };
+		2359ED521FD8241200AD4405 /* template1_03-1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "template1_03-1.json"; sourceTree = "<group>"; };
 		2365205C1FD3106B006356A3 /* SYPLandscapeBarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPLandscapeBarLayer.m; sourceTree = "<group>"; };
 		2365205D1FD3106B006356A3 /* SYPLandscapeBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPLandscapeBarView.m; sourceTree = "<group>"; };
 		2365205E1FD3106B006356A3 /* SYPLandscapeBarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPLandscapeBarLayer.h; sourceTree = "<group>"; };
@@ -176,18 +201,12 @@
 		23EAD3131FD1309A00B8A488 /* SYPRootScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPRootScrollView.m; sourceTree = "<group>"; };
 		23EAD3141FD1309A00B8A488 /* SYPRootScrollViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPRootScrollViewManager.m; sourceTree = "<group>"; };
 		23EAD3151FD1309A00B8A488 /* SYPAnimationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPAnimationTool.m; sourceTree = "<group>"; };
-		23EAD3161FD1309A00B8A488 /* UIColor+RGBA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+RGBA.h"; sourceTree = "<group>"; };
-		23EAD3171FD1309A00B8A488 /* SYPSortItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPSortItemView.h; sourceTree = "<group>"; };
 		23EAD3181FD1309A00B8A488 /* SYPItemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPItemManager.h; sourceTree = "<group>"; };
-		23EAD3191FD1309A00B8A488 /* SYPSortButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPSortButton.h; sourceTree = "<group>"; };
 		23EAD31A1FD1309A00B8A488 /* SYPCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPCursor.m; sourceTree = "<group>"; };
 		23EAD31B1FD1309A00B8A488 /* SYPScrollNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPScrollNavBar.h; sourceTree = "<group>"; };
-		23EAD31C1FD1309A00B8A488 /* UIColor+RGBA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+RGBA.m"; sourceTree = "<group>"; };
 		23EAD31D1FD1309A00B8A488 /* SYPAnimationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPAnimationTool.h; sourceTree = "<group>"; };
 		23EAD31E1FD1309A00B8A488 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
-		23EAD31F1FD1309A00B8A488 /* SYPSortButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPSortButton.m; sourceTree = "<group>"; };
 		23EAD3201FD1309A00B8A488 /* SYPItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPItemManager.m; sourceTree = "<group>"; };
-		23EAD3211FD1309A00B8A488 /* SYPSortItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPSortItemView.m; sourceTree = "<group>"; };
 		23EAD3321FD130A600B8A488 /* NSTimer+SYPTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+SYPTimer.m"; sourceTree = "<group>"; };
 		23EAD3331FD130A600B8A488 /* UIColor+SYPUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SYPUtility.m"; sourceTree = "<group>"; };
 		23EAD3341FD130A600B8A488 /* NSTimer+SYPTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+SYPTimer.h"; sourceTree = "<group>"; };
@@ -202,7 +221,6 @@
 		23EAD3401FD130A600B8A488 /* template1_03.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = template1_03.json; sourceTree = "<group>"; };
 		23EAD3411FD130A600B8A488 /* template1_02.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = template1_02.json; sourceTree = "<group>"; };
 		23EAD3421FD130A600B8A488 /* template1_01.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = template1_01.json; sourceTree = "<group>"; };
-		23EAD3431FD130A600B8A488 /* template1_07.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = template1_07.json; sourceTree = "<group>"; };
 		23EAD3441FD130A600B8A488 /* template1_06.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = template1_06.json; sourceTree = "<group>"; };
 		23EAD34A1FD130A600B8A488 /* down_yellowarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = down_yellowarrow.png; sourceTree = "<group>"; };
 		23EAD34B1FD130A600B8A488 /* pop_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pop_close@2x.png"; sourceTree = "<group>"; };
@@ -232,30 +250,63 @@
 		2359ED0D1FD782A200AD4405 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2359ED0E1FD782A200AD4405 /* SYPBaseChartModel.m */,
+				2359ED191FD782A200AD4405 /* SYPPageModel.h */,
 				2359ED0F1FD782A200AD4405 /* SYPPageModel.m */,
-				2359ED101FD782A200AD4405 /* SYPSingleValueModel.m */,
-				2359ED111FD782A200AD4405 /* SYPBargraphModel.m */,
-				2359ED121FD782A200AD4405 /* SYPColourPointModel.h */,
-				2359ED131FD782A200AD4405 /* SYPBannerModel.h */,
-				2359ED141FD782A200AD4405 /* SYPChartModel.h */,
-				2359ED151FD782A200AD4405 /* SYPTablesModel.h */,
-				2359ED161FD782A200AD4405 /* SYPInfoModel.h */,
+				2359ED221FD782A200AD4405 /* SYPFilterModel.h */,
 				2359ED171FD782A200AD4405 /* SYPFilterModel.m */,
 				2359ED181FD782A200AD4405 /* SYPPartModel.h */,
-				2359ED191FD782A200AD4405 /* SYPPageModel.h */,
-				2359ED1A1FD782A200AD4405 /* SYPBaseChartModel.h */,
-				2359ED1B1FD782A200AD4405 /* SYPBannerModel.m */,
-				2359ED1C1FD782A200AD4405 /* SYPColourPointModel.m */,
-				2359ED1D1FD782A200AD4405 /* SYPBargraphModel.h */,
-				2359ED1E1FD782A200AD4405 /* SYPSingleValueModel.h */,
-				2359ED1F1FD782A200AD4405 /* SYPTablesModel.m */,
-				2359ED201FD782A200AD4405 /* SYPChartModel.m */,
 				2359ED211FD782A200AD4405 /* SYPPartModel.m */,
-				2359ED221FD782A200AD4405 /* SYPFilterModel.h */,
+				2359ED121FD782A200AD4405 /* SYPColourPointModel.h */,
+				2359ED1C1FD782A200AD4405 /* SYPColourPointModel.m */,
+				2359ED1A1FD782A200AD4405 /* SYPBaseChartModel.h */,
+				2359ED0E1FD782A200AD4405 /* SYPBaseChartModel.m */,
+				2359ED151FD782A200AD4405 /* SYPTablesModel.h */,
+				2359ED1F1FD782A200AD4405 /* SYPTablesModel.m */,
+				2359ED161FD782A200AD4405 /* SYPInfoModel.h */,
 				2359ED231FD782A200AD4405 /* SYPInfoModel.m */,
+				2359ED131FD782A200AD4405 /* SYPBannerModel.h */,
+				2359ED1B1FD782A200AD4405 /* SYPBannerModel.m */,
+				2359ED1D1FD782A200AD4405 /* SYPBargraphModel.h */,
+				2359ED111FD782A200AD4405 /* SYPBargraphModel.m */,
+				2359ED1E1FD782A200AD4405 /* SYPSingleValueModel.h */,
+				2359ED101FD782A200AD4405 /* SYPSingleValueModel.m */,
+				2359ED141FD782A200AD4405 /* SYPChartModel.h */,
+				2359ED201FD782A200AD4405 /* SYPChartModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		2359ED2F1FD789FF00AD4405 /* Excel */ = {
+			isa = PBXGroup;
+			children = (
+				2359ED331FD789FF00AD4405 /* FreezeWindowView */,
+				2359ED421FD789FF00AD4405 /* SYPExcelView.h */,
+				2359ED321FD789FF00AD4405 /* SYPExcelView.m */,
+				2359ED301FD789FF00AD4405 /* SYPSheetView.h */,
+				2359ED411FD789FF00AD4405 /* SYPSheetView.m */,
+				2359ED311FD789FF00AD4405 /* SYPSubSheetView.h */,
+				2359ED401FD789FF00AD4405 /* SYPSubSheetView.m */,
+			);
+			path = Excel;
+			sourceTree = "<group>";
+		};
+		2359ED331FD789FF00AD4405 /* FreezeWindowView */ = {
+			isa = PBXGroup;
+			children = (
+				2359ED341FD789FF00AD4405 /* SYPFreezeWindowView.h */,
+				2359ED3A1FD789FF00AD4405 /* SYPFreezeWindowView.m */,
+				2359ED3D1FD789FF00AD4405 /* SYPSignView.h */,
+				2359ED361FD789FF00AD4405 /* SYPSignView.m */,
+				2359ED3C1FD789FF00AD4405 /* SYPFreezeViewCell.h */,
+				2359ED371FD789FF00AD4405 /* SYPFreezeViewCell.m */,
+				2359ED351FD789FF00AD4405 /* SYPRowViewCell.h */,
+				2359ED3B1FD789FF00AD4405 /* SYPRowViewCell.m */,
+				2359ED381FD789FF00AD4405 /* SYPMainViewCell.h */,
+				2359ED3F1FD789FF00AD4405 /* SYPMainViewCell.m */,
+				2359ED391FD789FF00AD4405 /* SYPSectionViewCell.h */,
+				2359ED3E1FD789FF00AD4405 /* SYPSectionViewCell.m */,
+			);
+			path = FreezeWindowView;
 			sourceTree = "<group>";
 		};
 		2365205B1FD3106B006356A3 /* LandscapeBar */ = {
@@ -331,8 +382,8 @@
 				23EAD2411FD1303100B8A488 /* ViewController.h */,
 				23EAD2421FD1303100B8A488 /* ViewController.m */,
 				23EAD2441FD1303100B8A488 /* Main.storyboard */,
-				2359ED0D1FD782A200AD4405 /* Model */,
 				23EAD28D1FD1309500B8A488 /* Components */,
+				2359ED0D1FD782A200AD4405 /* Model */,
 				23EAD3311FD130A600B8A488 /* Category */,
 				23EAD3011FD1309A00B8A488 /* CommonView */,
 				23EAD3361FD130A600B8A488 /* ConstantMacro */,
@@ -378,6 +429,7 @@
 		23EAD28D1FD1309500B8A488 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				2359ED2F1FD789FF00AD4405 /* Excel */,
 				23A146CF1FD4E66700F9BC5B /* BrokenLine */,
 				2365205B1FD3106B006356A3 /* LandscapeBar */,
 				23A2859A1FD15B7C00360E7E /* Crosshead */,
@@ -428,23 +480,17 @@
 		23EAD30A1FD1309A00B8A488 /* SYPCursorView */ = {
 			isa = PBXGroup;
 			children = (
-				23EAD30B1FD1309A00B8A488 /* SYPCursor.h */,
-				23EAD30C1FD1309A00B8A488 /* SYPScrollNavBar.m */,
-				23EAD30D1FD1309A00B8A488 /* UIView+Extension.h */,
 				23EAD30E1FD1309A00B8A488 /* HARootScrollView */,
-				23EAD3151FD1309A00B8A488 /* SYPAnimationTool.m */,
-				23EAD3161FD1309A00B8A488 /* UIColor+RGBA.h */,
-				23EAD3171FD1309A00B8A488 /* SYPSortItemView.h */,
-				23EAD3181FD1309A00B8A488 /* SYPItemManager.h */,
-				23EAD3191FD1309A00B8A488 /* SYPSortButton.h */,
+				23EAD30B1FD1309A00B8A488 /* SYPCursor.h */,
 				23EAD31A1FD1309A00B8A488 /* SYPCursor.m */,
 				23EAD31B1FD1309A00B8A488 /* SYPScrollNavBar.h */,
-				23EAD31C1FD1309A00B8A488 /* UIColor+RGBA.m */,
-				23EAD31D1FD1309A00B8A488 /* SYPAnimationTool.h */,
+				23EAD30C1FD1309A00B8A488 /* SYPScrollNavBar.m */,
+				23EAD30D1FD1309A00B8A488 /* UIView+Extension.h */,
 				23EAD31E1FD1309A00B8A488 /* UIView+Extension.m */,
-				23EAD31F1FD1309A00B8A488 /* SYPSortButton.m */,
+				23EAD31D1FD1309A00B8A488 /* SYPAnimationTool.h */,
+				23EAD3151FD1309A00B8A488 /* SYPAnimationTool.m */,
 				23EAD3201FD1309A00B8A488 /* SYPItemManager.m */,
-				23EAD3211FD1309A00B8A488 /* SYPSortItemView.m */,
+				23EAD3181FD1309A00B8A488 /* SYPItemManager.h */,
 			);
 			path = SYPCursorView;
 			sourceTree = "<group>";
@@ -453,10 +499,10 @@
 			isa = PBXGroup;
 			children = (
 				23EAD30F1FD1309A00B8A488 /* SYPRootScrollView.h */,
+				23EAD3131FD1309A00B8A488 /* SYPRootScrollView.m */,
+				23EAD3121FD1309A00B8A488 /* SYPRootScrollViewCell.h */,
 				23EAD3101FD1309A00B8A488 /* SYPRootScrollViewCell.m */,
 				23EAD3111FD1309A00B8A488 /* SYPRootScrollViewManager.h */,
-				23EAD3121FD1309A00B8A488 /* SYPRootScrollViewCell.h */,
-				23EAD3131FD1309A00B8A488 /* SYPRootScrollView.m */,
 				23EAD3141FD1309A00B8A488 /* SYPRootScrollViewManager.m */,
 			);
 			path = HARootScrollView;
@@ -497,12 +543,12 @@
 		23EAD33D1FD130A600B8A488 /* TestData */ = {
 			isa = PBXGroup;
 			children = (
+				2359ED521FD8241200AD4405 /* template1_03-1.json */,
 				23EAD33E1FD130A600B8A488 /* template1_05.json */,
 				23EAD33F1FD130A600B8A488 /* template1_04.json */,
 				23EAD3401FD130A600B8A488 /* template1_03.json */,
 				23EAD3411FD130A600B8A488 /* template1_02.json */,
 				23EAD3421FD130A600B8A488 /* template1_01.json */,
-				23EAD3431FD130A600B8A488 /* template1_07.json */,
 				23EAD3441FD130A600B8A488 /* template1_06.json */,
 			);
 			path = TestData;
@@ -606,8 +652,8 @@
 				23EAD3591FD130A600B8A488 /* template1_04.json in Resources */,
 				23EAD3671FD130A600B8A488 /* up_redarrow.png in Resources */,
 				23EAD35B1FD130A600B8A488 /* template1_02.json in Resources */,
-				23EAD35D1FD130A600B8A488 /* template1_07.json in Resources */,
 				23EAD35C1FD130A600B8A488 /* template1_01.json in Resources */,
+				2359ED531FD8241200AD4405 /* template1_03-1.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,6 +670,7 @@
 				2359ED2B1FD782A200AD4405 /* SYPTablesModel.m in Sources */,
 				2359ED281FD782A200AD4405 /* SYPFilterModel.m in Sources */,
 				23EAD3221FD1309A00B8A488 /* SYPBlockButton.m in Sources */,
+				2359ED481FD789FF00AD4405 /* SYPSectionViewCell.m in Sources */,
 				23A285991FD14DE600360E7E /* SYPHelpInfoView.m in Sources */,
 				2359ED2C1FD782A200AD4405 /* SYPChartModel.m in Sources */,
 				23EAD3561FD130A600B8A488 /* NSTimer+SYPTimer.m in Sources */,
@@ -632,30 +679,34 @@
 				23EAD3571FD130A600B8A488 /* UIColor+SYPUtility.m in Sources */,
 				23EAD32F1FD1309A00B8A488 /* SYPItemManager.m in Sources */,
 				23EAD2E01FD1309500B8A488 /* SYPBaseComponentLayer.m in Sources */,
+				2359ED4A1FD789FF00AD4405 /* SYPSubSheetView.m in Sources */,
 				2359ED251FD782A200AD4405 /* SYPPageModel.m in Sources */,
 				23EAD2891FD1305E00B8A488 /* NSString+MJExtension.m in Sources */,
 				23EAD2E11FD1309500B8A488 /* SYPBaseComponentView.m in Sources */,
 				2359ED261FD782A200AD4405 /* SYPSingleValueModel.m in Sources */,
 				23EAD32A1FD1309A00B8A488 /* SYPAnimationTool.m in Sources */,
 				23EAD3281FD1309A00B8A488 /* SYPRootScrollView.m in Sources */,
-				23EAD32E1FD1309A00B8A488 /* SYPSortButton.m in Sources */,
 				23EAD2871FD1305E00B8A488 /* NSObject+MJProperty.m in Sources */,
 				2359ED291FD782A200AD4405 /* SYPBannerModel.m in Sources */,
 				23EAD2851FD1305E00B8A488 /* NSObject+MJCoding.m in Sources */,
 				23EAD2881FD1305E00B8A488 /* NSObject+MJClass.m in Sources */,
-				23EAD32C1FD1309A00B8A488 /* UIColor+RGBA.m in Sources */,
-				23EAD3301FD1309A00B8A488 /* SYPSortItemView.m in Sources */,
 				23EAD3251FD1309A00B8A488 /* SYPInvertView.m in Sources */,
+				2359ED441FD789FF00AD4405 /* SYPSignView.m in Sources */,
 				23EAD2431FD1303100B8A488 /* ViewController.m in Sources */,
+				2359ED431FD789FF00AD4405 /* SYPExcelView.m in Sources */,
 				2359ED271FD782A200AD4405 /* SYPBargraphModel.m in Sources */,
 				23A146D41FD4E66700F9BC5B /* SYPClickableLineView.m in Sources */,
 				23EAD3231FD1309A00B8A488 /* SYPTrendTypeImageView.m in Sources */,
+				2359ED451FD789FF00AD4405 /* SYPFreezeViewCell.m in Sources */,
 				23EAD32B1FD1309A00B8A488 /* SYPCursor.m in Sources */,
 				2359ED2A1FD782A200AD4405 /* SYPColourPointModel.m in Sources */,
+				2359ED491FD789FF00AD4405 /* SYPMainViewCell.m in Sources */,
 				23EAD3241FD1309A00B8A488 /* SYPHudView.m in Sources */,
+				2359ED461FD789FF00AD4405 /* SYPFreezeWindowView.m in Sources */,
 				2359ED2E1FD782A200AD4405 /* SYPInfoModel.m in Sources */,
 				23EAD2841FD1305E00B8A488 /* MJProperty.m in Sources */,
 				23EAD32D1FD1309A00B8A488 /* UIView+Extension.m in Sources */,
+				2359ED471FD789FF00AD4405 /* SYPRowViewCell.m in Sources */,
 				23EAD28C1FD1305E00B8A488 /* MJFoundation.m in Sources */,
 				23EAD28A1FD1305E00B8A488 /* MJPropertyKey.m in Sources */,
 				23EAD3271FD1309A00B8A488 /* SYPRootScrollViewCell.m in Sources */,
@@ -663,6 +714,7 @@
 				236520601FD3106B006356A3 /* SYPLandscapeBarLayer.m in Sources */,
 				23EAD3261FD1309A00B8A488 /* SYPScrollNavBar.m in Sources */,
 				23A285951FD14D9700360E7E /* SYPBannerView.m in Sources */,
+				2359ED4B1FD789FF00AD4405 /* SYPSheetView.m in Sources */,
 				23EAD2821FD1305E00B8A488 /* MJPropertyType.m in Sources */,
 				23EAD24E1FD1303100B8A488 /* main.m in Sources */,
 				23EAD2831FD1305E00B8A488 /* NSObject+MJKeyValue.m in Sources */,

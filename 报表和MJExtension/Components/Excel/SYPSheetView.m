@@ -14,8 +14,6 @@
 
 #import "SYPSubSheetView.h"
 
-#define kFreezePoint (CGPointMake(60, kSheetHeadHeight))
-
 static NSString *mainCellID = @"mainCell";
 static NSString *sectionCellID = @"sectionCell";
 static NSString *rowCellID = @"rowCell";
@@ -24,9 +22,11 @@ static NSString *rowCellID = @"rowCell";
     
     NSInteger lastSortSection; // 上一步排序列数标志
     BOOL recoverFlag; // YES时箭头向下、降序排列
+    
+    CGPoint freezePoint;
 }
 
-@property (nonatomic, strong) SYPTableConfigModel *configModel;
+@property (nonatomic, strong) SYPTableConfigModel *sheetModel;
 @property (nonatomic, strong) SYPFreezeWindowView *freezeView;
 
 @end
@@ -36,28 +36,56 @@ static NSString *rowCellID = @"rowCell";
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
+        freezePoint =  CGPointMake(80, kSheetHeadHeight);
+        self.clipsToBounds = YES;
         lastSortSection = 0;
         recoverFlag = YES;
     }
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"scrollUpOrDown" object:nil];
+}
+
 - (void)layoutSubviews {
     
+    // 计算首例的宽度
+//    NSString *title = self.sheetModel.columnLongestValue[0];
+//    CGFloat width = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, freezePoint.y) options:0 attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]} context:nil].size.width;
+//    width += SYPDefaultMargin * 2;
+//    freezePoint.x = width;
+    
     [self initializeSubView];
-    [self.freezeView setSignViewWithContent:self.configModel.leadLineTitle[0]];
+    [self.freezeView setSignViewWithContent:self.sheetModel.head[0]];
+}
+
+- (SYPTableConfigModel *)sheetModel {
+    if (!_sheetModel) {
+        _sheetModel = (SYPTableConfigModel *)self.moduleModel;
+    }
+    return _sheetModel;
 }
 
 - (SYPFreezeWindowView *)freezeView {
     if (!_freezeView) {
-        _freezeView = [[SYPFreezeWindowView alloc] initWithFrame:self.bounds FreezePoint:kFreezePoint cellViewSize:CGSizeMake(100, kMianCellHeight)];
+        CGRect frame = self.bounds;
+        frame.origin.x += SYPDefaultMargin * 2;
+        frame.size.width -= SYPDefaultMargin * 2;
+        _freezeView = [[SYPFreezeWindowView alloc] initWithFrame:frame FreezePoint:freezePoint cellViewSize:CGSizeMake(120, kMianCellHeight)];
         _freezeView.flexibleHeight = self.flexibleHeight;
         _freezeView.delegate = self;
         _freezeView.dataSource = self;
         _freezeView.bounceStyle = SYPFreezeWindowViewBounceStyleNone;
+        _freezeView.backgroundColor = [UIColor whiteColor];
     }
     return _freezeView;
 }
+
+//- (void)refreshSubViewData {
+//    [self initializeSubView];
+//    [self.freezeView setSignViewWithContent:self.sheetModel.head[0]];
+//}
 
 - (void)initializeSubView {
     
@@ -101,7 +129,7 @@ static NSString *rowCellID = @"rowCell";
             [keyWindow addSubview:self.freezeView.sectionView];
             CGRect frame = self.freezeView.sectionView.frame;
             frame.origin.y = offset;
-            frame.origin.x = SYPDefaultMargin * 2 + kFreezePoint.x;
+            frame.origin.x = SYPDefaultMargin * 2 + freezePoint.x;
             self.freezeView.sectionView.frame = frame;
             
             [keyWindow addSubview:self.freezeView.signView];
@@ -117,7 +145,7 @@ static NSString *rowCellID = @"rowCell";
             [self.freezeView addSubview:self.freezeView.sectionView];
             CGRect frame = self.freezeView.sectionView.frame;
             frame.origin.y = 0;
-            frame.origin.x = kFreezePoint.x;
+            frame.origin.x = freezePoint.x;
             self.freezeView.sectionView.frame = frame;
             
             [self.freezeView addSubview:self.freezeView.signView];
@@ -134,7 +162,7 @@ static NSString *rowCellID = @"rowCell";
         [self.freezeView addSubview:self.freezeView.sectionView];
         CGRect frame = self.freezeView.sectionView.frame;
         frame.origin.y = 0;
-        frame.origin.x = kFreezePoint.x;
+        frame.origin.x = freezePoint.x;
         self.freezeView.sectionView.frame = frame;
         
         [self.freezeView addSubview:self.freezeView.signView];
@@ -146,28 +174,17 @@ static NSString *rowCellID = @"rowCell";
     }
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"scrollUpOrDown" object:nil];
-}
-
-- (SYPSheetModel *)sheetModel {
-    if (!_sheetModel) {
-        _sheetModel = (SYPSheetModel *)self.moduleModel;
-    }
-    return _sheetModel;
-}
-
 #pragma mark - <SYPFreezeWindowViewDataSource>
 // 横向
 - (NSInteger)numberOfSectionsInFreezeWindowView:(SYPFreezeWindowView *)freezeWindowView {
     // TODO: 根据model动态修改
-    return self.sheetModel.headNames.count - 1;
+    return self.sheetModel.head.count - 1;
 }
 
 // 纵向
 - (NSInteger)numberOfRowsInFreezeWindowView:(SYPFreezeWindowView *)freezeWindowView {
     // TODO: 根据model动态修改
-    return self.sheetModel.mainDataModelList.count;
+    return self.sheetModel.data.count;
 }
 // 横向
 - (SYPSectionViewCell *)freezeWindowView:(SYPFreezeWindowView *)freezeWindowView cellAtSection:(NSInteger)section {
@@ -185,10 +202,10 @@ static NSString *rowCellID = @"rowCell";
         }];
     }
     section += 1;
-    if (section < 1 || section >= self.sheetModel.headNames.count) {
+    if (section < 1 || section >= self.sheetModel.head.count) {
         section = 1;
     }
-    NSString *title = self.sheetModel.headNames[section];
+    NSString *title = self.sheetModel.head[section];
     //NSString *title = [NSString stringWithFormat:@"S %zi", section];
     //NSLog(@"%@", title);
     cell.title = title;
@@ -204,22 +221,24 @@ static NSString *rowCellID = @"rowCell";
         __weak typeof(self) weakSelf = self;
         [cell setClickedActive:^(NSString *title) {
             // !!!: 在显示不全时，显示完整名称
-            NSLog(@"显示 %@", title);
-            CGSize size = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, kFreezePoint.y) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]} context:nil].size;
-            if (size.width > kFreezePoint.x) {
+            NSLog(@"显示完整名称: %@", title);
+            CGFloat width = [title boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, freezePoint.y) options:0 attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14]} context:nil].size.width;
+            if (width > freezePoint.x) {
                 [SYPHudView showHUDWithTitle:title];
             }
-            [weakSelf showSubSheetView:row];
+            if (weakSelf.sheetModel.data[row].subData.allKeys > 0) {
+                [weakSelf showSubSheetView:row];
+            }
         }];
     }
     
-    if (row < 0 || row >= self.sheetModel.mainDataModelList.count) {
+    if (row < 0 || row >= self.sheetModel.data.count) {
         row = 0;
     }
-    NSString *title = self.sheetModel.mainDataModelList[row].dataList[0];
+    NSString *title = self.sheetModel.leadLineTitle[row];
     //NSString *title = [NSString stringWithFormat:@"R %zi", row];
     //NSLog(@"%@", title);
-    cell.showFlagPoint = self.sheetModel.mainDataModelList[row].subDataList.count > 0;
+    cell.showFlagPoint = self.sheetModel.data[row].subData.count > 0;
     cell.title = title;
     return cell;
 }
@@ -233,66 +252,48 @@ static NSString *rowCellID = @"rowCell";
     }
     
     NSInteger row = indexPath.row, section = indexPath.section + 1;
-    if (row < 0 || row >= self.sheetModel.mainDataModelList.count) {
+    if (row < 0 || row >= self.sheetModel.data.count) {
         row = 0;
     }
-    if (section < 1 || section >= self.sheetModel.mainDataModelList[row].dataList.count) {
+    if (section < 1 || section >= self.sheetModel.data[row].mainData.count) {
         section = 1;
     }
     
     //NSString *unit = [self.sheetModel.mainDataModelList[row].dataList[section] floatValue] > 0 ? @"+" : @"";
     //NSString *title = [NSString stringWithFormat:@"%@%0.2f", unit, [self.sheetModel.mainDataModelList[row].dataList[section] floatValue]];
-    NSString *title = [NSString stringWithFormat:@"%@", self.sheetModel.mainDataModelList[row].dataList[section]];
-    //NSLog(@"%@", cell.title);
-    cell.title = title;
+    
+    cell.title = self.sheetModel.data[row].mainData[section].value;
+    cell.titleColor = self.sheetModel.data[row].mainData[section].color1;
     return cell;
 }
 
 #pragma mark - <SYPFreezeWindowViewDelegate>
 - (void)freezeWindowView:(SYPFreezeWindowView *)freezeWindowView didSelectMainZoneIndexPath:(NSIndexPath *)indexPath {
-    //NSLog(@"%@", [NSString stringWithFormat:@"did seleced at section %zi row %zi", indexPath.section, indexPath.row]);
-    //NSLog(@"%@", [NSString stringWithFormat:@"需要修改为点击下钻事件"]);
-    //[self showSubSheetView:indexPath.row];
+    
     NSInteger row = indexPath.row, section = indexPath.section + 1;
-    if (row < 0 || row >= self.sheetModel.mainDataModelList.count) {
+    if (row < 0 || row >= self.sheetModel.data.count) {
         row = 0;
     }
-    if (section < 1 || section >= self.sheetModel.mainDataModelList[row].dataList.count) {
+    if (section < 1 || section >= self.sheetModel.data[row].mainData.count) {
         section = 1;
     }
-    NSString *title = [NSString stringWithFormat:@"%@", self.sheetModel.mainDataModelList[row].dataList[section]];
-    [SYPHudView showHUDWithTitle:title];
+    [SYPHudView showHUDWithTitle:self.sheetModel.data[row].mainData[section].value];
 }
 
 - (void)showSubSheetView:(NSInteger)row {
-    if (self.sheetModel.mainDataModelList[row].subDataList.count > 0) {
+    if (self.sheetModel.data[row].subData.allKeys.count > 0) {
         
-        NSMutableArray *headTitle = [self.sheetModel.headNames mutableCopy];
-        [headTitle replaceObjectAtIndex:0 withObject:@"商行"];
-        NSMutableArray *data = [NSMutableArray array];
-        for (SYPSubDataModlel *subDataModel in self.sheetModel.mainDataModelList[row].subDataList) {
-            [data addObject:subDataModel.params];
-        }
-        NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        [params setObject:headTitle forKey:@"head"];
-        [params setObject:data forKey:@"data"];
-        SYPSheetModel *subSheetModel = [SYPSheetModel modelWithParams:params];
-        subSheetModel.sheetTitle = self.sheetModel.mainDataModelList[row].dataList[0];
-        
+         SYPTableSubSheetModel *subSheetModel = [SYPTableSubSheetModel mj_objectWithKeyValues:self.sheetModel.data[row].subData];
+        subSheetModel.title = self.sheetModel.data[row].rowTitle;
         SYPSubSheetView *subView = [[SYPSubSheetView alloc] initWithFrame:CGRectMake(0,0,SYPScreenWidth,SYPScreenHeight)];
         subView.sheetModel = subSheetModel;
         [subView showSubSheetView];
     }
 }
 
-- (void)refreshSubViewData {
-//    [self initializeSubView];
-//    [self.freezeView setSignViewWithContent:self.sheetModel.headNames[0]];
-}
-
-- (CGFloat)estimateViewHeight:(SYPModuleTwoBaseModel *)model {
+- (CGFloat)estimateViewHeight:(SYPBaseChartModel *)model {
     // TODO: 根据model动态修改，将表格全部展示完。提供给父视图的高度正好展示完，本身所在的scrollview不进行滑动
-    return ((SYPSheetModel *)model).mainDataModelList.count * kMianCellHeight + kSheetHeadHeight;
+    return ((SYPTableConfigModel *)model).data.count * kMianCellHeight + kSheetHeadHeight;
 }
 
 - (void)rotationSectionCellSortIcon:(NSInteger)section select:(BOOL)isSelected {

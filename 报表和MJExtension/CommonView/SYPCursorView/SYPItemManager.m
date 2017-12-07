@@ -35,7 +35,6 @@
 - (void)setItemTitles:(NSMutableArray *)titles{
     _titles = titles;
     self.scrollNavBar.itemKeys = titles;
-    self.sortItemView.itemKeys = titles;
 }
 
 - (void)removeTitle:(NSString *)title{

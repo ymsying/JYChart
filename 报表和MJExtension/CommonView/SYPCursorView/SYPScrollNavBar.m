@@ -8,15 +8,16 @@
 
 #import "SYPScrollNavBar.h"
 #import "UIView+Extension.h"
-#import "UIColor+RGBA.h"
+#import "UIColor+SYPUtility.h"
 #import "SYPItemManager.h"
 #import "SYPConstantSize.h"
 
-#define ItemWidth                 90
+
 #define FontMinSize               10
 #define FontDetLeSize             5
 #define FontDefSize               10
 #define StaticItemIndex           3
+#define IndicateLineH             2
 #define scrollNavBarUpdate        @"scrollNavBarUpdate"
 #define rootScrollUpdateAfterSort @"updateAfterSort"
 #define moveToSelectedItem        @"moveToSelectedItem"
@@ -26,6 +27,7 @@
 
 @property (nonatomic, weak) UIButton *firstButton;
 @property (nonatomic, weak) UIButton *secButton;
+@property (nonatomic, copy) UIView *indicateLine;
 
 @property (nonatomic, strong) NSMutableDictionary *tmpPageViewDic;
 
@@ -74,6 +76,21 @@
     return _tmpPageViewDic;
 }
 
+- (UIView *)indicateLine {
+    if (!_indicateLine) {
+        _indicateLine = [[UIView alloc] init];
+        _indicateLine.height = IndicateLineH;
+        UIView *btnContentView = [self viewWithTag:-10001];
+        if (!btnContentView) {
+            btnContentView = [[UIView alloc] init];
+            btnContentView.tag = -10001;
+            [self addSubview:btnContentView];
+        }
+        [btnContentView addSubview:_indicateLine];
+    }
+    return _indicateLine;
+}
+
 #pragma mark - 属性配置
 - (void)setItemKeys:(NSMutableArray *)itemKeys{
     _itemKeys = itemKeys;
@@ -118,6 +135,7 @@
 
 - (void)setTitleSelectedColor:(UIColor *)titleSelectedColor{
     _titleSelectedColor = titleSelectedColor;
+    self.indicateLine.backgroundColor = titleSelectedColor;
     [self.itemsDic enumerateKeysAndObjectsUsingBlock:^(id key, UIButton * button, BOOL *stop) {
         [button setTitleColor:titleSelectedColor forState:UIControlStateSelected];
     }];
@@ -233,30 +251,40 @@
 
 //对item进行布局处理
 - (void)layoutButtons{
-    self.contentSize = CGSizeMake(self.tmpKeys.count * ItemWidth, 0);
-    CGFloat buttonW = ItemWidth - SYPDefaultMargin;
-    buttonW = SYPScreenWidth / 375.0 * buttonW;
-    NSInteger itemsCount = self.tmpKeys.count;
-//    if (itemsCount * ItemWidth < self.width) {
-//        CGFloat width = self.isShowSortButton ? (self.width - self.height) : self.width;
-//        buttonW = width / itemsCount;
-//    }
+    
     CGFloat buttonH = self.height;
     CGFloat buttonY = self.isItemHiddenAfterDelet ? self.height : 0;
-    buttonH -= SYPDefaultMargin;
-    buttonY += SYPDefaultMargin / 2.0;
+    
+    // 按钮宽度自适应，
+    CGFloat buttonW = 0;
+    NSInteger itemsCount = self.tmpKeys.count;
+    UIButton *tempBtn = nil;
     
     for (NSInteger i = 0; i < itemsCount; i++) {
         if (i != itemsCount) {
             NSString *key = self.tmpKeys[i];
             UIButton *button = [self.itemsDic objectForKey:key];
             button.tag = i;
-            CGFloat buttonX = i * (buttonW + SYPDefaultMargin / 2) + SYPDefaultMargin;
+            
+            buttonW = [button.titleLabel.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, buttonH) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : button.titleLabel.font} context:nil].size.width;
+            
+            CGFloat buttonX = SYPViewMaxX1(tempBtn) + SYPDefaultMargin;
             button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
             self.itemW = buttonW;
             button.layer.cornerRadius = button.height/2.0;
+            tempBtn = button;
         }
     }
+
+    self.contentSize = CGSizeMake(tempBtn.x + tempBtn.width + SYPDefaultMargin, buttonH);
+    UIView *btnContentView = [self viewWithTag:-10001];
+    btnContentView.frame = CGRectMake(0, 0, tempBtn.x + tempBtn.width, buttonH);
+    if (btnContentView.width < self.width && self.isButtonAlignmentCenter) {
+        CGPoint point = btnContentView.center;
+        point.x = self.width/2;
+        btnContentView.center = point;
+    }
+    
     
     if (!self.isLayoutitems) {
         if (self.isGraduallyChangFont) {
@@ -268,6 +296,10 @@
         }
         self.isLayoutitems = YES;
     }
+    
+    self.indicateLine.x = _currectItem.x;
+    self.indicateLine.width = _currectItem.width;
+    self.indicateLine.y = self.height - IndicateLineH;
 }
 
 - (void)layoutSubviews{
@@ -285,13 +317,22 @@
 }
 
 - (UIButton *)createItemWithTitle:(NSString *)title{
+    
+    UIView *btnContentView = [self viewWithTag:-10001];
+    if (!btnContentView) {
+        btnContentView = [[UIView alloc] init];
+        btnContentView.tag = -10001;
+        [self addSubview:btnContentView];
+    }
+    
     UIButton *button = [[UIButton alloc]init];
     [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:self.titleNormalColor forState:UIControlStateNormal];
     button.backgroundColor = [UIColor clearColor];
     NSInteger fontSize = self.minFontSize > 0 ? self.minFontSize : FontMinSize;
     button.titleLabel.font = [UIFont systemFontOfSize:fontSize];
     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:button];
+    [btnContentView addSubview:button];
     return button;
 }
 
@@ -369,7 +410,7 @@
     }
     
     CGFloat offX = button.tag * self.rootScrollView.width;
-    NSLog(@"off ---> %f",offX);
+    //NSLog(@"off ---> %f",offX);
     [self buttonMoveAnimationWithIndex:button.tag];
     [self.rootScrollView setContentOffset:CGPointMake(offX, 0) animated:YES];
 }
@@ -422,6 +463,9 @@
     }else{
         [self setContentOffset:CGPointMake(0, 0) animated:YES];
     }
+    
+    self.indicateLine.x = selectButton.x;
+    self.indicateLine.width = selectButton.width;
 }
 
 #pragma mark  渐变 动画相关

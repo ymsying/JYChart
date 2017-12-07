@@ -25,7 +25,7 @@
 
 @property (nonatomic, assign) BOOL             isGraduallyChangColor;
 @property (nonatomic, assign) BOOL             isGraduallyChangFont;
-@property (nonatomic, assign) BOOL             isShowSortButton;
+@property (nonatomic, assign) BOOL             isButtonAlignmentCenter;
 @property (nonatomic, assign) BOOL             isItemHiddenAfterDelet;
 @property (nonatomic, assign) CGFloat          itemW;
 @property (nonatomic, assign) CGFloat          offsetX;

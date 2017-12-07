@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, SYPMainViewCellSeparatorStyle) {
 
 @property (nonatomic, readonly, copy) NSString *reuseIdentifier;
 @property (strong, nonatomic) NSString *title;
+@property (strong, nonatomic) UIColor *titleColor;
 @property (readonly, assign, nonatomic) SYPMainViewCellStyle style;
 @property (assign, nonatomic) SYPMainViewCellSeparatorStyle separatorStyle;
 @property (assign, nonatomic) NSInteger rowNumber;

@@ -58,6 +58,13 @@
     self.titleLabel.text = title;
 }
 
+- (void)setTitleColor:(UIColor *)titleColor {
+    if (_titleColor != titleColor) {
+        _titleLabel.textColor = titleColor;
+        _titleColor = titleColor;
+    }
+}
+
 - (void)setSeparatorStyle:(SYPMainViewCellSeparatorStyle)separatorStyle {
     _separatorStyle = separatorStyle;
     if (separatorStyle == SYPMainViewCellSeparatorStyleNone) {

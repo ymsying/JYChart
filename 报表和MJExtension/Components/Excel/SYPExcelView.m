@@ -8,7 +8,6 @@
 
 #import "SYPExcelView.h"
 
-#import "SYPTablesModel.h"
 #import "SYPCursor.h"
 #import "SYPSheetView.h"
 
@@ -18,24 +17,38 @@
 
 @property (nonatomic, strong) SYPCursor *cursor;
 @property (nonatomic, strong) NSMutableArray <SYPSheetView *> *sheetViewList;
-@property (nonatomic, strong) NSArray <SYPSheetModel *> *sheetModelList;
-@property (nonatomic, strong) SYPExcelModel *excelModel;
+//@property (nonatomic, strong) NSArray <SYPSheetModel *> *sheetModelList;
+@property (nonatomic, strong) SYPTablesModel *excelModel;
 
 @end
 
 @implementation SYPExcelView
 
-
-- (NSArray<SYPSheetModel *> *)sheetModelList {
-    if (!_sheetModelList) {
-        _sheetModelList = ((SYPExcelModel *)self.moduleModel).sheetList;
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        cursorScrollHeight = SYPViewHeight - 45;
+        [self addSubview:self.cursor];
     }
-    return _sheetModelList;
+    return self;
 }
 
-- (SYPExcelModel *)excelModel {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        [self addSubview:self.cursor];
+    }
+    return self;
+}
+
+//- (NSArray<SYPSheetModel *> *)sheetModelList {
+//    if (!_sheetModelList) {
+//        _sheetModelList = ((SYPExcelModel *)self.moduleModel).sheetList;
+//    }
+//    return _sheetModelList;
+//}
+
+- (SYPTablesModel *)excelModel {
     if (!_excelModel) {
-        _excelModel = (SYPExcelModel *)self.moduleModel;
+        _excelModel = (SYPTablesModel *)self.moduleModel;
     }
     return _excelModel;
 }
@@ -46,17 +59,15 @@
         cursorScrollHeight = 0;
         
         _cursor = [[SYPCursor alloc]init];
-        _cursor.frame = CGRectMake(-SYPDefaultMargin * 2, 0, self.frame.size.width + SYPDefaultMargin * 4, 45 + SYPDefaultMargin);
-        _cursor.titles = self.excelModel.sheetNames;
-        _cursor.pageViews = self.sheetViewList;
-        //设置根滚动视图的高度
-        _cursor.rootScrollViewHeight = self.frame.size.height - (64);
+        // 此时设置的高度是顶部的导航栏的高度，默认高度是45，不等45时可以控制下半部分滚动视图的顶部位置
+        _cursor.frame = CGRectMake(0, 0, self.frame.size.width, 45);
+        //设置下半部分根滚动视图的高度
+        _cursor.rootScrollViewHeight = SYPViewHeight - 45;
         //默认值是白色
         _cursor.titleNormalColor = SYPColor_TextColor_Chief;
         //默认值是白色
         _cursor.titleSelectedColor = SYPColor_ThemeColor_LightGreen;
-        //是否显示排序按钮
-        //_cursor.showSortbutton = YES;
+        _cursor.navItemAlignmentCenter = YES;
         //默认的最小值是5，小于默认值的话按默认值设置
         _cursor.minFontSize = _cursor.maxFontSize = 15;
         //默认的最大值是25，小于默认值的话按默认值设置，大于默认值按设置的值处理
@@ -72,7 +83,7 @@
 - (NSMutableArray<SYPSheetView *> *)sheetViewList {
     if (!_sheetViewList) {
         _sheetViewList = [NSMutableArray array];
-        for (SYPSheetModel *sheetModel in self.sheetModelList) {
+        for (SYPTableConfigModel *sheetModel in self.excelModel.config) {
             SYPSheetView *sheetView = [[SYPSheetView alloc] init];
             sheetView.moduleModel = sheetModel;
             [_sheetViewList addObject:sheetView];
@@ -81,28 +92,45 @@
     return _sheetViewList;
 }
 
-- (void)refreshSubViewData {
-    [self addSubview:self.cursor];
-    for (SYPSheetModel *sheetModel in ((SYPExcelModel *)self.excelModel).sheetList) {
+- (void)setAutoLayoutHeight:(BOOL)autoLayoutHeight {
+    
+    _autoLayoutHeight = autoLayoutHeight;
+    // 高度相同时，可以保证Excel列表纵向不进行滑动
+    for (SYPTableConfigModel *sheetModel in self.excelModel.config) {
         SYPSheetView *tempSheetView = [[SYPSheetView alloc] init];
         CGFloat height = [tempSheetView estimateViewHeight:sheetModel];
         cursorScrollHeight  = (height > cursorScrollHeight ? height : cursorScrollHeight);
     }
-    //NSLog(@"cursorScrollHeight : %f", cursorScrollHeight);
     self.cursor.rootScrollViewHeight = cursorScrollHeight;
 }
 
-- (CGFloat)estimateViewHeight:(SYPModuleTwoBaseModel *)model {
+
+- (void)refreshSubViewData {
+    
+    self.cursor.titles = self.excelModel.configTitles;
+    self.cursor.pageViews = self.sheetViewList;
+    
+    if (self.autoLayoutHeight) {
+        // 高度相同时，可以保证Excel列表纵向不进行滑动
+        for (SYPTableConfigModel *sheetModel in self.excelModel.config) {
+            SYPSheetView *tempSheetView = [[SYPSheetView alloc] init];
+            CGFloat height = [tempSheetView estimateViewHeight:sheetModel];
+            cursorScrollHeight  = (height > cursorScrollHeight ? height : cursorScrollHeight);
+        }
+        self.cursor.rootScrollViewHeight = cursorScrollHeight;
+    }
+}
+
+- (CGFloat)estimateViewHeight:(SYPBaseChartModel *)model {
     
     // 使用所有数据中的最高的高度
     if (cursorScrollHeight == 0) {
-        for (SYPSheetModel *sheetModel in ((SYPExcelModel *)model).sheetList) {
+        for (SYPTableConfigModel *sheetModel in ((SYPTablesModel *)model).config) {
             SYPSheetView *tempSheetView = [[SYPSheetView alloc] init];
             CGFloat height = [tempSheetView estimateViewHeight:sheetModel];
             cursorScrollHeight  = (height > cursorScrollHeight ? height : cursorScrollHeight) + 25;
         }
     }
-    //NSLog(@"cursorScroll ---> Height : %f", cursorScrollHeight);
     return cursorScrollHeight;
 }
 

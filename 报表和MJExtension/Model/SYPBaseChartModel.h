@@ -12,6 +12,9 @@
 #import "SYPConstantEnum.h"
 
 
+/**
+ 图标基础模型类
+ */
 @interface SYPBaseChartModel : NSObject
 
 @property (nonatomic, copy) NSString *pageTitle;
