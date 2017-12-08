@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2304BEAC1FD96AAB00003956 /* btn_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2304BEAA1FD96AAB00003956 /* btn_empty@2x.png */; };
+		2304BEAD1FD96AAB00003956 /* btn_empty@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2304BEAB1FD96AAB00003956 /* btn_empty@3x.png */; };
 		2359ED241FD782A200AD4405 /* SYPBaseChartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED0E1FD782A200AD4405 /* SYPBaseChartModel.m */; };
 		2359ED251FD782A200AD4405 /* SYPPageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED0F1FD782A200AD4405 /* SYPPageModel.m */; };
 		2359ED261FD782A200AD4405 /* SYPSingleValueModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED101FD782A200AD4405 /* SYPSingleValueModel.m */; };
@@ -35,6 +37,14 @@
 		23A285951FD14D9700360E7E /* SYPBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A285931FD14D9700360E7E /* SYPBannerView.m */; };
 		23A285991FD14DE600360E7E /* SYPHelpInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A285981FD14DE600360E7E /* SYPHelpInfoView.m */; };
 		23A2859D1FD15B7C00360E7E /* SYPInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A2859C1FD15B7C00360E7E /* SYPInfoView.m */; };
+		23C20CE91FD93DCC001BC1FA /* SYPFilterPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C20CE81FD93DCC001BC1FA /* SYPFilterPopView.m */; };
+		23C20CEC1FD93F0A001BC1FA /* SYPTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C20CEB1FD93F0A001BC1FA /* SYPTabController.m */; };
+		23C20CEF1FD942DF001BC1FA /* SYPTabButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C20CEE1FD942DF001BC1FA /* SYPTabButton.m */; };
+		23C9B4351FD924A200CC57ED /* SYPFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C9B4341FD924A200CC57ED /* SYPFilterView.m */; };
+		23C9B4381FD9273900CC57ED /* pop_screen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 23C9B4361FD9273900CC57ED /* pop_screen@3x.png */; };
+		23C9B4391FD9273900CC57ED /* pop_screen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 23C9B4371FD9273900CC57ED /* pop_screen@2x.png */; };
+		23D9AD751FD97BAE00DF93B6 /* SYPFilterListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D9AD741FD97BAE00DF93B6 /* SYPFilterListView.m */; };
+		23D9AD781FDA6B8700DF93B6 /* SYPFilterListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D9AD771FDA6B8700DF93B6 /* SYPFilterListViewCell.m */; };
 		23EAD2401FD1303100B8A488 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD23F1FD1303100B8A488 /* AppDelegate.m */; };
 		23EAD2431FD1303100B8A488 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD2421FD1303100B8A488 /* ViewController.m */; };
 		23EAD2461FD1303100B8A488 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23EAD2441FD1303100B8A488 /* Main.storyboard */; };
@@ -90,6 +100,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2304BEAA1FD96AAB00003956 /* btn_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_empty@2x.png"; sourceTree = "<group>"; };
+		2304BEAB1FD96AAB00003956 /* btn_empty@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_empty@3x.png"; sourceTree = "<group>"; };
 		2359ED0E1FD782A200AD4405 /* SYPBaseChartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPBaseChartModel.m; sourceTree = "<group>"; };
 		2359ED0F1FD782A200AD4405 /* SYPPageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPPageModel.m; sourceTree = "<group>"; };
 		2359ED101FD782A200AD4405 /* SYPSingleValueModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPSingleValueModel.m; sourceTree = "<group>"; };
@@ -145,6 +157,20 @@
 		23A285981FD14DE600360E7E /* SYPHelpInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPHelpInfoView.m; sourceTree = "<group>"; };
 		23A2859B1FD15B7C00360E7E /* SYPInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPInfoView.h; sourceTree = "<group>"; };
 		23A2859C1FD15B7C00360E7E /* SYPInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPInfoView.m; sourceTree = "<group>"; };
+		23C20CE71FD93DCC001BC1FA /* SYPFilterPopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPFilterPopView.h; sourceTree = "<group>"; };
+		23C20CE81FD93DCC001BC1FA /* SYPFilterPopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPFilterPopView.m; sourceTree = "<group>"; };
+		23C20CEA1FD93F0A001BC1FA /* SYPTabController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPTabController.h; sourceTree = "<group>"; };
+		23C20CEB1FD93F0A001BC1FA /* SYPTabController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPTabController.m; sourceTree = "<group>"; };
+		23C20CED1FD942DF001BC1FA /* SYPTabButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPTabButton.h; sourceTree = "<group>"; };
+		23C20CEE1FD942DF001BC1FA /* SYPTabButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPTabButton.m; sourceTree = "<group>"; };
+		23C9B4331FD924A200CC57ED /* SYPFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPFilterView.h; sourceTree = "<group>"; };
+		23C9B4341FD924A200CC57ED /* SYPFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPFilterView.m; sourceTree = "<group>"; };
+		23C9B4361FD9273900CC57ED /* pop_screen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pop_screen@3x.png"; sourceTree = "<group>"; };
+		23C9B4371FD9273900CC57ED /* pop_screen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pop_screen@2x.png"; sourceTree = "<group>"; };
+		23D9AD731FD97BAE00DF93B6 /* SYPFilterListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPFilterListView.h; sourceTree = "<group>"; };
+		23D9AD741FD97BAE00DF93B6 /* SYPFilterListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPFilterListView.m; sourceTree = "<group>"; };
+		23D9AD761FDA6B8700DF93B6 /* SYPFilterListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPFilterListViewCell.h; sourceTree = "<group>"; };
+		23D9AD771FDA6B8700DF93B6 /* SYPFilterListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPFilterListViewCell.m; sourceTree = "<group>"; };
 		23EAD23B1FD1303100B8A488 /* 报表和MJExtension.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "报表和MJExtension.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23EAD23E1FD1303100B8A488 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		23EAD23F1FD1303100B8A488 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -358,6 +384,25 @@
 			path = Crosshead;
 			sourceTree = "<group>";
 		};
+		23C9B4321FD9237300CC57ED /* FilterView */ = {
+			isa = PBXGroup;
+			children = (
+				23C9B4331FD924A200CC57ED /* SYPFilterView.h */,
+				23C9B4341FD924A200CC57ED /* SYPFilterView.m */,
+				23C20CE71FD93DCC001BC1FA /* SYPFilterPopView.h */,
+				23C20CE81FD93DCC001BC1FA /* SYPFilterPopView.m */,
+				23D9AD731FD97BAE00DF93B6 /* SYPFilterListView.h */,
+				23D9AD741FD97BAE00DF93B6 /* SYPFilterListView.m */,
+				23D9AD761FDA6B8700DF93B6 /* SYPFilterListViewCell.h */,
+				23D9AD771FDA6B8700DF93B6 /* SYPFilterListViewCell.m */,
+				23C20CEA1FD93F0A001BC1FA /* SYPTabController.h */,
+				23C20CEB1FD93F0A001BC1FA /* SYPTabController.m */,
+				23C20CED1FD942DF001BC1FA /* SYPTabButton.h */,
+				23C20CEE1FD942DF001BC1FA /* SYPTabButton.m */,
+			);
+			path = FilterView;
+			sourceTree = "<group>";
+		};
 		23EAD2321FD1303100B8A488 = {
 			isa = PBXGroup;
 			children = (
@@ -429,6 +474,7 @@
 		23EAD28D1FD1309500B8A488 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				23C9B4321FD9237300CC57ED /* FilterView */,
 				2359ED2F1FD789FF00AD4405 /* Excel */,
 				23A146CF1FD4E66700F9BC5B /* BrokenLine */,
 				2365205B1FD3106B006356A3 /* LandscapeBar */,
@@ -485,8 +531,6 @@
 				23EAD31A1FD1309A00B8A488 /* SYPCursor.m */,
 				23EAD31B1FD1309A00B8A488 /* SYPScrollNavBar.h */,
 				23EAD30C1FD1309A00B8A488 /* SYPScrollNavBar.m */,
-				23EAD30D1FD1309A00B8A488 /* UIView+Extension.h */,
-				23EAD31E1FD1309A00B8A488 /* UIView+Extension.m */,
 				23EAD31D1FD1309A00B8A488 /* SYPAnimationTool.h */,
 				23EAD3151FD1309A00B8A488 /* SYPAnimationTool.m */,
 				23EAD3201FD1309A00B8A488 /* SYPItemManager.m */,
@@ -513,6 +557,8 @@
 			children = (
 				23EAD3341FD130A600B8A488 /* NSTimer+SYPTimer.h */,
 				23EAD3321FD130A600B8A488 /* NSTimer+SYPTimer.m */,
+				23EAD30D1FD1309A00B8A488 /* UIView+Extension.h */,
+				23EAD31E1FD1309A00B8A488 /* UIView+Extension.m */,
 				23EAD3351FD130A600B8A488 /* UIColor+SYPUtility.h */,
 				23EAD3331FD130A600B8A488 /* UIColor+SYPUtility.m */,
 			);
@@ -557,6 +603,10 @@
 		23EAD3491FD130A600B8A488 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				2304BEAA1FD96AAB00003956 /* btn_empty@2x.png */,
+				2304BEAB1FD96AAB00003956 /* btn_empty@3x.png */,
+				23C9B4371FD9273900CC57ED /* pop_screen@2x.png */,
+				23C9B4361FD9273900CC57ED /* pop_screen@3x.png */,
 				23EAD34A1FD130A600B8A488 /* down_yellowarrow.png */,
 				23EAD34B1FD130A600B8A488 /* pop_close@2x.png */,
 				23EAD34C1FD130A600B8A488 /* pop_close@3x.png */,
@@ -599,6 +649,7 @@
 		23EAD2331FD1303100B8A488 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = SYP;
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "应明顺";
 				TargetAttributes = {
@@ -632,6 +683,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23EAD28B1FD1305E00B8A488 /* Info.plist in Resources */,
+				2304BEAC1FD96AAB00003956 /* btn_empty@2x.png in Resources */,
 				23EAD24B1FD1303100B8A488 /* LaunchScreen.storyboard in Resources */,
 				23EAD36D1FD130A600B8A488 /* icon_array@2x.png in Resources */,
 				23EAD35E1FD130A600B8A488 /* template1_06.json in Resources */,
@@ -644,9 +696,12 @@
 				23EAD36B1FD130A600B8A488 /* down_greenarrow.png in Resources */,
 				23EAD36E1FD130A600B8A488 /* icon_sort@3x.png in Resources */,
 				23EAD3681FD130A600B8A488 /* up_greenarrow.png in Resources */,
+				23C9B4381FD9273900CC57ED /* pop_screen@3x.png in Resources */,
 				23EAD3661FD130A600B8A488 /* up_yellowarrow.png in Resources */,
 				23EAD3651FD130A600B8A488 /* pop_close@3x.png in Resources */,
+				2304BEAD1FD96AAB00003956 /* btn_empty@3x.png in Resources */,
 				23EAD3641FD130A600B8A488 /* pop_close@2x.png in Resources */,
+				23C9B4391FD9273900CC57ED /* pop_screen@2x.png in Resources */,
 				23EAD2461FD1303100B8A488 /* Main.storyboard in Resources */,
 				23EAD35A1FD130A600B8A488 /* template1_03.json in Resources */,
 				23EAD3591FD130A600B8A488 /* template1_04.json in Resources */,
@@ -670,13 +725,17 @@
 				2359ED2B1FD782A200AD4405 /* SYPTablesModel.m in Sources */,
 				2359ED281FD782A200AD4405 /* SYPFilterModel.m in Sources */,
 				23EAD3221FD1309A00B8A488 /* SYPBlockButton.m in Sources */,
+				23D9AD781FDA6B8700DF93B6 /* SYPFilterListViewCell.m in Sources */,
 				2359ED481FD789FF00AD4405 /* SYPSectionViewCell.m in Sources */,
 				23A285991FD14DE600360E7E /* SYPHelpInfoView.m in Sources */,
+				23C20CEF1FD942DF001BC1FA /* SYPTabButton.m in Sources */,
 				2359ED2C1FD782A200AD4405 /* SYPChartModel.m in Sources */,
 				23EAD3561FD130A600B8A488 /* NSTimer+SYPTimer.m in Sources */,
 				23A146D51FD4E66700F9BC5B /* SYPClickableLineLayer.m in Sources */,
 				236520611FD3106B006356A3 /* SYPLandscapeBarView.m in Sources */,
 				23EAD3571FD130A600B8A488 /* UIColor+SYPUtility.m in Sources */,
+				23C20CE91FD93DCC001BC1FA /* SYPFilterPopView.m in Sources */,
+				23D9AD751FD97BAE00DF93B6 /* SYPFilterListView.m in Sources */,
 				23EAD32F1FD1309A00B8A488 /* SYPItemManager.m in Sources */,
 				23EAD2E01FD1309500B8A488 /* SYPBaseComponentLayer.m in Sources */,
 				2359ED4A1FD789FF00AD4405 /* SYPSubSheetView.m in Sources */,
@@ -689,6 +748,7 @@
 				23EAD2871FD1305E00B8A488 /* NSObject+MJProperty.m in Sources */,
 				2359ED291FD782A200AD4405 /* SYPBannerModel.m in Sources */,
 				23EAD2851FD1305E00B8A488 /* NSObject+MJCoding.m in Sources */,
+				23C9B4351FD924A200CC57ED /* SYPFilterView.m in Sources */,
 				23EAD2881FD1305E00B8A488 /* NSObject+MJClass.m in Sources */,
 				23EAD3251FD1309A00B8A488 /* SYPInvertView.m in Sources */,
 				2359ED441FD789FF00AD4405 /* SYPSignView.m in Sources */,
@@ -698,6 +758,7 @@
 				23A146D41FD4E66700F9BC5B /* SYPClickableLineView.m in Sources */,
 				23EAD3231FD1309A00B8A488 /* SYPTrendTypeImageView.m in Sources */,
 				2359ED451FD789FF00AD4405 /* SYPFreezeViewCell.m in Sources */,
+				23C20CEC1FD93F0A001BC1FA /* SYPTabController.m in Sources */,
 				23EAD32B1FD1309A00B8A488 /* SYPCursor.m in Sources */,
 				2359ED2A1FD782A200AD4405 /* SYPColourPointModel.m in Sources */,
 				2359ED491FD789FF00AD4405 /* SYPMainViewCell.m in Sources */,

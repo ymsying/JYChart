@@ -15,10 +15,18 @@
  */
 @interface SYPPageModel : NSObject
 
-@property (nonatomic, copy) NSDictionary <NSString *, SYPPartModel *> *parts;
-@property (nonatomic, strong) SYPFilterModel *filter;
++ (instancetype)pageModel:(NSDictionary *)info;
+
+
+@property (nonatomic, strong, readonly) SYPFilterModel *filter;
+@property (nonatomic, copy, readonly) NSArray <SYPBaseChartModel *> *parts;
+@property (nonatomic, copy, readonly) NSArray <SYPBaseChartModel *> *filteredList;
 @property (nonatomic, copy, readonly) NSArray <NSString *> *tabControl;
 
-+ (instancetype)pageModel:(NSDictionary *)info;
+/**
+ 通过filter过滤出filter中所标示出来的信息
+ */
+- (void)filterWithFilter:(SYPFilterModel *)filter;
+
 
 @end

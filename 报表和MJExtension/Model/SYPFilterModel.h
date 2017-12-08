@@ -12,14 +12,19 @@
 
 @property (nonatomic, copy) NSString *ID;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSArray *data;
+@property (nonatomic, copy) NSArray <SYPFilterDataModel *> *data;
+
 
 @end
 
+
+
 @interface SYPFilterModel : NSObject
 
-@property (nonatomic, copy) NSString *type;
 @property (nonatomic, copy) NSString *display;
-@property (nonatomic, copy) NSArray *data;
+@property (nonatomic, copy) NSArray <SYPFilterDataModel *> *data;
+
+
+- (void)appendSubFilterName:(NSString *)name;
 
 @end

@@ -15,6 +15,9 @@
 
 @property (nonatomic, strong) UIColor        *titleNormalColor;
 @property (nonatomic, strong) UIColor        *titleSelectedColor;
+/**
+ 导航栏剧中显示
+ */
 @property (nonatomic, assign) BOOL           navItemAlignmentCenter;
 @property (nonatomic, strong) UIColor        *backgroudSelectedColor;
 @property (nonatomic, strong) UIColor        *navLineColor;
