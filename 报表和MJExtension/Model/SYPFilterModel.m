@@ -9,7 +9,9 @@
 #import "SYPFilterModel.h"
 #import "MJExtension.h"
 
-@implementation SYPFilterDataModel
+@implementation SYPFilterDataModel {
+    NSString *filterName;
+}
 
 - (NSString *)description {
     
@@ -28,6 +30,7 @@
              };
 }
 
+
 @end
 
 @implementation SYPFilterModel
@@ -37,5 +40,12 @@
              @"data" : @"SYPFilterDataModel",
              };
 }
+
+- (void)appendSubFilterName:(NSString *)name {
+    
+    self.display = [self.display stringByAppendingString:[NSString stringWithFormat:@"||%@", name]];
+}
+
+
 
 @end

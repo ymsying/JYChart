@@ -110,7 +110,7 @@
         [self.pageViewFrames addObject:cellFrameValue];
     }
     self.contentSize = CGSizeMake(self.width * numberOfCells, 0);
-    NSLog(@"pageViewFrames ---> count %ld",self.pageViews.count);
+    //NSLog(@"pageViewFrames ---> count %ld",self.pageViews.count);
 }
 
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier{

@@ -9,58 +9,23 @@
 #import "SYPPageModel.h"
 #import "SYPChartModel.h"
 
-@interface SYPPageModel ()
+@interface SYPPageModel () {
+    NSString *lastestFilter;
+}
 
 @property (nonatomic, copy) NSArray <NSString *> *tabControl;
+@property (nonatomic, strong) SYPFilterModel *filter;
+@property (nonatomic, copy) NSArray <SYPBaseChartModel *> *parts;
+@property (nonatomic, copy) NSArray <SYPBaseChartModel *> *filteredList;
 
 @end
+
 
 @implementation SYPPageModel
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<%@ %p> %@", [self class], self, [self mj_keyValues]];
 }
-
-+ (instancetype)pageModel:(NSDictionary *)info {
-
-    NSDictionary *parts = info[@"parts"];
-    NSMutableArray *tabTitles = [NSMutableArray arrayWithCapacity:5];// 预估不超过5个左右
-    NSMutableDictionary *partCategory = [NSMutableDictionary dictionary];
-
-    for (NSDictionary *dic in parts) {
-
-        NSString *partKey = dic[@"page_title"];
-        // 设置页签
-        if (![tabTitles containsObject:partKey] && partKey.length > 0) {
-            [tabTitles addObject:partKey];
-        }
-        SYPPartModel *part = [partCategory objectForKey:partKey];
-        if (!part) {
-            part = [[SYPPartModel alloc] init];
-        }
-        // 设置图表数组
-        NSMutableArray <SYPBaseChartModel *> *chartList = [NSMutableArray arrayWithArray:[part chartList]];
-
-        NSString *type = [dic[@"type"] capitalizedString];
-        type = [type mj_camelFromUnderline];
-        Class klass = NSClassFromString([NSString stringWithFormat:@"SYP%@Model", type]);
-        SYPBaseChartModel *baseChart = [klass mj_objectWithKeyValues:dic];
-        
-        [chartList addObject:baseChart];
-        part.chartList = chartList;
-        
-        [partCategory setObject:part forKey:partKey];
-    }
-    
-    
-    SYPPageModel *model = [[SYPPageModel alloc] init];
-    model.filter = [SYPFilterModel mj_objectWithKeyValues:info[@"filter"]];
-    model.parts = [partCategory copy];
-    model.tabControl = tabTitles;
-
-    return model;
-}
-
 
 /*
  ///////////////////////////////////////////////////////////////
@@ -86,6 +51,72 @@
  //                                                           //
  ///////////////////////////////////////////////////////////////
  */
++ (instancetype)pageModel:(NSDictionary *)info {
+
+    NSArray *parts = info[@"parts"];
+    NSMutableArray *tabTitles = [NSMutableArray arrayWithCapacity:5];// 预估不超过5个左右
+    // 设置图表数组
+    NSMutableArray <SYPBaseChartModel *> *chartList = [NSMutableArray arrayWithCapacity:parts.count];
+    for (NSDictionary *dic in parts) {
+
+        NSString *partKey = dic[@"page_title"];
+        // 设置页签
+        if (![tabTitles containsObject:partKey] && partKey.length > 0) {
+            [tabTitles addObject:partKey];
+        }
+        
+        SYPPartModel *part = nil;//[partCategory objectForKey:partKey];
+        if (!part) {
+            part = [[SYPPartModel alloc] init];
+        }
+
+        NSString *type = [dic[@"type"] capitalizedString];
+        type = [type mj_camelFromUnderline];
+        Class klass = NSClassFromString([NSString stringWithFormat:@"SYP%@Model", type]);
+        SYPBaseChartModel *baseChart = [klass mj_objectWithKeyValues:dic];
+        
+        [chartList addObject:baseChart];
+    }
+    
+    
+    SYPPageModel *model = [[SYPPageModel alloc] init];
+    model.filter = [SYPFilterModel mj_objectWithKeyValues:info[@"filter"]];
+    model.parts = chartList;
+    model.tabControl = tabTitles;
+
+    return model;
+}
+
+- (void)filterWithFilter:(SYPFilterModel *)filter {
+    
+    if ([filter.display isEqualToString:lastestFilter]) {
+        return;
+    }
+    if (filter.display.length) {
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", filter.display];
+        NSArray <SYPBaseChartModel *> *parts = [_parts filteredArrayUsingPredicate:predicate];
+        // or
+        //    NSArray <SYPBaseChartModel *> *parts = [_parts filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SYPBaseChartModel *chartModel, NSDictionary<NSString *,id> * _Nullable bindings) {
+        //        return [chartModel.name isEqualToString:filter.display];
+        //    }]];
+        self.filteredList = parts;
+    }
+    else {
+        self.filteredList = [_parts copy];;
+    }
+    lastestFilter = filter.display;
+}
+
+
+
+// 返回已经过滤了的数组，以便保护原数据; 无过滤条件时返回原数据复印件
+- (NSArray<SYPBaseChartModel *> *)parts {
+    
+    [self filterWithFilter:self.filter];
+    
+    return self.filteredList;
+}
 
 
 

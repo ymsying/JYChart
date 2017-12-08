@@ -8,11 +8,7 @@
 
 #import "SYPAnimationTool.h"
 #import <UIKit/UIKit.h>
-
-#define SYPAnimationToolDuration       0.5
-#define SYPAnimationToolSpringDuration 0.7
-#define SYPAnimationToolDamp           0.3
-#define SYPAnimationToolVelocity       0.3
+#import "SYPConstantString.h"
 
 @implementation SYPAnimationTool
 
