@@ -38,22 +38,17 @@
 - (void)changeDataSequenceWithType:(SYPBargraphModelSortType)type {
     //NSLog(@"排序顺序：%@", sortedIndexList);
     
-    NSMutableArray *destination = [NSMutableArray arrayWithCapacity:sortedIndexList.count];
-    if (type == SYPBargraphModelSortRatioDown || type == SYPBargraphModelSortRatioUp) {
-        
-        [sortedIndexList enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [destination addObject:[self.seriesData objectAtIndex:[obj integerValue]]];
-        }];
-        
-        self.seriesData = [destination copy];
-    }
-    else {
-        
-        [sortedIndexList enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [destination addObject:[self.xAxisData objectAtIndex:[obj integerValue]]];
-        }];
-        self.xAxisData = [destination copy];
-    }
+    NSMutableArray *destinationSeriesData = [NSMutableArray arrayWithCapacity:sortedIndexList.count];
+    NSMutableArray *destinationXAxisData = [NSMutableArray arrayWithCapacity:sortedIndexList.count];
+    
+    [sortedIndexList enumerateObjectsUsingBlock:^(NSNumber * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [destinationSeriesData addObject:[self.seriesData objectAtIndex:[obj integerValue]]];
+        [destinationXAxisData addObject:[self.xAxisData objectAtIndex:[obj integerValue]]];
+    }];
+    
+    self.seriesData = [destinationSeriesData copy];
+    self.xAxisData = [destinationXAxisData copy];
+    
     
 }
 

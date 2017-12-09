@@ -98,7 +98,7 @@
 - (void)initializeAxis {
     
     [[self viewWithTag:-3000] removeFromSuperview];
-    UIView *proInfoView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMinY(self.landscapeBar.frame), SYPViewWidth * 2/ 5, CGRectGetHeight(self.landscapeBar.frame))];
+    UIView *proInfoView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMinY(self.landscapeBar.frame), SYPViewWidth * 3 / 5, CGRectGetHeight(self.landscapeBar.frame))];
     proInfoView.tag = -3000;
     [self addSubview:proInfoView];
     
@@ -117,7 +117,7 @@
         IV.layer.transform = CATransform3DMakeRotation(-M_PI_2, 0, 0, 1);
         
         UIButton *proName = [UIButton buttonWithType:UIButtonTypeCustom];
-        proName.frame = CGRectMake(CGRectGetMaxX(IV.frame) + SYPDefaultMargin / 2.0, 0, SYPViewWidth1(proInfoView) - 14, kBarHeight);
+        proName.frame = CGRectMake(CGRectGetMaxX(IV.frame) + SYPDefaultMargin / 2.0, 0, SYPViewWidth1(proInfoView) - (SYPViewWidth1(IV) + SYPDefaultMargin / 2.0) - SYPViewWidth / 5, kBarHeight);
         [proName addTarget:self action:@selector(clickNameActive:) forControlEvents:UIControlEventTouchUpInside];
         proName.tag = -10000 + i;
         [proName setTitle:self.bargraphModel.xAxisData[i] forState:UIControlStateNormal];

@@ -11,6 +11,8 @@
 #import "SYPCursor.h"
 #import "SYPSheetView.h"
 
+#define kCursorNavHeight (45 + SYPDefaultMargin)
+
 @interface SYPExcelView () {
     CGFloat cursorScrollHeight;
 }
@@ -26,7 +28,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        cursorScrollHeight = SYPViewHeight - 45;
+        cursorScrollHeight = SYPViewHeight - kCursorNavHeight;
         [self addSubview:self.cursor];
     }
     return self;
@@ -38,13 +40,6 @@
     }
     return self;
 }
-
-//- (NSArray<SYPSheetModel *> *)sheetModelList {
-//    if (!_sheetModelList) {
-//        _sheetModelList = ((SYPExcelModel *)self.moduleModel).sheetList;
-//    }
-//    return _sheetModelList;
-//}
 
 - (SYPTablesModel *)excelModel {
     if (!_excelModel) {
@@ -60,21 +55,17 @@
         
         _cursor = [[SYPCursor alloc]init];
         // 此时设置的高度是顶部的导航栏的高度，默认高度是45，不等45时可以控制下半部分滚动视图的顶部位置
-        _cursor.frame = CGRectMake(0, 0, self.frame.size.width, 45);
+        _cursor.frame = CGRectMake(0, 0, SYPViewWidth, kCursorNavHeight);
         //设置下半部分根滚动视图的高度
-        _cursor.rootScrollViewHeight = SYPViewHeight - 45;
+        _cursor.rootScrollViewHeight = SYPViewHeight - kCursorNavHeight;
         //默认值是白色
         _cursor.titleNormalColor = SYPColor_TextColor_Chief;
         //默认值是白色
         _cursor.titleSelectedColor = SYPColor_ThemeColor_LightGreen;
-        _cursor.navItemAlignmentCenter = YES;
+        _cursor.navItemAutoAdjustContent = YES;
+        _cursor.navItemShowIndicator = YES;
         //默认的最小值是5，小于默认值的话按默认值设置
         _cursor.minFontSize = _cursor.maxFontSize = 15;
-        //默认的最大值是25，小于默认值的话按默认值设置，大于默认值按设置的值处理
-        //cursor.maxFontSize = 30;
-        //cursor.isGraduallyChangFont = NO;
-        //在isGraduallyChangFont为NO的时候，isGraduallyChangColor不会有效果
-        //cursor.isGraduallyChangColor = NO;
         [self addSubview:_cursor];
     }
     return _cursor;
@@ -85,6 +76,7 @@
         _sheetViewList = [NSMutableArray array];
         for (SYPTableConfigModel *sheetModel in self.excelModel.config) {
             SYPSheetView *sheetView = [[SYPSheetView alloc] init];
+            sheetView.flexibleHeight = YES;
             sheetView.moduleModel = sheetModel;
             [_sheetViewList addObject:sheetView];
         }
@@ -127,8 +119,10 @@
     if (cursorScrollHeight == 0) {
         for (SYPTableConfigModel *sheetModel in ((SYPTablesModel *)model).config) {
             SYPSheetView *tempSheetView = [[SYPSheetView alloc] init];
+            tempSheetView.flexibleHeight = YES;
             CGFloat height = [tempSheetView estimateViewHeight:sheetModel];
-            cursorScrollHeight  = (height > cursorScrollHeight ? height : cursorScrollHeight) + 25;
+            height += kCursorNavHeight;
+            cursorScrollHeight  = (height > cursorScrollHeight ? height : cursorScrollHeight);
         }
     }
     return cursorScrollHeight;

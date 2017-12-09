@@ -6,7 +6,7 @@
 //  Copyright © 2017年 应明顺. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "SYPBaseChartModel.h"
 
 @interface SYPFilterDataModel : NSObject
 
@@ -19,7 +19,7 @@
 
 
 
-@interface SYPFilterModel : NSObject
+@interface SYPFilterModel : SYPBaseChartModel
 
 @property (nonatomic, copy) NSString *display;
 @property (nonatomic, copy) NSArray <SYPFilterDataModel *> *data;

@@ -98,11 +98,12 @@
     [titleView addSubview:timeLB];
     
     NSArray *titleList = self.chartModel.seriesName;
-    CGFloat titleWidth = (SYPViewWidth1(titleView) - titleList.count * SYPDefaultMargin / 2 - 10 - SYPViewMinX1(timeLB)) / titleList.count;
+    NSInteger titleListCount = (titleList.count == 2 ? 3 : titleList.count);
+    CGFloat titleWidth = (SYPViewWidth1(titleView) - titleListCount * SYPDefaultMargin / 2 - 10 - SYPViewMinX1(timeLB)) / titleListCount;
     NSMutableArray *numberLB = [NSMutableArray arrayWithCapacity:titleList.count];
     NSMutableArray *titleLB = [NSMutableArray arrayWithCapacity:titleList.count];
     UILabel *title;
-    for (int i = 0; i < (titleList.count == 2 ? 3 : titleList.count); i++) {
+    for (int i = 0; i < titleListCount; i++) {
         
         UILabel *number = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(timeLB.frame) + (SYPDefaultMargin / 2 + titleWidth) * i, CGRectGetMaxY(timeLB.frame) + 4, titleWidth, SYPViewHeight1(titleView) * 0.2)];
 
@@ -210,7 +211,7 @@
 - (void)refreshSubViewData {
     
     [self initializeTitle];
-    timeLB.text = [self.chartModel.xAxis lastObject];
+    timeLB.text = [self.chartModel.xAxis firstObject];
     
     if (self.chartModel.series) {
         
@@ -255,7 +256,8 @@
     [xAxisLabelList firstObject].textColor = self.chartModel.seriesColor[0];
     arrowView.arrow = [self.chartModel.series[0].colors[0] integerValue];
 
-    {
+    if (self.chartModel.seriesName.count == 2) {
+        
         CGRect frame = numberLabelList[2].frame;
         CGSize size = [numberLabelList[2].text boundingRectWithSize:CGSizeMake(100, CGRectGetHeight(frame))
                                                             options:0
@@ -267,7 +269,6 @@
         frame = arrowView.frame;
         frame.origin.x = CGRectGetMaxX(numberLabelList[2].frame) + SYPDefaultMargin/2.0;
         arrowView.frame = frame;
-        
     }
     
 }

@@ -17,6 +17,8 @@
 @property (nonatomic, strong) SYPFilterModel *filter;
 @property (nonatomic, copy) NSArray <SYPBaseChartModel *> *parts;
 @property (nonatomic, copy) NSArray <SYPBaseChartModel *> *filteredList;
+@property (nonatomic, copy) NSArray <SYPPartModel *> *filteredPartList;
+
 
 @end
 
@@ -60,8 +62,9 @@
     for (NSDictionary *dic in parts) {
 
         NSString *partKey = dic[@"page_title"];
-        // 设置页签
-        if (![tabTitles containsObject:partKey] && partKey.length > 0) {
+        // 设置页签，可为@""
+        if (![tabTitles containsObject:partKey] && partKey) {
+//            partKey = [partKey isEqualToString:@""] ? @" " : partKey;
             [tabTitles addObject:partKey];
         }
         
@@ -119,7 +122,27 @@
 }
 
 
-
+- (NSArray<SYPPartModel *> *)filteredPartList {
+    
+    NSMutableArray <SYPPartModel *> *temp = [NSMutableArray arrayWithCapacity:self.tabControl.count];
+    for (int i = 0; i < self.tabControl.count; i++) {
+        SYPPartModel *part = [[SYPPartModel alloc] init];
+        
+        NSMutableArray <SYPBaseChartModel *> *chartList = [NSMutableArray array];
+        part.chartList = chartList;
+        [temp addObject:part];
+    }
+    
+    [self.parts enumerateObjectsUsingBlock:^(SYPBaseChartModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSInteger index = [self.tabControl indexOfObject:obj.pageTitle];
+        NSMutableArray <SYPBaseChartModel *> *chartList = [NSMutableArray arrayWithArray:temp[index].chartList];
+        [chartList addObject:obj];
+        
+        temp[index].chartList = [chartList copy];
+    }];
+    
+    return [temp copy];
+}
 
 
 

@@ -72,7 +72,7 @@
 
 - (void)updateFilterBtnContentFrame {
     
-    // 偏移时，保证title、image大小不变
+    // 偏移时，相对原位置进行移动，保证title、image大小不变
     CGFloat offset = 0;
     CGFloat imageWidth = _filterBtn.imageView.bounds.size.width;
     CGFloat labelWidth = _filterBtn.titleLabel.bounds.size.width;
@@ -94,9 +94,16 @@
     [SYPFilterPopView showFilterListViewWithFilter:self.filterModel completionHandler:^(NSString *result) {
         __strong typeof(ws) ss = ws;
         ss.filterLabel.text = result;
+        ss.filterModel.display = result;
     }];
     
 }
+
+- (CGFloat)estimateViewHeight:(SYPBaseChartModel *)model {
+
+    return 40 * SYPScreenRatio;
+}
+
 
 
 @end
