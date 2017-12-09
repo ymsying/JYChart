@@ -20,11 +20,22 @@
 
 @property (nonatomic, strong, readonly) SYPFilterModel *filter;
 @property (nonatomic, copy, readonly) NSArray <SYPBaseChartModel *> *parts;
+/**
+ 根据filter过滤后的数据
+ */
 @property (nonatomic, copy, readonly) NSArray <SYPBaseChartModel *> *filteredList;
+/**
+ 页签数组
+ */
 @property (nonatomic, copy, readonly) NSArray <NSString *> *tabControl;
 
 /**
- 通过filter过滤出filter中所标示出来的信息
+ 根据filter过滤后的数据
+ */
+@property (nonatomic, copy, readonly) NSArray <SYPPartModel *> *filteredPartList;
+
+/**
+ 通过filter过滤出filter中display所标示出来的信息
  */
 - (void)filterWithFilter:(SYPFilterModel *)filter;
 

@@ -45,6 +45,10 @@
 		23C9B4391FD9273900CC57ED /* pop_screen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 23C9B4371FD9273900CC57ED /* pop_screen@2x.png */; };
 		23D9AD751FD97BAE00DF93B6 /* SYPFilterListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D9AD741FD97BAE00DF93B6 /* SYPFilterListView.m */; };
 		23D9AD781FDA6B8700DF93B6 /* SYPFilterListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D9AD771FDA6B8700DF93B6 /* SYPFilterListViewCell.m */; };
+		23D9AD8B1FDA873900DF93B6 /* SYPPartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D9AD821FDA873900DF93B6 /* SYPPartView.m */; };
+		23D9AD8C1FDA873900DF93B6 /* SYPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D9AD851FDA873900DF93B6 /* SYPPageView.m */; };
+		23D9AD8D1FDA873900DF93B6 /* SYPPartViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D9AD871FDA873900DF93B6 /* SYPPartViewCell.m */; };
+		23D9AD931FDC3F2F00DF93B6 /* SYPFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D9AD921FDC3F2F00DF93B6 /* SYPFirstViewController.m */; };
 		23EAD2401FD1303100B8A488 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD23F1FD1303100B8A488 /* AppDelegate.m */; };
 		23EAD2431FD1303100B8A488 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23EAD2421FD1303100B8A488 /* ViewController.m */; };
 		23EAD2461FD1303100B8A488 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23EAD2441FD1303100B8A488 /* Main.storyboard */; };
@@ -171,6 +175,14 @@
 		23D9AD741FD97BAE00DF93B6 /* SYPFilterListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPFilterListView.m; sourceTree = "<group>"; };
 		23D9AD761FDA6B8700DF93B6 /* SYPFilterListViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPFilterListViewCell.h; sourceTree = "<group>"; };
 		23D9AD771FDA6B8700DF93B6 /* SYPFilterListViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPFilterListViewCell.m; sourceTree = "<group>"; };
+		23D9AD821FDA873900DF93B6 /* SYPPartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPPartView.m; sourceTree = "<group>"; };
+		23D9AD831FDA873900DF93B6 /* SYPPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPPageView.h; sourceTree = "<group>"; };
+		23D9AD841FDA873900DF93B6 /* SYPPartViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPPartViewCell.h; sourceTree = "<group>"; };
+		23D9AD851FDA873900DF93B6 /* SYPPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPPageView.m; sourceTree = "<group>"; };
+		23D9AD861FDA873900DF93B6 /* SYPPartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPPartView.h; sourceTree = "<group>"; };
+		23D9AD871FDA873900DF93B6 /* SYPPartViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPPartViewCell.m; sourceTree = "<group>"; };
+		23D9AD911FDC3F2F00DF93B6 /* SYPFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SYPFirstViewController.h; sourceTree = "<group>"; };
+		23D9AD921FDC3F2F00DF93B6 /* SYPFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SYPFirstViewController.m; sourceTree = "<group>"; };
 		23EAD23B1FD1303100B8A488 /* 报表和MJExtension.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "报表和MJExtension.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23EAD23E1FD1303100B8A488 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		23EAD23F1FD1303100B8A488 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -403,6 +415,19 @@
 			path = FilterView;
 			sourceTree = "<group>";
 		};
+		23D9AD791FDA873900DF93B6 /* Using */ = {
+			isa = PBXGroup;
+			children = (
+				23D9AD831FDA873900DF93B6 /* SYPPageView.h */,
+				23D9AD851FDA873900DF93B6 /* SYPPageView.m */,
+				23D9AD861FDA873900DF93B6 /* SYPPartView.h */,
+				23D9AD821FDA873900DF93B6 /* SYPPartView.m */,
+				23D9AD841FDA873900DF93B6 /* SYPPartViewCell.h */,
+				23D9AD871FDA873900DF93B6 /* SYPPartViewCell.m */,
+			);
+			path = Using;
+			sourceTree = "<group>";
+		};
 		23EAD2321FD1303100B8A488 = {
 			isa = PBXGroup;
 			children = (
@@ -426,7 +451,10 @@
 				23EAD23F1FD1303100B8A488 /* AppDelegate.m */,
 				23EAD2411FD1303100B8A488 /* ViewController.h */,
 				23EAD2421FD1303100B8A488 /* ViewController.m */,
+				23D9AD911FDC3F2F00DF93B6 /* SYPFirstViewController.h */,
+				23D9AD921FDC3F2F00DF93B6 /* SYPFirstViewController.m */,
 				23EAD2441FD1303100B8A488 /* Main.storyboard */,
+				23D9AD791FDA873900DF93B6 /* Using */,
 				23EAD28D1FD1309500B8A488 /* Components */,
 				2359ED0D1FD782A200AD4405 /* Model */,
 				23EAD3311FD130A600B8A488 /* Category */,
@@ -739,6 +767,7 @@
 				23EAD32F1FD1309A00B8A488 /* SYPItemManager.m in Sources */,
 				23EAD2E01FD1309500B8A488 /* SYPBaseComponentLayer.m in Sources */,
 				2359ED4A1FD789FF00AD4405 /* SYPSubSheetView.m in Sources */,
+				23D9AD8D1FDA873900DF93B6 /* SYPPartViewCell.m in Sources */,
 				2359ED251FD782A200AD4405 /* SYPPageModel.m in Sources */,
 				23EAD2891FD1305E00B8A488 /* NSString+MJExtension.m in Sources */,
 				23EAD2E11FD1309500B8A488 /* SYPBaseComponentView.m in Sources */,
@@ -759,6 +788,7 @@
 				23EAD3231FD1309A00B8A488 /* SYPTrendTypeImageView.m in Sources */,
 				2359ED451FD789FF00AD4405 /* SYPFreezeViewCell.m in Sources */,
 				23C20CEC1FD93F0A001BC1FA /* SYPTabController.m in Sources */,
+				23D9AD8B1FDA873900DF93B6 /* SYPPartView.m in Sources */,
 				23EAD32B1FD1309A00B8A488 /* SYPCursor.m in Sources */,
 				2359ED2A1FD782A200AD4405 /* SYPColourPointModel.m in Sources */,
 				2359ED491FD789FF00AD4405 /* SYPMainViewCell.m in Sources */,
@@ -774,7 +804,9 @@
 				23EAD2FF1FD1309500B8A488 /* SYPCompareSaleView.m in Sources */,
 				236520601FD3106B006356A3 /* SYPLandscapeBarLayer.m in Sources */,
 				23EAD3261FD1309A00B8A488 /* SYPScrollNavBar.m in Sources */,
+				23D9AD931FDC3F2F00DF93B6 /* SYPFirstViewController.m in Sources */,
 				23A285951FD14D9700360E7E /* SYPBannerView.m in Sources */,
+				23D9AD8C1FDA873900DF93B6 /* SYPPageView.m in Sources */,
 				2359ED4B1FD789FF00AD4405 /* SYPSheetView.m in Sources */,
 				23EAD2821FD1305E00B8A488 /* MJPropertyType.m in Sources */,
 				23EAD24E1FD1303100B8A488 /* main.m in Sources */,

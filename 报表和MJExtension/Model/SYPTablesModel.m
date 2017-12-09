@@ -69,7 +69,7 @@
 }
 
 - (NSArray<NSString *> *)leadLineTitle {
-    if (!leadLineTitle) {
+    if (!leadLineTitle || sortIndexList.count) {
         NSMutableArray *leadTitle = [NSMutableArray arrayWithCapacity:self.data.count];
         [self.data enumerateObjectsUsingBlock:^(SYPTableRowModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSString *title = obj.mainData[0].value;
@@ -108,8 +108,8 @@
         if (sortIndexList.count > 0 && !sortFinish) {
             NSMutableArray *temp = [NSMutableArray arrayWithCapacity:[_data count]];
             for (int i = 0; i < [_data count]; i++) {
-                SYPTableRowModel *mainData = _data[(sortIndexList ? [sortIndexList[i] integerValue] : i)];
-                [temp addObject:mainData];
+                SYPTableRowModel *rowModel = _data[(sortIndexList ? [sortIndexList[i] integerValue] : i)];
+                [temp addObject:rowModel];
             }
             _data = [temp copy];
             sortFinish = YES;
@@ -165,6 +165,8 @@
         }
         [sortIndexList addObject:@(index)];
     }
+    //NSLog(@"sortIndexList:%@", sortIndexList);
+    
 }
 
 

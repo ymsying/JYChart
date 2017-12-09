@@ -6,11 +6,14 @@
 //  Copyright © 2017年 应明顺. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SYPBaseComponentView.h"
 #import "SYPFilterModel.h"
 
-@interface SYPFilterView : UIView
+@interface SYPFilterView : SYPBaseComponentView
 
 @property (nonatomic, strong) SYPFilterModel *filterModel;
+
+
+
 
 @end

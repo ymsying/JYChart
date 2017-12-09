@@ -19,6 +19,14 @@
  导航栏剧中显示
  */
 @property (nonatomic, assign) BOOL           navItemAlignmentCenter;
+/**
+ 导航栏item宽度自适应
+ */
+@property (nonatomic, assign) BOOL           navItemAutoAdjustContent;
+/**
+ 导航栏item带指示条
+ */
+@property (nonatomic, assign) BOOL           navItemShowIndicator;
 @property (nonatomic, strong) UIColor        *backgroudSelectedColor;
 @property (nonatomic, strong) UIColor        *navLineColor;
 @property (nonatomic, strong) UIImage        *backgroundImage;

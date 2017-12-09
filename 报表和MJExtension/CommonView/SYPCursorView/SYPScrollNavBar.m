@@ -20,8 +20,6 @@
 #define IndicateLineH             2
 #define scrollNavBarUpdate        @"scrollNavBarUpdate"
 #define rootScrollUpdateAfterSort @"updateAfterSort"
-#define moveToSelectedItem        @"moveToSelectedItem"
-#define moveToTop                 @"moveToTop"
 
 @interface SYPScrollNavBar()<UIScrollViewDelegate>
 
@@ -80,6 +78,7 @@
     if (!_indicateLine) {
         _indicateLine = [[UIView alloc] init];
         _indicateLine.height = IndicateLineH;
+        _indicateLine.hidden = YES;
         UIView *btnContentView = [self viewWithTag:-10001];
         if (!btnContentView) {
             btnContentView = [[UIView alloc] init];
@@ -214,8 +213,6 @@
 
 - (void)initNotificationCenter{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTitles:) name:scrollNavBarUpdate object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToSelectedItemAfterDelet:) name:moveToSelectedItem object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToTopAfterDelet:) name:moveToTop object:nil];
 }
 
 - (void)dealloc{
@@ -239,6 +236,7 @@
         button.tag = i;
         if (i == 0) {
             button.selected = YES;
+            button.backgroundColor = self.backgroundSelectedColor;
             if (self.maxFontSize) {
                 button.titleLabel.font = [UIFont systemFontOfSize:self.maxFontSize];
             }else{                
@@ -247,13 +245,14 @@
             _currectItem = button;
         }
     }
+    [self layoutButtons];
 }
 
 //对item进行布局处理
 - (void)layoutButtons{
     
-    CGFloat buttonH = self.height;
-    CGFloat buttonY = self.isItemHiddenAfterDelet ? self.height : 0;
+    CGFloat buttonH = self.height - SYPDefaultMargin;
+    CGFloat buttonY = self.isItemHiddenAfterDelet ? self.height : SYPDefaultMargin / 2;
     
     // 按钮宽度自适应，
     CGFloat buttonW = 0;
@@ -266,7 +265,12 @@
             UIButton *button = [self.itemsDic objectForKey:key];
             button.tag = i;
             
-            buttonW = [button.titleLabel.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, buttonH) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : button.titleLabel.font} context:nil].size.width;
+            if (self.isButtonAutoWidth) {
+                buttonW = [button.titleLabel.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, buttonH) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : button.titleLabel.font} context:nil].size.width;
+            }
+            else {
+                buttonW = 80;
+            }
             
             CGFloat buttonX = SYPViewMaxX1(tempBtn) + SYPDefaultMargin;
             button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
@@ -300,6 +304,9 @@
     self.indicateLine.x = _currectItem.x;
     self.indicateLine.width = _currectItem.width;
     self.indicateLine.y = self.height - IndicateLineH;
+    if (self.isButtonShowIndicator) {
+        self.indicateLine.hidden = NO;
+    }
 }
 
 - (void)layoutSubviews{
@@ -328,6 +335,7 @@
     UIButton *button = [[UIButton alloc]init];
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:self.titleNormalColor forState:UIControlStateNormal];
+    [button setTitleColor:self.titleSelectedColor forState:UIControlStateSelected];
     button.backgroundColor = [UIColor clearColor];
     NSInteger fontSize = self.minFontSize > 0 ? self.minFontSize : FontMinSize;
     button.titleLabel.font = [UIFont systemFontOfSize:fontSize];
@@ -568,7 +576,7 @@
 
 #pragma mark - scrollView代理方法
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    [self changeButtonFontWithOffset:scrollView.contentOffset.x andWidth:self.rootScrollView.width];
+//    [self changeButtonFontWithOffset:scrollView.contentOffset.x andWidth:self.rootScrollView.width];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {

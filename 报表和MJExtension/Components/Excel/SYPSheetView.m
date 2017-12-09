@@ -40,6 +40,7 @@ static NSString *rowCellID = @"rowCell";
         self.clipsToBounds = YES;
         lastSortSection = 0;
         recoverFlag = YES;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSectionViewFrame:) name:@"scrollUpOrDown" object:nil];
     }
     return self;
 }
@@ -70,10 +71,11 @@ static NSString *rowCellID = @"rowCell";
 - (SYPFreezeWindowView *)freezeView {
     if (!_freezeView) {
         CGRect frame = self.bounds;
-        frame.origin.x += SYPDefaultMargin * 2;
-        frame.size.width -= SYPDefaultMargin * 2;
+        { //  显示圆点的处理
+            frame.origin.x += SYPDefaultMargin * 2;
+            frame.size.width -= SYPDefaultMargin * 2;
+        }
         _freezeView = [[SYPFreezeWindowView alloc] initWithFrame:frame FreezePoint:freezePoint cellViewSize:CGSizeMake(120, kMianCellHeight)];
-        _freezeView.flexibleHeight = self.flexibleHeight;
         _freezeView.delegate = self;
         _freezeView.dataSource = self;
         _freezeView.bounceStyle = SYPFreezeWindowViewBounceStyleNone;
@@ -90,7 +92,6 @@ static NSString *rowCellID = @"rowCell";
 - (void)initializeSubView {
     
     [self addSubview:self.freezeView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSectionViewFrame:) name:@"scrollUpOrDown" object:nil];
 }
 
 - (void)canBeScroller:(UIView *)view canBeScroll:(BOOL *)scroll{
@@ -105,7 +106,8 @@ static NSString *rowCellID = @"rowCell";
     }
 }
 
-// 表头悬浮
+// !!!: 表头悬浮处理
+// 需要在他最近的上一层scrollview的滚动事件代理方法中设置通知源
 - (void)refreshSectionViewFrame:(NSNotification *)nt {
     
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;

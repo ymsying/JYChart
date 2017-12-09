@@ -18,27 +18,15 @@
 #import "SYPClickableLineView.h"
 #import "SYPExcelView.h"
 #import "SYPFilterView.h"
+#import "SYPPageView.h"
 
 @interface ViewController ()
 
 @property (nonatomic, strong) SYPPageModel *pageModel;
 
-/**
- 单值
- */
-@property (weak, nonatomic) IBOutlet SYPCompareSaleView *singeValueView;
 
-@property (weak, nonatomic) IBOutlet SYPInfoView *Crosshead;
+@property (weak, nonatomic) IBOutlet SYPPageView *PageView;
 
-@property (weak, nonatomic) IBOutlet SYPBannerView *BannerView;
-
-@property (weak, nonatomic) IBOutlet SYPLandscapeBarView *LandscapeBarView;
-
-@property (weak, nonatomic) IBOutlet SYPClickableLineView *ClickLine;
-
-@property (weak, nonatomic) IBOutlet SYPExcelView *ExcelView;
-
-@property (weak, nonatomic) IBOutlet SYPFilterView *FilterView;
 
 @end
 
@@ -52,7 +40,8 @@
 //    CGFloat tabH = CGRectGetHeight(self.tabBarController.tabBar.frame);
 //    CGFloat topOffset = staH + navH + SYPDefaultMargin;
     
-    self.FilterView.filterModel = self.pageModel.filter;
+    /*
+    // 组件测试
     [self.pageModel.parts enumerateObjectsUsingBlock:^(SYPBaseChartModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[SYPSingleValueModel class]]) {
             self.singeValueView.moduleModel = obj;
@@ -75,20 +64,28 @@
         }
         if ([obj isKindOfClass:[SYPTablesModel class]]) {
             self.ExcelView.moduleModel = obj;
-            //                self.ExcelView.autoLayoutHeight = YES;
+            //            self.ExcelView.autoLayoutHeight = YES;
         }
     }];
+     // 筛选组件测试
+ //    self.FilterView.filterModel = self.pageModel.filter;
+    */
+    
+    
+    // 整体数据测试
+    self.PageView.pageModel = self.pageModel;
+    
 }
 
 - (SYPPageModel *)pageModel {
     if (!_pageModel) {
         // 数据准备
-        NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"template1_01" ofType:@"json"];
+        NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"template1_03" ofType:@"json"];
         
         id data = [NSData dataWithContentsOfFile:dataPath];
         NSError *error = nil;
         id serializedData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        
+        NSAssert(serializedData, @"数据解析错误");
         _pageModel = [SYPPageModel pageModel:serializedData];
     }
     

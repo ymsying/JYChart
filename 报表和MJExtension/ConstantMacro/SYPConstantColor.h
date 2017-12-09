@@ -35,7 +35,8 @@
 #define SYPColor_LineColor_LightPurple ([UIColor colorWithHexString:@"a984d3"]) //co16
 #define SYPColor_BackgroudColor_White ([UIColor colorWithHexString:@"ffffff"]) //co10
 
-#define SYPColor_ThemeColor_LightGreen ([UIColor colorWithHexString:@"51aa38"]) //co1
+//#define SYPColor_ThemeColor_LightGreen ([UIColor colorWithHexString:@"51aa38"]) //co1
+#define SYPColor_ThemeColor_LightGreen ([UIColor colorWithHexString:@"00a4e9"]) //co1
 #define SYPColor_SubColor_LightGreen ([UIColor colorWithHexString:@"91c941"]) //co2
 
 

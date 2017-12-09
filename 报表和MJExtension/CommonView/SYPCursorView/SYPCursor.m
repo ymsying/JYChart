@@ -13,16 +13,16 @@
 #import "SYPRootScrollView.h"
 #import "SYPAnimationTool.h"
 #import "SYPConstantColor.h"
+#import "SYPConstantSize.h"
 
 #define navLineHeight                   6
 #define StaticItemIndex                 3
 #define SortItemViewY                   -360
 #define SortItemViewMoveToY             -70
-#define defBackgroundColor              SYPColor_BackgroudColor_SubWhite
+#define defBackgroundColor              SYPColor_BackgroudColor_White
 
 @interface SYPCursor()<UIScrollViewDelegate>
 
-@property (nonatomic, strong) UILabel          *tipsLabel;
 @property (nonatomic, strong) SYPScrollNavBar   *scrollNavBar;
 @property (nonatomic, strong) SYPRootScrollView *rootScrollView;
 
@@ -38,18 +38,6 @@
 @implementation SYPCursor
 
 #pragma mark - 懒加载
-
-- (UILabel *)tipsLabel{
-    if (!_tipsLabel) {
-        _tipsLabel = [[UILabel alloc]init];
-        _tipsLabel.text = @"栏目切换";
-        _tipsLabel.textColor = [UIColor whiteColor];
-        _tipsLabel.font = [UIFont systemFontOfSize:22];
-        _tipsLabel.textAlignment = NSTextAlignmentCenter;
-        _tipsLabel.hidden = YES;
-    }
-    return _tipsLabel;
-}
 
 - (SYPRootScrollView *)rootScrollView{
     if (!_rootScrollView) {
@@ -88,7 +76,10 @@
     CGFloat h = rect.size.height;
     if (self.navBarH == 0 ) {
         self.navBarH = h;
-        h = h + self.rootScrollViewHeight;
+        h = h + _rootScrollViewHeight;
+    }
+    else {
+        h = self.navBarH + _rootScrollViewHeight;
     }
     CGRect frameChanged = CGRectMake(x, y, w, h);
     [self setFrame:frameChanged];
@@ -153,6 +144,16 @@
     self.scrollNavBar.isButtonAlignmentCenter = navItemAlignmentCenter;
 }
 
+- (void)setNavItemAutoAdjustContent:(BOOL)navItemAutoAdjustContent {
+    _navItemAutoAdjustContent = navItemAutoAdjustContent;
+    self.scrollNavBar.isButtonAutoWidth = navItemAutoAdjustContent;
+}
+
+- (void)setNavItemShowIndicator:(BOOL)navItemShowIndicator {
+    _navItemShowIndicator = navItemShowIndicator;
+    self.scrollNavBar.isButtonShowIndicator = navItemShowIndicator;
+}
+
 #pragma mark - 初始化
 
 - (instancetype)init
@@ -177,7 +178,6 @@
 - (void)setup{
     [self addSubview:self.rootScrollView];
     [self addSubview:self.scrollNavBar];
-    [self addSubview:self.tipsLabel];
     
     //self.clipsToBounds          = YES;
     self.userInteractionEnabled = YES;
@@ -188,11 +188,11 @@
 
 - (void)layoutScrollNavBar {
     //不显示排序按钮的布局
-    CGFloat scrollX         = 0;
+    CGFloat scrollX         = SYPDefaultMargin * 2;
     CGFloat scrollY         = 0;
     CGFloat scrollH         = 45;
     self.navBarH            = scrollH;
-    CGFloat scrollW         = self.width;
+    CGFloat scrollW         = self.width - scrollX;
     self.scrollNavBar.frame = CGRectMake(scrollX, scrollY, scrollW, scrollH);
 }
 
