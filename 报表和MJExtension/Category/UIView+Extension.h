@@ -16,4 +16,14 @@
 @property (nonatomic, assign) CGFloat width;
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, assign) CGSize  size;
+
+
+/**
+ nav + status bar
+ */
+@property (nonatomic, assign, readonly) CGFloat navStsH;
+@property (nonatomic, assign, readonly) CGFloat navH;
+@property (nonatomic, assign, readonly) CGFloat stsH;
+@property (nonatomic, assign, readonly) CGFloat tabH;
+
 @end

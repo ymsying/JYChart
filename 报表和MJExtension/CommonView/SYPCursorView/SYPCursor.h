@@ -27,6 +27,8 @@
  导航栏item带指示条
  */
 @property (nonatomic, assign) BOOL           navItemShowIndicator;
+@property (nonatomic, assign) CGFloat        navBarX;
+@property (nonatomic, assign) CGFloat        navBarH;
 @property (nonatomic, strong) UIColor        *backgroudSelectedColor;
 @property (nonatomic, strong) UIColor        *navLineColor;
 @property (nonatomic, strong) UIImage        *backgroundImage;

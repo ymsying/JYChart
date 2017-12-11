@@ -70,21 +70,27 @@
     return _filterBtn;
 }
 
-- (void)updateFilterBtnContentFrame {
-    
-    // 偏移时，相对原位置进行移动，保证title、image大小不变
-    CGFloat offset = 0;
-    CGFloat imageWidth = _filterBtn.imageView.bounds.size.width;
-    CGFloat labelWidth = _filterBtn.titleLabel.bounds.size.width;
-    _filterBtn.imageEdgeInsets = UIEdgeInsetsMake(0, labelWidth + offset, 0, -labelWidth - offset);
-    _filterBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -imageWidth - 6, 0, imageWidth + 6);
-}
-
 - (void)setFilterModel:(SYPFilterModel *)filterModel {
     if (![_filterModel isEqual:filterModel]) {
         _filterModel = filterModel;
         _filterLabel.text = filterModel.display;
     }
+}
+
+//- (void)refreshSubViewData {
+//    if (!self.filterModel) {
+//        self.filterModel = (SYPFilterModel *)self.moduleModel;
+//    }
+//}
+
+- (void)updateFilterBtnContentFrame {
+    
+    // btn中title和image交互位置。偏移时，相对原位置进行移动，保证title、image大小不变
+    CGFloat offset = 0;
+    CGFloat imageWidth = _filterBtn.imageView.bounds.size.width;
+    CGFloat labelWidth = _filterBtn.titleLabel.bounds.size.width;
+    _filterBtn.imageEdgeInsets = UIEdgeInsetsMake(0, labelWidth + offset, 0, -labelWidth - offset);
+    _filterBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -imageWidth - 6, 0, imageWidth + 6);
 }
 
 
@@ -95,6 +101,10 @@
         __strong typeof(ws) ss = ws;
         ss.filterLabel.text = result;
         ss.filterModel.display = result;
+        
+        if (ss.delegate && [(id)ss.delegate respondsToSelector:@selector(filterView:selecteResult:)]) {
+            [ss.delegate filterView:ss selecteResult:result];
+        }
     }];
     
 }

@@ -11,14 +11,13 @@
 #import "SYPTablesModel.h"
 #import "SYPPageModel.h"
 #import "SYPPartViewCell.h"
+#import "UIView+Extension.h"
 
 
-@interface SYPPartView () <UITableViewDelegate, UITableViewDataSource, SYPModuleTwoCellDelegate> {
-    UIViewController *vc;
-}
+@interface SYPPartView () <UITableViewDelegate, UITableViewDataSource, SYPModuleTwoCellDelegate>
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) SYPPartViewCell *moduleTwoCell;
-@property (nonatomic, assign) CGFloat navBarH;
 
 
 @end
@@ -54,28 +53,6 @@
         _tableView.dataSource = self;
     }
     return _tableView;
-}
-
-- (UIViewController *)vc {
-    if (!vc) {
-        for (UIView* next = [self superview]; next; next = next.superview) {
-            UIResponder *nextResponder = [next nextResponder];
-            if ([nextResponder isKindOfClass:[UIViewController class]]) {
-                vc = (UIViewController *)nextResponder;
-                break;
-            }
-        }
-    }
-    return vc;
-}
-
-- (CGFloat)navBarH {
-    if (!_navBarH) {
-        CGFloat stsBarH = [UIApplication sharedApplication].statusBarFrame.size.height;
-        CGFloat navBarH = self.vc.navigationController.navigationBar.frame.size.height;
-        _navBarH = stsBarH + navBarH;
-    }
-    return _navBarH;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -121,7 +98,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return nil;
+    return [[UIView alloc] init];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -134,7 +111,8 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollUpOrDown" object:self userInfo:@{@"origin": [NSString stringWithFormat:@"{0,%lf}", self.navBarH + 45 + SYPDefaultMargin]}];
+    CGFloat offset = self.offsetExcelHead ? (self.offsetExcelHead) : 0;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollUpOrDown" object:self userInfo:@{@"origin": [NSString stringWithFormat:@"{0,%lf}", self.navStsH +offset]}];
 }
 
 #pragma mark - <SYPModuleTwoCellDelegate>

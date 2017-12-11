@@ -20,8 +20,10 @@
 #import "SYPFilterView.h"
 #import "SYPPageView.h"
 #import "SYPHudView.h"
+
+
 @interface SYPFirstViewController () {
-    SYPBaseComponentView *currentChart;
+    UIView *currentChart;
 }
 
 @property (nonatomic, strong) SYPPageModel *pageModel;
@@ -65,7 +67,7 @@
     } else if ([@"筛选" isEqualToString:currentTitle]) {
         type = @"Filter";
         currentChart.hidden = YES;
-        self.FilterView.moduleModel = self.pageModel.filter;
+        self.FilterView.filterModel = self.pageModel.filter;
         self.FilterView.hidden = NO;
         currentChart = self.FilterView;
         return;

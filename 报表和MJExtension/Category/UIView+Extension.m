@@ -8,6 +8,12 @@
 
 #import "UIView+Extension.h"
 
+UIViewController *vc;
+CGFloat navBarH;
+CGFloat navH;
+CGFloat stsH;
+CGFloat tabH;
+
 @implementation UIView (Extension)
 
 - (void)setX:(CGFloat)x
@@ -95,5 +101,51 @@
 {
     return self.frame.size;
 }
+
+
+#pragma mark -
+
+- (UIViewController *)vc {
+    if (!vc) {
+        for (UIView* next = [self superview]; next; next = next.superview) {
+            UIResponder *nextResponder = [next nextResponder];
+            if ([nextResponder isKindOfClass:[UIViewController class]]) {
+                vc = (UIViewController *)nextResponder;
+                break;
+            }
+        }
+    }
+    return vc;
+}
+
+- (CGFloat)navStsH {
+    if (!navBarH) {
+        
+        navBarH = self.navH + self.stsH;
+    }
+    return navBarH;
+}
+
+- (CGFloat)stsH {
+    if (!stsH) {
+        stsH = [UIApplication sharedApplication].statusBarFrame.size.height;
+    }
+    return stsH;
+}
+
+- (CGFloat)navH {
+    if (!navH) {
+        navH = self.vc.navigationController.navigationBar.frame.size.height;
+    }
+    return navH;
+}
+
+- (CGFloat)tabH {
+    if (!tabH) {
+        tabH = self.vc.tabBarController.tabBar.frame.size.height;
+    }
+    return tabH;
+}
+
 
 @end

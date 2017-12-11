@@ -14,5 +14,6 @@
 @interface SYPPartView : UIView
 
 @property (nonatomic, strong) SYPPartModel *partModel;
+@property (nonatomic, assign) CGFloat offsetExcelHead;
 
 @end

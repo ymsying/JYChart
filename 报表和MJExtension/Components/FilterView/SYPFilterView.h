@@ -6,14 +6,21 @@
 //  Copyright © 2017年 应明顺. All rights reserved.
 //
 
-#import "SYPBaseComponentView.h"
+#import <UIKit/UIKit.h>
 #import "SYPFilterModel.h"
 
-@interface SYPFilterView : SYPBaseComponentView
+
+@class SYPFilterView;
+
+@protocol SYPFilterViewProtocol
+
+- (void)filterView:(SYPFilterView *)filterView selecteResult:(NSString *)result;
+
+@end
+
+@interface SYPFilterView : UIView
 
 @property (nonatomic, strong) SYPFilterModel *filterModel;
-
-
-
+@property (nonatomic, weak) id <SYPFilterViewProtocol> delegate;
 
 @end
