@@ -11,7 +11,7 @@
 #import "SYPCursor.h"
 #import "SYPSheetView.h"
 
-#define kCursorNavHeight (45 + SYPDefaultMargin)
+#define kCursorNavHeight (45)
 
 @interface SYPExcelView () {
     CGFloat cursorScrollHeight;
@@ -58,6 +58,7 @@
         _cursor.frame = CGRectMake(0, 0, SYPViewWidth, kCursorNavHeight);
         //设置下半部分根滚动视图的高度
         _cursor.rootScrollViewHeight = SYPViewHeight - kCursorNavHeight;
+        _cursor.navBarX = SYPDefaultMargin * 2;
         //默认值是白色
         _cursor.titleNormalColor = SYPColor_TextColor_Chief;
         //默认值是白色

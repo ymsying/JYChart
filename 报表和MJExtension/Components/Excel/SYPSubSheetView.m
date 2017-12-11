@@ -29,7 +29,7 @@
 - (SYPSheetView *)sheetView {
     if (!_sheetView) {
         
-        _sheetView = [[SYPSheetView alloc] initWithFrame:CGRectMake(SYPDefaultMargin * 2, CGRectGetMaxY(self.sheetTitleLabel.frame), SYPScreenWidth - SYPDefaultMargin * 2 * 2, SYPViewHeight - CGRectGetMaxY(self.sheetTitleLabel.frame))];
+        _sheetView = [[SYPSheetView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.sheetTitleLabel.frame), SYPScreenWidth, SYPViewHeight - CGRectGetMaxY(self.sheetTitleLabel.frame))];
         _sheetView.flexibleHeight = YES;
     }
     return _sheetView;

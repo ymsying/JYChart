@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zoe-OE-1Jh">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,11 +15,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tQi-Aq-vXO" customClass="SYPPageView">
-                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -47,84 +47,84 @@
             <objects>
                 <viewController id="ERC-DS-NtO" customClass="SYPFirstViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vfV-iF-UhT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vtz-zO-j8m">
-                                <rect key="frame" x="8" y="79" width="65" height="30"/>
+                                <rect key="frame" x="8" y="79" width="72.666666666666671" height="30"/>
                                 <state key="normal" title="单值"/>
                                 <connections>
                                     <action selector="clickBtn:" destination="ERC-DS-NtO" eventType="touchUpInside" id="UqJ-Mz-PwA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ChA-yZ-6aY">
-                                <rect key="frame" x="81" y="79" width="65.5" height="30"/>
+                                <rect key="frame" x="88.666666666666686" y="79" width="73.333333333333314" height="30"/>
                                 <state key="normal" title="大标题"/>
                                 <connections>
                                     <action selector="clickBtn:" destination="ERC-DS-NtO" eventType="touchUpInside" id="kc7-uP-eYm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TdJ-1v-qD8">
-                                <rect key="frame" x="154.5" y="79" width="66" height="30"/>
+                                <rect key="frame" x="170" y="79" width="74" height="30"/>
                                 <state key="normal" title="副标题"/>
                                 <connections>
                                     <action selector="clickBtn:" destination="ERC-DS-NtO" eventType="touchUpInside" id="yO4-gW-gb3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79h-gG-wqk">
-                                <rect key="frame" x="228.5" y="79" width="65.5" height="30"/>
+                                <rect key="frame" x="252.00000000000003" y="79" width="73.333333333333343" height="30"/>
                                 <state key="normal" title="折线图"/>
                                 <connections>
                                     <action selector="clickBtn:" destination="ERC-DS-NtO" eventType="touchUpInside" id="fD2-ws-BNH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pCe-bp-rp9">
-                                <rect key="frame" x="191.5" y="548" width="175.5" height="30"/>
+                                <rect key="frame" x="211" y="617" width="195" height="30"/>
                                 <state key="normal" title="表格"/>
                                 <connections>
                                     <action selector="clickBtn:" destination="ERC-DS-NtO" eventType="touchUpInside" id="1Ev-8Z-IDb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAs-Th-v5Z">
-                                <rect key="frame" x="302" y="79" width="65" height="30"/>
+                                <rect key="frame" x="333.33333333333331" y="79" width="72.666666666666686" height="30"/>
                                 <state key="normal" title="筛选"/>
                                 <connections>
                                     <action selector="clickBtn:" destination="ERC-DS-NtO" eventType="touchUpInside" id="Fgu-sH-jxi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TS-m6-HKa">
-                                <rect key="frame" x="8" y="548" width="175.5" height="30"/>
+                                <rect key="frame" x="8" y="617" width="195" height="30"/>
                                 <state key="normal" title="条状图"/>
                                 <connections>
                                     <action selector="clickBtn:" destination="ERC-DS-NtO" eventType="touchUpInside" id="rKh-VT-yUM"/>
                                 </connections>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qDJ-sX-IQL" customClass="SYPCompareSaleView">
-                                <rect key="frame" x="20" y="149" width="335" height="379"/>
+                                <rect key="frame" x="20" y="149" width="374" height="448"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oYU-eP-Zkg" customClass="SYPBannerView">
-                                <rect key="frame" x="20" y="149" width="335" height="379"/>
+                                <rect key="frame" x="20" y="149" width="374" height="448"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oVK-PH-jgO" customClass="SYPInfoView">
-                                <rect key="frame" x="20" y="149" width="335" height="379"/>
+                                <rect key="frame" x="20" y="149" width="374" height="448"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugn-qG-8ym" customClass="SYPClickableLineView">
-                                <rect key="frame" x="20" y="149" width="335" height="379"/>
+                                <rect key="frame" x="20" y="149" width="374" height="448"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0bq-t1-wCL" customClass="SYPFilterView">
-                                <rect key="frame" x="20" y="149" width="335" height="379"/>
+                                <rect key="frame" x="20" y="149" width="374" height="448"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EZ3-7p-3rJ" customClass="SYPLandscapeBarView">
-                                <rect key="frame" x="20" y="149" width="335" height="379"/>
+                                <rect key="frame" x="20" y="149" width="374" height="448"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="db8-7U-180" customClass="SYPExcelView">
-                                <rect key="frame" x="20" y="149" width="335" height="379"/>
+                                <rect key="frame" x="20" y="149" width="374" height="448"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -204,7 +204,7 @@
                     <tabBarItem key="tabBarItem" title="单个组件" id="ReZ-se-2Te"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Uu3-qa-NeW">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -227,8 +227,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="KiK-ed-LK8" kind="relationship" relationship="viewControllers" id="2r2-kd-oFh"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="dYT-pF-47u"/>
+                        <segue destination="KiK-ed-LK8" kind="relationship" relationship="viewControllers" id="2r2-kd-oFh"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xB3-QF-UBn" userLabel="First Responder" sceneMemberID="firstResponder"/>

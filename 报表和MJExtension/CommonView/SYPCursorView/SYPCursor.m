@@ -31,7 +31,7 @@
 @property (nonatomic, assign) BOOL             isRefash;
 @property (nonatomic, assign) BOOL             isLayout;
 @property (nonatomic, assign) CGFloat          oldOffset;
-@property (nonatomic, assign) CGFloat          navBarH;
+//@property (nonatomic, assign) CGFloat          navBarH;
 @property (nonatomic, assign) NSInteger        oldBtnIndex;
 @end
 
@@ -74,13 +74,13 @@
     CGFloat y = rect.origin.y;
     CGFloat w = rect.size.width;
     CGFloat h = rect.size.height;
-    if (self.navBarH == 0 ) {
-        self.navBarH = h;
-        h = h + _rootScrollViewHeight;
-    }
-    else {
+//    if (self.navBarH == 0 ) {
+//        self.navBarH = h;
+//        h = h + _rootScrollViewHeight;
+//    }
+//    else {
         h = self.navBarH + _rootScrollViewHeight;
-    }
+//    }
     CGRect frameChanged = CGRectMake(x, y, w, h);
     [self setFrame:frameChanged];
 }
@@ -160,6 +160,7 @@
 {
     self = [super init];
     if (self) {
+        self.navBarH = 45;
         [self setup];
     }
     return self;
@@ -188,10 +189,10 @@
 
 - (void)layoutScrollNavBar {
     //不显示排序按钮的布局
-    CGFloat scrollX         = SYPDefaultMargin * 2;
+    CGFloat scrollX         = self.navBarX;
     CGFloat scrollY         = 0;
-    CGFloat scrollH         = 45;
-    self.navBarH            = scrollH;
+    CGFloat scrollH         = self.navBarH;
+//    self.navBarH            = scrollH;
     CGFloat scrollW         = self.width - scrollX;
     self.scrollNavBar.frame = CGRectMake(scrollX, scrollY, scrollW, scrollH);
 }
