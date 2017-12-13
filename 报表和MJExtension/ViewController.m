@@ -43,7 +43,7 @@
 - (SYPPageModel *)pageModel {
     if (!_pageModel) {
         // 数据准备
-        NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"template1_03" ofType:@"json"];
+        NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"template1_06" ofType:@"json"];
         
         id data = [NSData dataWithContentsOfFile:dataPath];
         NSError *error = nil;

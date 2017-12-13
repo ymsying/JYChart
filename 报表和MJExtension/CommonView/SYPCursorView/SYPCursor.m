@@ -53,7 +53,7 @@
     _pageViews = pageViews;
     
     self.scrollNavBar.pageViews = pageViews;
-    _scrollNavBar.rootScrollView = self.rootScrollView;
+    self.scrollNavBar.rootScrollView = self.rootScrollView;
 }
 
 
@@ -68,6 +68,9 @@
 #pragma mark - 属性配置
 
 - (void)setRootScrollViewHeight:(CGFloat)rootScrollViewHeight{
+    if (_rootScrollViewHeight != rootScrollViewHeight) {
+        self.isLayout = NO;
+    }
     _rootScrollViewHeight = rootScrollViewHeight;
     CGRect rect = self.frame;
     CGFloat x = rect.origin.x;

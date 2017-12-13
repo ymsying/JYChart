@@ -29,6 +29,13 @@
     return [NSString stringWithFormat:@"<%@ %p> %@", [self class], self, [self mj_keyValues]];
 }
 
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"display"]) {
+        [self filterWithFilter:self.filter];
+    }
+}
+
 /*
  ///////////////////////////////////////////////////////////////
  //                                                           //
@@ -81,20 +88,32 @@
         [chartList addObject:baseChart];
     }
     
-    
-    SYPPageModel *model = [[SYPPageModel alloc] init];
-    model.filter = [SYPFilterModel mj_objectWithKeyValues:info[@"filter"]];
-    model.parts = chartList;
-    model.tabControl = tabTitles;
+    SYPFilterModel *filter = [SYPFilterModel mj_objectWithKeyValues:info[@"filter"]];
+    SYPPageModel *pageModel = [[SYPPageModel alloc] init];
+    pageModel.filter = filter;
+    pageModel.parts = chartList;
+    pageModel.tabControl = tabTitles;
 
-    return model;
+    [filter addObserver:pageModel forKeyPath:@"display" options:NSKeyValueObservingOptionNew context:NULL];
+    return pageModel;
+}
+
+- (NSArray<NSString *> *)tabControl {
+    // 整理选项卡
+    NSMutableArray *tabs = [NSMutableArray array];
+    [self.parts enumerateObjectsUsingBlock:^(SYPBaseChartModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (![tabs containsObject:obj.pageTitle]) {
+            [tabs addObject:obj.pageTitle];
+        }
+    }];
+    _tabControl = [tabs copy];
+    return _tabControl;
 }
 
 - (void)filterWithFilter:(SYPFilterModel *)filter {
     
-    if ([filter.display isEqualToString:lastestFilter]) {
-        return;
-    }
+    if ([filter.display isEqualToString:lastestFilter]) return;
+    
     if (filter.display.length) {
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", filter.display];
@@ -104,6 +123,7 @@
         //        return [chartModel.name isEqualToString:filter.display];
         //    }]];
         self.filteredList = parts;
+        
     }
     else {
         self.filteredList = [_parts copy];;

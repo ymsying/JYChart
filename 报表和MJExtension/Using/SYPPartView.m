@@ -7,6 +7,7 @@
 //
 
 #import "SYPPartView.h"
+#import "SYPConstantString.h"
 #import "SYPBaseChartModel.h"
 #import "SYPTablesModel.h"
 #import "SYPPageModel.h"
@@ -112,7 +113,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGFloat offset = self.offsetExcelHead ? (self.offsetExcelHead) : 0;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollUpOrDown" object:self userInfo:@{@"origin": [NSString stringWithFormat:@"{0,%lf}", self.navStsH +offset]}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SYPUpdateExcelHeadFrame object:self userInfo:@{@"origin": [NSString stringWithFormat:@"{0,%lf}", self.navStsH +offset]}];
 }
 
 #pragma mark - <SYPModuleTwoCellDelegate>

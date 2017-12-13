@@ -78,7 +78,7 @@
             break;
             
         default:
-            color = [UIColor lightGrayColor]; // 灰色表示未定义
+            color = SYPColor_AlertBackgroudColor_BlackGray; // 灰色表示未定义
             break;
     }
     

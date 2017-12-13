@@ -17,6 +17,7 @@
 @interface SYPPageView () <SYPFilterViewProtocol> {
     NSString *currentFilterString;
     CGFloat cursorNavBarH;
+    CGFloat cursorY;
     BOOL isLayout;
 }
 
@@ -50,16 +51,12 @@
     
     [super layoutSubviews];
     
-    CGFloat cursorY = 0;
-    if (self.pageModel.filter.display) {
-        cursorY = self.filterView.y + self.filterView.height;
-    }
-    
     self.cursor.navBarH = cursorNavBarH;
     // 此时的height是设置nav的高，固定高度是45
     self.cursor.frame = CGRectMake(0, cursorY, SYPViewWidth, cursorNavBarH);
     //设置根滚动视图的高度，然后更新整个Cursor的高度
-    self.cursor.rootScrollViewHeight = SYPViewHeight - (cursorNavBarH) - self.navH;
+    CGFloat rootScrollViewHeight = SYPViewHeight - (cursorNavBarH + cursorY) - self.navH;
+    self.cursor.rootScrollViewHeight = rootScrollViewHeight;
     
 }
 
@@ -107,7 +104,7 @@
         
         for (SYPPartModel *model in self.pageModel.filteredPartList) {
             SYPPartView *statementView = [[SYPPartView alloc] init];
-            statementView.offsetExcelHead = cursorNavBarH;
+            statementView.offsetExcelHead = cursorNavBarH + cursorY;
             statementView.partModel = model;
             [_partViews addObject:statementView];
         }
@@ -118,19 +115,21 @@
 - (void)setPageModel:(SYPPageModel *)pageModel {
     if (![_pageModel isEqual:pageModel]) {
         _pageModel = pageModel;
+        
+        self.filterView.filterModel = _pageModel.filter;
         [self refreshSubViewData];
     }
 }
 
 
 - (void)refreshSubViewData {
-    
+    // 1. 计算表头偏移量
     cursorNavBarH = (self.pageModel.tabControl.count > 1) ? 45 : 0;
-    
-    self.filterView.filterModel = self.pageModel.filter;
+    cursorY = self.filterView.y + self.filterView.height + 1 ;
+    // 2. 设置多页及选项卡
     self.cursor.titles = self.pageModel.tabControl;
     self.cursor.pageViews = self.partViews;
-    
+    // 3. 记录当前过滤关键字
     currentFilterString = self.pageModel.filter.display;
 }
 
@@ -139,6 +138,7 @@
 - (void)filterView:(SYPFilterView *)filterView selecteResult:(NSString *)result {
     self.pageModel.filter.display = result;
     [self refreshSubViewData];
+    [self layoutSubviews];
 }
 
 

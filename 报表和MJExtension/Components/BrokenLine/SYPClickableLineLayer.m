@@ -65,7 +65,9 @@
         }
     }];
     
-    [self addOriginalPointLine];
+    if (minValue < 0) {
+        [self addOriginalPointLine];
+    }
 }
 
 - (void)setLineParms:(NSDictionary<NSString *,NSDictionary *> *)lineParms {

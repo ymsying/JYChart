@@ -21,7 +21,9 @@
 #define scrollNavBarUpdate        @"scrollNavBarUpdate"
 #define rootScrollUpdateAfterSort @"updateAfterSort"
 
-@interface SYPScrollNavBar()<UIScrollViewDelegate>
+@interface SYPScrollNavBar()<UIScrollViewDelegate> {
+    UIView *btnContentView;
+}
 
 @property (nonatomic, weak) UIButton *firstButton;
 @property (nonatomic, weak) UIButton *secButton;
@@ -79,7 +81,7 @@
         _indicateLine = [[UIView alloc] init];
         _indicateLine.height = IndicateLineH;
         _indicateLine.hidden = YES;
-        UIView *btnContentView = [self viewWithTag:-10001];
+        btnContentView = [self viewWithTag:-10001];
         if (!btnContentView) {
             btnContentView = [[UIView alloc] init];
             btnContentView.tag = -10001;
@@ -94,9 +96,7 @@
 - (void)setItemKeys:(NSMutableArray *)itemKeys{
     _itemKeys = itemKeys;
     self.tmpKeys = itemKeys;
-    if(self.itemsDic.count == 0){
-        [self setupItems];
-    }
+    [self setupItems];
 }
 
 - (void)setPageViews:(NSMutableArray *)pageViews{
@@ -228,6 +228,8 @@
 }
 
 - (void)setupItems{
+    [btnContentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.itemsDic removeAllObjects];
     NSInteger itensCount = self.tmpKeys.count;
     for (NSInteger i = 0; i < itensCount; i++) {
         UIButton *button = [self createItemWithTitle:self.tmpKeys[i]];
@@ -281,7 +283,6 @@
     }
 
     self.contentSize = CGSizeMake(tempBtn.x + tempBtn.width + SYPDefaultMargin, buttonH);
-    UIView *btnContentView = [self viewWithTag:-10001];
     btnContentView.frame = CGRectMake(0, 0, tempBtn.x + tempBtn.width, buttonH);
     if (btnContentView.width < self.width && self.isButtonAlignmentCenter) {
         CGPoint point = btnContentView.center;
@@ -325,7 +326,7 @@
 
 - (UIButton *)createItemWithTitle:(NSString *)title{
     
-    UIView *btnContentView = [self viewWithTag:-10001];
+    btnContentView = [self viewWithTag:-10001];
     if (!btnContentView) {
         btnContentView = [[UIView alloc] init];
         btnContentView.tag = -10001;
