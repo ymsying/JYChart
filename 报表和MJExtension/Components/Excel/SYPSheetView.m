@@ -7,12 +7,14 @@
 //
 
 #import "SYPSheetView.h"
-
+#import "SYPConstantString.h"
 #import "SYPTablesModel.h"
 #import "SYPFreezeWindowView.h"
 #import "SYPHudView.h"
-
 #import "SYPSubSheetView.h"
+
+static NSNotificationName const SYPUpdateExcelHeadFrame = @"updateExcelHeadFrame";
+
 
 static NSString *mainCellID = @"mainCell";
 static NSString *sectionCellID = @"sectionCell";
@@ -46,7 +48,7 @@ static NSString *rowCellID = @"rowCell";
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"scrollUpOrDown" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SYPUpdateExcelHeadFrame object:nil];
 }
 
 - (void)layoutSubviews {
@@ -94,6 +96,11 @@ static NSString *rowCellID = @"rowCell";
     [self addSubview:self.freezeView];
 }
 
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+}
+
+#pragma mark - 表头悬浮处理
 - (void)canBeScroller:(UIView *)view canBeScroll:(BOOL *)scroll{
     for (UIView *subView in view.subviews) {
         if ([subView.subviews containsObject:self]) {
@@ -106,8 +113,7 @@ static NSString *rowCellID = @"rowCell";
     }
 }
 
-// !!!: 表头悬浮处理
-// 需要在他最近的上一层scrollview的滚动事件代理方法中设置通知源
+// 需要在特定的scrollview的滚动事件代理方法中设置通知源
 - (void)refreshSectionViewFrame:(NSNotification *)nt {
     
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
@@ -158,7 +164,7 @@ static NSString *rowCellID = @"rowCell";
             //printf("……………………retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self.freezeView.sectionView)));
         }
     }
-    else {
+    else { // 其他页面中进行滑动时复原表头位置
         
         //NSLog(@"外部复原");
         [self.freezeView addSubview:self.freezeView.sectionView];
@@ -293,6 +299,7 @@ static NSString *rowCellID = @"rowCell";
     }
 }
 
+#pragma mark - 外部接口实现
 - (CGFloat)estimateViewHeight:(SYPBaseChartModel *)model {
     // TODO: 根据model动态修改，将表格全部展示完。提供给父视图的高度正好展示完，本身所在的scrollview不进行滑动
     return ((SYPTableConfigModel *)model).data.count * kMianCellHeight + kSheetHeadHeight;

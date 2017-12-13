@@ -34,7 +34,7 @@
             {
                 _style = style;
                 _titleLabel = [[UILabel alloc] init];
-                _titleLabel.textColor = SYPColor_TextColor_Chief;
+                _titleLabel.textColor = SYPColor_AlertBackgroudColor_BlackGray;
                 _titleLabel.textAlignment = NSTextAlignmentCenter;
                 _titleLabel.font = [UIFont boldSystemFontOfSize:14];
                 [self addSubview:_titleLabel];

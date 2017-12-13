@@ -102,10 +102,6 @@
     for (int i = 0; i < numberOfCells; i++) {
         CGFloat cellX = i * (self.width) + leftMargin;
         CGRect cellFrame = CGRectMake(cellX, cellY, cellWidth, cellHeght);
-//        if ([self.pageViews[0] isKindOfClass:[SYPSheetView class]]) {
-//            cellX = i * (self.width) + leftMargin + SYPDefaultMargin * 2;
-//            cellFrame = CGRectMake(cellX, cellY, cellWidth - SYPDefaultMargin * 2, cellHeght);
-//        }
         NSValue *cellFrameValue = [NSValue valueWithCGRect:cellFrame];
         [self.pageViewFrames addObject:cellFrameValue];
     }
