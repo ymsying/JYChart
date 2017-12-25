@@ -10,7 +10,8 @@
 #import "SYPConstantColor.h"
 #import "SYPConstantSize.h"
 #import "SYPFilterPopView.h"
-
+#import "UIButton+SYPPositionSwap.h"
+#import "Masonry.h"
 
 #pragma mark - SYPFilterView
 @interface SYPFilterView ()
@@ -22,12 +23,11 @@
 
 @implementation SYPFilterView
 
-
+#pragma mark - Initialize Method
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
         self.clipsToBounds = YES;
-        [self addSubview:self.filterLabel];
-        [self addSubview:self.filterBtn];
+        [self addSubviews];
     }
     return self;
 }
@@ -35,18 +35,30 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.clipsToBounds = YES;
-        [self addSubview:self.filterLabel];
-        [self addSubview:self.filterBtn];
+        [self addSubviews];
     }
     return self;
 }
 
-- (void)layoutSubviews {
-    self.filterLabel.frame = CGRectMake(0, 0, SYPViewWidth * 0.7, SYPViewHeight);
-    self.filterBtn.frame = CGRectMake(SYPViewMaxX1(self.filterLabel), 0, SYPViewWidth * 0.3, SYPViewHeight);
-    [self updateFilterBtnContentFrame];
+- (void)addSubviews {
+    
+    [self addSubview:self.filterLabel];
+    [self.filterLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.mas_equalTo(0);
+        make.width.mas_equalTo(self.mas_width).multipliedBy(0.7);
+    }];
+    
+    [self addSubview:self.filterBtn];
+    [self.filterBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.mas_equalTo(0);
+        make.width.mas_equalTo(self.mas_width).multipliedBy(0.3);
+        make.right.mas_equalTo(0);
+    }];
+    
+    [self.filterBtn updateBtnContentPosition];
 }
 
+#pragma mark - lazy
 - (UILabel *)filterLabel {
     if (!_filterLabel) {
         _filterLabel = [[UILabel alloc] init];
@@ -63,13 +75,13 @@
         _filterBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
         [_filterBtn setTitleColor:SYPColor_AlertBackgroudColor_BlackGray forState:UIControlStateNormal];
         [_filterBtn setImage:[UIImage imageNamed:@"pop_screen"] forState:UIControlStateNormal];
-        _filterBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-        
+        _filterBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;        
         [_filterBtn addTarget:self action:@selector(showFilterList:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _filterBtn;
 }
 
+#pragma mark - Property Mothed
 - (void)setFilterModel:(SYPFilterModel *)filterModel {
     if (![_filterModel isEqual:filterModel]) {
         _filterModel = filterModel;
@@ -77,22 +89,12 @@
     }
 }
 
+#pragma mark Logic Method
 //- (void)refreshSubViewData {
 //    if (!self.filterModel) {
 //        self.filterModel = (SYPFilterModel *)self.moduleModel;
 //    }
 //}
-
-- (void)updateFilterBtnContentFrame {
-    
-    // btn中title和image交互位置。偏移时，相对原位置进行移动，保证title、image大小不变
-    CGFloat offset = 0;
-    CGFloat imageWidth = _filterBtn.imageView.bounds.size.width;
-    CGFloat labelWidth = _filterBtn.titleLabel.bounds.size.width;
-    _filterBtn.imageEdgeInsets = UIEdgeInsetsMake(0, labelWidth + offset, 0, -labelWidth - offset);
-    _filterBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -imageWidth - 6, 0, imageWidth + 6);
-}
-
 
 - (void)showFilterList:(UIButton *)sender {
     

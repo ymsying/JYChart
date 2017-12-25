@@ -28,38 +28,27 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor];
-        barHeight = SYPViewHeight / self.dataSource.count;
+        barHeight = CGFLOAT_MAX;
         maxValue = 0.0;
         minValue = CGFLOAT_MAX;
     }
     return self;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self addLayer];
+}
+
 - (void)setAutoLayoutHeight:(BOOL)autoLayoutHeight {
     _autoLayoutHeight = autoLayoutHeight;
-    if (autoLayoutHeight) {
-        barHeight = kBarHeight;
-    } else {
-        barHeight = (SYPViewHeight - (SYPDefaultMargin * _dataSource.count)) / _dataSource.count;
-    }
-    [self layoutIfNeeded];
+    [self setNeedsLayout];
 }
 
 - (void)setDataSource:(NSArray *)dataSource {
     
     _dataSource = dataSource;
-    if (self.autoLayoutHeight) {
-        barHeight = kBarHeight;
-    }
-    else {
-        barHeight = (SYPViewHeight - (SYPDefaultMargin * _dataSource.count) - SYPDefaultMargin) / _dataSource.count;
-    }
-    [self layoutIfNeeded];
-}
-
-- (void)layoutIfNeeded {
-    [super layoutIfNeeded];
-    [self addLayer];
+    [self setNeedsLayout];
 }
 
 - (void)refreshSubViewData {
@@ -121,6 +110,13 @@
 }
 
 - (void)formatDataSource {
+    
+    if (self.autoLayoutHeight) {
+        barHeight = kBarHeight;
+    }
+    else {
+        barHeight = (SYPViewHeight - (SYPDefaultMargin * _dataSource.count) - SYPDefaultMargin) / _dataSource.count;
+    }
     
     [self.dataSource enumerateObjectsUsingBlock:^(SYPColourPointModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         maxValue = [obj.value floatValue] > maxValue ? [obj.value floatValue] : maxValue;

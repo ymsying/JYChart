@@ -8,6 +8,7 @@
 
 #import "SYPInfoView.h"
 #import "SYPInfoModel.h"
+#import "Masonry.h"
 
 @interface SYPInfoView ()
 
@@ -17,24 +18,6 @@
 @end
 
 @implementation SYPInfoView
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    if (self = [super initWithCoder:aDecoder]) {
-        [self addSubview:self.infoLabel];
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        [self addSubview:self.infoLabel];
-    }
-    return self;
-}
-
-- (void)layoutSubviews {
-    self.infoLabel.frame = self.bounds;
-}
 
 - (SYPInfoModel *)infoModel {
     if (!_infoModel) {
@@ -49,6 +32,10 @@
         //_infoLabel.textColor = SYPColor_TextColor_Chief;
         _infoLabel.font = [UIFont systemFontOfSize:15];
         _infoLabel.numberOfLines = 0;
+        [self addSubview:_infoLabel];
+        [_infoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.bottom.right.mas_equalTo(0);
+        }];
     }
     return _infoLabel;
 }
