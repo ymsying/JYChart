@@ -125,7 +125,7 @@
 - (void)refreshSubViewData {
     // 1. 计算表头偏移量
     cursorNavBarH = (self.pageModel.tabControl.count > 1) ? 45 : 0;
-    cursorY = self.filterView.y + self.filterView.height + 1 ;
+    cursorY = self.pageModel.filter.display.length> 1 ? (self.filterView.y + self.filterView.height + 1) : self.filterView.y;
     // 2. 设置多页及选项卡
     self.cursor.titles = self.pageModel.tabControl;
     self.cursor.pageViews = self.partViews;
