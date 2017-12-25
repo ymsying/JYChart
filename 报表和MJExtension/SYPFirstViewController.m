@@ -100,7 +100,7 @@
 - (SYPPageModel *)pageModel {
     if (!_pageModel) {
         // 数据准备 3#数据大，1#筛选
-        NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"template1_01" ofType:@"json"];
+        NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"template1_03" ofType:@"json"];
         
         id data = [NSData dataWithContentsOfFile:dataPath];
         NSError *error = nil;

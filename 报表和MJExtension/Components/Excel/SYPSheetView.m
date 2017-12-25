@@ -12,6 +12,7 @@
 #import "SYPFreezeWindowView.h"
 #import "SYPHudView.h"
 #import "SYPSubSheetView.h"
+#import "Masonry.h"
 
 static NSNotificationName const SYPUpdateExcelHeadFrame = @"updateExcelHeadFrame";
 
@@ -73,7 +74,7 @@ static NSString *rowCellID = @"rowCell";
 - (SYPFreezeWindowView *)freezeView {
     if (!_freezeView) {
         CGRect frame = self.bounds;
-        { //  显示圆点的处理
+        { //  显示"圆点"的处理
             frame.origin.x += SYPDefaultMargin * 2;
             frame.size.width -= SYPDefaultMargin * 2;
         }
@@ -94,6 +95,11 @@ static NSString *rowCellID = @"rowCell";
 - (void)initializeSubView {
     
     [self addSubview:self.freezeView];
+//    [self.freezeView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.mas_equalTo(SYPDefaultMargin * 2);
+//        make.right.mas_equalTo(SYPDefaultMargin * 2);
+//        make.top.bottom.mas_equalTo(0);
+//    }];
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

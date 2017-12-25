@@ -31,39 +31,6 @@
 
 @implementation SYPPartViewCell
 
-
-- (void)setViewModel:(SYPBaseChartModel *)viewModel {
-    if (![_viewModel isEqual:viewModel]) {
-        _viewModel = viewModel;
-        
-        [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        
-        switch (self.viewModel.chartType) {
-            case SYPChartTypeBanner:
-                [self addSubview:self.bannerView];
-                break;
-            case SYPChartTypeLineOrHistogram:
-                [self addSubview:self.clickableLineView];
-                break;
-            case SYPChartTypeTables:
-                [self addSubview:self.excelView];
-                break;
-            case SYPChartTypeInfo:
-                [self addSubview:self.infoView];
-                break;
-            case SYPChartTypeSingleValue:
-                [self addSubview:self.compareSaleView];
-                break;
-            case SYPChartTypeBargraph:
-                [self addSubview:self.landscapeBarView];
-                break;
-                
-            default:
-                break;
-        }
-    }
-}
-
 - (SYPInfoView *)infoView {
     if (!_infoView) {
         _infoView = [[SYPInfoView alloc] initWithFrame:CGRectMake(ToLeftMargin, 0, SYPViewWidth - ToLeftMargin * 2, SYPViewHeight)];
@@ -120,6 +87,37 @@
     return _landscapeBarView;
 }
 
+- (void)setViewModel:(SYPBaseChartModel *)viewModel {
+    if (![_viewModel isEqual:viewModel]) {
+        _viewModel = viewModel;
+        
+        [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        
+        switch (self.viewModel.chartType) {
+            case SYPChartTypeBanner:
+                [self addSubview:self.bannerView];
+                break;
+            case SYPChartTypeLineOrHistogram:
+                [self addSubview:self.clickableLineView];
+                break;
+            case SYPChartTypeTables:
+                [self addSubview:self.excelView];
+                break;
+            case SYPChartTypeInfo:
+                [self addSubview:self.infoView];
+                break;
+            case SYPChartTypeSingleValue:
+                [self addSubview:self.compareSaleView];
+                break;
+            case SYPChartTypeBargraph:
+                [self addSubview:self.landscapeBarView];
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
 
 - (CGFloat)cellHeightWithModel:(SYPBaseChartModel *)model {
     
