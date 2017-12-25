@@ -10,6 +10,7 @@
 #import "SYPBlockButton.h"
 #import "SYPConstantColor.h"
 #import "SYPConstantSize.h"
+#import "Masonry.h"
 
 @interface SYPInvertView () {
     UILabel *title;
@@ -33,20 +34,30 @@
 
 - (void)initializeSubView {
     
-    title = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, SYPViewHeight)];
+    title = [[UILabel alloc] init];//WithFrame:CGRectMake(0, 0, 60, SYPViewHeight)
     title.textColor = SYPColor_TextColor_Chief;
     title.font = [UIFont systemFontOfSize:14];
     title.textAlignment = NSTextAlignmentCenter;
     [self addSubview:title];
+    [title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.mas_equalTo(0);
+        make.width.mas_equalTo(60);
+    }];
     
-    _icon = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(title.frame), (CGRectGetHeight(self.bounds) - 12) / 2.0, 6, 12)];
+    _icon = [[UIImageView alloc] init];//WithFrame:CGRectMake(CGRectGetMaxX(title.frame), (CGRectGetHeight(self.bounds) - 12) / 2.0, 6, 12)
     _icon.image = [UIImage imageNamed:@"icon_sort"];
     _icon.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
     [self addSubview:_icon];
+    [_icon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(title.mas_right);
+        make.centerY.mas_equalTo(0);
+        make.width.mas_equalTo(6);
+        make.height.mas_equalTo(12);
+    }];
     
     __weak typeof(self) weakSelf = self;
     _btn = [SYPBlockButton buttonWithType:UIButtonTypeCustom];
-    _btn.frame = self.bounds;
+    //_btn.frame = self.bounds;
     [_btn setHandler:^(BOOL isSelected) {
         
         if (weakSelf.inverHandler) {
@@ -61,6 +72,9 @@
         }
     }];
     [self addSubview:_btn];
+    [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.mas_equalTo(0);
+    }];
 }
 
 - (void)setTypeName:(NSString *)typeName {

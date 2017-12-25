@@ -70,13 +70,13 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
     SYPBaseChartModel *model = self.partModel.chartList[indexPath.section];
-    if (model.chartType == SYPChartTypeTables) {
-        SYPTablesModel *excelModel = (SYPTablesModel *)model;
-        cell.viewModel = excelModel;
-    }
-    else {
-        cell.viewModel = self.partModel.chartList[indexPath.section];
-    }
+//    if (model.chartType == SYPChartTypeTables) {
+//        SYPTablesModel *excelModel = (SYPTablesModel *)model;
+//        cell.viewModel = excelModel;
+//    }
+//    else {
+        cell.viewModel = model;//self.partModel.chartList[indexPath.section];
+//    }
     return cell;
 }
 
@@ -84,13 +84,13 @@
     CGFloat height = 0.0;
     
     SYPBaseChartModel *model = self.partModel.chartList[indexPath.section];
-    if (model.chartType == SYPChartTypeTables) {
-        SYPTablesModel *excelModel = (SYPTablesModel *)model;
-        height = [self.moduleTwoCell cellHeightWithModel:excelModel];
-    }
-    else {
-        height = [self.moduleTwoCell cellHeightWithModel:self.partModel.chartList[indexPath.section]];
-    }
+//    if (model.chartType == SYPChartTypeTables) {
+//        SYPTablesModel *excelModel = (SYPTablesModel *)model;
+//        height = [self.moduleTwoCell cellHeightWithModel:excelModel];
+//    }
+//    else {
+        height = [self.moduleTwoCell cellHeightWithModel:model];//self.partModel.chartList[indexPath.section]
+//    }
     return height;
 }
 

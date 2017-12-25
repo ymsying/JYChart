@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zoe-OE-1Jh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zoe-OE-1Jh">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -66,6 +66,9 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TdJ-1v-qD8">
                                 <rect key="frame" x="170" y="79" width="74" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="MpW-Mb-bTG"/>
+                                </constraints>
                                 <state key="normal" title="副标题"/>
                                 <connections>
                                     <action selector="clickBtn:" destination="ERC-DS-NtO" eventType="touchUpInside" id="yO4-gW-gb3"/>
@@ -94,6 +97,9 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TS-m6-HKa">
                                 <rect key="frame" x="8" y="617" width="195" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Hpb-i8-0bi"/>
+                                </constraints>
                                 <state key="normal" title="条状图"/>
                                 <connections>
                                     <action selector="clickBtn:" destination="ERC-DS-NtO" eventType="touchUpInside" id="rKh-VT-yUM"/>
@@ -140,7 +146,6 @@
                             <constraint firstItem="TdJ-1v-qD8" firstAttribute="width" secondItem="79h-gG-wqk" secondAttribute="width" id="9gd-H4-ghb"/>
                             <constraint firstItem="oYU-eP-Zkg" firstAttribute="top" secondItem="qDJ-sX-IQL" secondAttribute="top" id="Ads-ca-4eN"/>
                             <constraint firstItem="0bq-t1-wCL" firstAttribute="trailing" secondItem="qDJ-sX-IQL" secondAttribute="trailing" id="Anc-td-fzM"/>
-                            <constraint firstItem="cAs-Th-v5Z" firstAttribute="top" secondItem="f4y-5d-YmC" secondAttribute="top" constant="15" id="EAu-zx-vbd"/>
                             <constraint firstItem="oVK-PH-jgO" firstAttribute="trailing" secondItem="qDJ-sX-IQL" secondAttribute="trailing" id="EGh-wy-MUL"/>
                             <constraint firstItem="f4y-5d-YmC" firstAttribute="trailing" secondItem="cAs-Th-v5Z" secondAttribute="trailing" constant="8" id="EwI-Ab-sTN"/>
                             <constraint firstItem="ugn-qG-8ym" firstAttribute="leading" secondItem="qDJ-sX-IQL" secondAttribute="leading" id="Hw8-C0-dSc"/>
@@ -163,6 +168,7 @@
                             <constraint firstItem="oYU-eP-Zkg" firstAttribute="leading" secondItem="qDJ-sX-IQL" secondAttribute="leading" id="bI6-fn-I6X"/>
                             <constraint firstItem="Vtz-zO-j8m" firstAttribute="top" secondItem="ChA-yZ-6aY" secondAttribute="top" id="bgg-qq-qm5"/>
                             <constraint firstItem="f4y-5d-YmC" firstAttribute="trailing" secondItem="pCe-bp-rp9" secondAttribute="trailing" constant="8" id="c7h-bf-add"/>
+                            <constraint firstItem="TdJ-1v-qD8" firstAttribute="top" secondItem="f4y-5d-YmC" secondAttribute="top" constant="15" id="cFW-4f-7gM"/>
                             <constraint firstItem="oVK-PH-jgO" firstAttribute="bottom" secondItem="qDJ-sX-IQL" secondAttribute="bottom" id="eHL-9v-33V"/>
                             <constraint firstItem="0bq-t1-wCL" firstAttribute="leading" secondItem="qDJ-sX-IQL" secondAttribute="leading" id="edW-0d-qmj"/>
                             <constraint firstItem="oVK-PH-jgO" firstAttribute="leading" secondItem="qDJ-sX-IQL" secondAttribute="leading" id="fdM-9a-Bu6"/>
@@ -189,7 +195,7 @@
                         <outlet property="ChartView" destination="ugn-qG-8ym" id="cCm-Rw-JxW"/>
                         <outlet property="FilterView" destination="0bq-t1-wCL" id="4jQ-yv-kWr"/>
                         <outlet property="InfoView" destination="oVK-PH-jgO" id="F0c-iV-F2G"/>
-                        <outlet property="SingeValueView" destination="qDJ-sX-IQL" id="sk3-sF-Nsa"/>
+                        <outlet property="SingleValueView" destination="qDJ-sX-IQL" id="RrF-5e-MA7"/>
                         <outlet property="TablesView" destination="db8-7U-180" id="uye-Fm-XRf"/>
                     </connections>
                 </viewController>
@@ -227,8 +233,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="dYT-pF-47u"/>
                         <segue destination="KiK-ed-LK8" kind="relationship" relationship="viewControllers" id="2r2-kd-oFh"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="dYT-pF-47u"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xB3-QF-UBn" userLabel="First Responder" sceneMemberID="firstResponder"/>

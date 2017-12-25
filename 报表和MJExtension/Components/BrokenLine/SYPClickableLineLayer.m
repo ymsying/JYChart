@@ -51,41 +51,15 @@
     [self addGestureRecognizer:pan];
 }
 
-- (void)layoutIfNeeded {
-    
+- (void)layoutSubviews {
+    [super layoutSubviews];
     [self.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     
-    [self.dataSource enumerateObjectsUsingBlock:^(SYPChartSeriesModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString *type = obj.type;
-        if ([@"line" isEqualToString:type]) {
-            [self addLineWithPointsAtIndex:idx];
-        }
-        else if ([@"bar" isEqualToString:type]) {
-            [self addBarWithPointsAtIndex:idx];
-        }
-    }];
-    
-    if (minValue < 0) {
-        [self addOriginalPointLine];
-    }
+    [self formatterPoints];
+    [self addChartLayers];
 }
 
-- (void)setLineParms:(NSDictionary<NSString *,NSDictionary *> *)lineParms {
-    if (![_lineParms isEqual:lineParms]) {
-        
-        NSMutableArray *lineColorListTemp = [NSMutableArray array];
-        NSMutableArray *lineDataListTemp = [NSMutableArray array];
-        for (NSDictionary *dic in [lineParms allValues]) {
-            [lineColorListTemp addObject:dic[@"color"]];
-            [lineDataListTemp addObject:dic[@"series"]];
-        }
-        self.lineColorList = [lineColorListTemp copy];
-        self.dataSource = [lineDataListTemp copy];
-        
-        _lineParms = lineParms;
-    }
-}
-
+#pragma mark - Lazy
 - (NSArray<UIView *> *)flagPointList {
     if (!_flagPointList) {
         NSMutableArray *flagTemp = [NSMutableArray array];
@@ -110,12 +84,26 @@
     return _flagPointList;
 }
 
+#pragma mark - Setter Method
+- (void)setLineParms:(NSDictionary<NSString *,NSDictionary *> *)lineParms {
+    if (![_lineParms isEqual:lineParms]) {
+        
+        NSMutableArray *lineColorListTemp = [NSMutableArray array];
+        NSMutableArray *lineDataListTemp = [NSMutableArray array];
+        for (NSDictionary *dic in [lineParms allValues]) {
+            [lineColorListTemp addObject:dic[@"color"]];
+            [lineDataListTemp addObject:dic[@"series"]];
+        }
+        self.lineColorList = [lineColorListTemp copy];
+        self.dataSource = [lineDataListTemp copy];
+        
+        _lineParms = lineParms;
+    }
+}
+
 - (void)setDataSource:(NSArray<SYPChartSeriesModel *> *)dataSource {
     if (![_dataSource isEqual:dataSource]) {
         _dataSource = dataSource;
-        [self formatterPoints];
-        
-        [self layoutIfNeeded];
     }
 }
 
@@ -128,10 +116,9 @@
             line.strokeColor = self.lineColorList[i].CGColor;
         }
     }
-    [self layoutIfNeeded];
 }
 
-
+#pragma mark Logic Method
 - (void)formatterPoints {
     
     NSInteger keyPointCountMax = 0; // 最长的线或柱状的点个数，数据正常时，线的长度与柱状的长度是一致的
@@ -235,6 +222,24 @@
     return [self.keyPointsList[maxLineIndex] copy];
 }
 
+#pragma mark draw
+- (void)addChartLayers {
+    [self.dataSource enumerateObjectsUsingBlock:^(SYPChartSeriesModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *type = obj.type;
+        if ([@"line" isEqualToString:type]) {
+            [self addLineWithPointsAtIndex:idx];
+        }
+        else if ([@"bar" isEqualToString:type]) {
+            [self addBarWithPointsAtIndex:idx];
+        }
+    }];
+    
+    [self showFlagPoint];
+    if (minValue < 0) {
+        [self addOriginalPointLine];
+    }
+}
+
 // 柱子采用平铺方式，不进行重叠，平铺是平分重叠时柱子的宽度
 - (void)addBarWithPointsAtIndex:(NSInteger)index {
     
@@ -297,8 +302,6 @@
     animation.toValue = @1.0;
     animation.duration = 0.5;
     [linelayer addAnimation:animation forKey:nil];
-    
-    [self performSelector:@selector(showFlagPoint) withObject:nil afterDelay:0.6];
 }
 
 - (void)addOriginalPointLine {
@@ -334,8 +337,8 @@
         maxIndex = self.dataSource[i].data.count > maxLength ? i : maxIndex;
         id obj = self.flagPointList[i];
         if ([obj isKindOfClass:[UIView class]]) {
-            
-            self.flagPointList[i].center = CGPointFromString([self.keyPointsList[i] firstObject]);
+            CGPoint center = CGPointFromString([self.keyPointsList[i] firstObject]);
+            ((UIView *)obj).center = center;
         }
     }
     
@@ -394,7 +397,7 @@
     }
     
     // 防止分组数据中长度不一致时，短分组无数据时有标记点
-    if (!self.dataSource) { // TODO:使用SYPChart进行验证
+    if (!self.dataSource) { 
         int index = 0;
         for (NSArray<NSString *> *points in self.keyPointsList) {
             CGPoint lastPoint = CGPointFromString([points lastObject]);

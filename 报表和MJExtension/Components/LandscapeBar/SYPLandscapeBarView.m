@@ -12,6 +12,7 @@
 #import "SYPInvertView.h"
 #import "SYPBlockButton.h"
 #import "SYPHudView.h"
+#import "Masonry.h"
 
 @interface SYPLandscapeBarView () <SYPLandscapeBarDelegate> {
     UIView *titleView;
@@ -33,7 +34,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
 //        self.clipsToBounds = YES;
-        [self initializeSubVeiw];
+        [self initializeTitle];
     }
     return self;
 }
@@ -41,16 +42,22 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.clipsToBounds = YES;
-        [self initializeSubVeiw];
+        [self initializeTitle];
     }
     return self;
 }
 
 - (SYPLandscapeBarLayer *)landscapeBar {
     if (!_landscapeBar) {
-        _landscapeBar = [[SYPLandscapeBarLayer alloc] initWithFrame:CGRectMake(SYPViewWidth * 3/5, CGRectGetMaxY(titleView.frame), SYPViewWidth * 2/5, SYPViewHeight - SYPViewHeight1(titleView))];
+        _landscapeBar = [[SYPLandscapeBarLayer alloc] init];//WithFrame:CGRectMake(SYPViewWidth * 3/5, CGRectGetMaxY(titleView.frame), SYPViewWidth * 2/5, SYPViewHeight - SYPViewHeight1(titleView))
         _landscapeBar.delegate = self;
         [self addSubview:_landscapeBar];
+        [_landscapeBar mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.mas_right).multipliedBy(0.6);
+            make.top.mas_equalTo(titleView.mas_bottom);
+            make.bottom.mas_equalTo(self.mas_bottom);
+            make.width.mas_equalTo(self.mas_width).multipliedBy(0.4);
+        }];
     }
     return _landscapeBar;
 }
@@ -62,26 +69,36 @@
     return _bargraphModel;
 }
 
-- (void)initializeSubVeiw {
-    
-    [self initializeTitle];
-    //[self initializeAxis];
-}
-
 - (void)initializeTitle {
-    titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SYPViewWidth, 40)];
+    titleView = [[UIView alloc] init];//WithFrame:CGRectMake(0, 0, SYPViewWidth, 40)
     [self addSubview:titleView];
+    [titleView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.mas_equalTo(0);
+        make.height.mas_equalTo(40);
+    }];
     
+    SYPInvertView *lastView;
     __weak typeof(self) weakSelf = self;
     for (int i = 0; i < 2; i++) { // 2/5, 1/5, 2/5
-        SYPInvertView *inverBtn = [[SYPInvertView alloc] initWithFrame:CGRectMake(SYPViewWidth * 2 / 5 * i + SYPDefaultMargin/2 + 10, 0, SYPViewWidth / 5.0 * (i==0? 2 : 1), 40)];
-        //inverBtn.typeName = @[self.bargraphModel.xAxisName, self.bargraphModel.seriesName][i];
+        SYPInvertView *inverBtn = [[SYPInvertView alloc] init];//WithFrame:CGRectMake(SYPViewWidth * 2 / 5 * i + SYPDefaultMargin/2 + 10, 0, SYPViewWidth / 5 * 2, 40)
         inverBtn.tag = -2000 + i;
         [inverBtn setInverHandler:^(NSString *type, BOOL isSelected) {
             [weakSelf invertActionWithType:type selected:isSelected];
         }];
         [titleView addSubview:inverBtn];
+        [inverBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(0);
+            if (lastView) {
+                make.left.mas_equalTo(lastView.mas_right).mas_equalTo(SYPDefaultMargin/2 + 10);
+            }
+            else {
+                make.left.mas_equalTo(SYPDefaultMargin/2 + 10);
+            }
+            make.width.mas_equalTo(titleView.mas_width).multipliedBy(0.4);
+            make.height.mas_equalTo(titleView.mas_height);
+        }];
         
+        lastView = inverBtn;
         if (i == 0) {
             inverBtnFirst = inverBtn;
         }
@@ -89,35 +106,50 @@
             inverBtnSecond = inverBtn;
         }
     }
-    UIView *sepLine = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), SYPViewWidth, 0.5)];
-    sepLine.backgroundColor = SYPColor_TextColor_Chief;
+    UIView *sepLine = [[UIView alloc] init];//WithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), SYPViewWidth, 0.5)
+    sepLine.backgroundColor = SYPColor_TextColor_Minor;
     [titleView addSubview:sepLine];
-
+    [sepLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(titleView.mas_bottom);
+        make.height.mas_equalTo(0.5);
+    }];
 }
 
 - (void)initializeAxis {
     
     [[self viewWithTag:-3000] removeFromSuperview];
-    UIView *proInfoView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMinY(self.landscapeBar.frame), SYPViewWidth * 3 / 5, CGRectGetHeight(self.landscapeBar.frame))];
+    UIView *proInfoView = [[UIView alloc] init];//WithFrame:CGRectMake(0, CGRectGetMinY(self.landscapeBar.frame), SYPViewWidth * 3 / 5, CGRectGetHeight(self.landscapeBar.frame))
     proInfoView.tag = -3000;
     [self addSubview:proInfoView];
+    [proInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        make.top.mas_equalTo(self.landscapeBar.mas_top);
+        make.width.mas_equalTo(self.mas_width).multipliedBy(0.6);
+        make.bottom.mas_equalTo(self.landscapeBar.mas_bottom);
+    }];
     
     NSMutableArray *nameList = [NSMutableArray arrayWithCapacity:self.bargraphModel.xAxisData.count];
     NSMutableArray *rList = [NSMutableArray arrayWithCapacity:self.bargraphModel.seriesData.count];
     for (NSInteger i = 0; i < self.bargraphModel.seriesData.count; i++) {
         
         UIImageView *IV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"down_greenarrow"]];
-        IV.frame = CGRectMake(0, 0, 10, 10);
+        //IV.frame = CGRectMake(0, 0, 10, 10);
         [proInfoView addSubview:IV];
-        CGPoint center = IV.center;
-        center.y = CGPointFromString(self.landscapeBar.pionts[i]).y;
-        IV.center = center;
+//        CGPoint center = IV.center;
+//        center.y = CGPointFromString(self.landscapeBar.pionts[i]).y;
+//        IV.center = center;
         IV.hidden = YES;
         IV.tag = -11000 + i;
         IV.layer.transform = CATransform3DMakeRotation(-M_PI_2, 0, 0, 1);
+        [IV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(0);
+            make.top.mas_equalTo(CGPointFromString(self.landscapeBar.pionts[i]).y);
+            make.width.height.mas_equalTo(10);
+        }];
         
         UIButton *proName = [UIButton buttonWithType:UIButtonTypeCustom];
-        proName.frame = CGRectMake(CGRectGetMaxX(IV.frame) + SYPDefaultMargin / 2.0, 0, SYPViewWidth1(proInfoView) - (SYPViewWidth1(IV) + SYPDefaultMargin / 2.0) - SYPViewWidth / 5, kBarHeight);
+        //proName.frame = CGRectMake(CGRectGetMaxX(IV.frame) + SYPDefaultMargin / 2.0, 0, SYPViewWidth1(proInfoView) - (SYPViewWidth1(IV) + SYPDefaultMargin / 2.0) - SYPViewWidth / 5, kBarHeight);
         [proName addTarget:self action:@selector(clickNameActive:) forControlEvents:UIControlEventTouchUpInside];
         proName.tag = -10000 + i;
         [proName setTitle:self.bargraphModel.xAxisData[i] forState:UIControlStateNormal];
@@ -126,10 +158,15 @@
         proName.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         proName.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         [proInfoView addSubview:proName];
+        [proName mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(IV.mas_right).mas_equalTo(4);
+            make.centerY.mas_equalTo(IV.mas_centerY);
+            make.height.mas_equalTo(kBarHeight);
+        }];
         
-        center = proName.center;
-        center.y = CGPointFromString(self.landscapeBar.pionts[i]).y;
-        proName.center = center;
+//        center = proName.center;
+//        center.y = CGPointFromString(self.landscapeBar.pionts[i]).y;
+//        proName.center = center;
         /*
          proName.userInteractionEnabled = NO;
         // 判断显示不全，用蓝色标示出来，并且点击时显示完整名称
@@ -140,12 +177,19 @@
         */
         
         
-        UILabel *ratio = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(proName.frame), CGRectGetMinY(proName.frame), SYPViewWidth/5, kBarHeight)];
+        UILabel *ratio = [[UILabel alloc] init];//WithFrame:CGRectMake(CGRectGetMaxX(proName.frame), CGRectGetMinY(proName.frame), SYPViewWidth/5, kBarHeight)
         ratio.text = self.bargraphModel.seriesData[i].value;
         ratio.textAlignment = NSTextAlignmentRight;
         ratio.textColor = SYPColor_TextColor_Chief;
         ratio.font = [UIFont systemFontOfSize:12];
         [proInfoView addSubview:ratio];
+        [ratio mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(proName.mas_right);
+            make.right.mas_equalTo(0);
+            make.top.mas_equalTo(proName.mas_top);
+            make.width.mas_equalTo(self.mas_width).dividedBy(5);
+            make.height.mas_equalTo(kBarHeight);
+        }];
         
         [nameList addObject:proName];
         [rList addObject:ratio];
@@ -183,7 +227,7 @@
 
 - (CGFloat)estimateViewHeight:(SYPBaseChartModel *)model {
     
-    return [self.landscapeBar estimateViewHeight:model] + CGRectGetHeight(titleView.frame);
+    return [self.landscapeBar estimateViewHeight:model] + 40/*CGRectGetHeight(titleView.frame)*/;
 }
 
 - (void)refreshSubViewData {

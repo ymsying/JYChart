@@ -11,6 +11,7 @@
 #import "SYPConstantColor.h"
 #import "SYPConstantSize.h"
 #import "UIView+Extension.h"
+#import "Masonry.h"
 
 #define kTabButtonWidth 80
 
@@ -45,17 +46,27 @@
         
         // 刷新前一个按钮文字内容
         SYPTabButton *previousBtn = [tabBtns lastObject];
+        if (!previousBtn) {
+             previousBtn = [[SYPTabButton alloc] initWithFrame:CGRectZero];
+            [self addSubview:previousBtn];
+        }
         [previousBtn setTitle:name forState:UIControlStateNormal];
         
         // 新建一个按钮，默认显示"请选择"
         SYPTabButton *tabBtn = [SYPTabButton buttonWithType:UIButtonTypeCustom];
-        tabBtn.frame = CGRectMake(SYPDefaultMargin * hierarchyNames.count + kTabButtonWidth * (hierarchyNames.count - 1), 0, kTabButtonWidth, self.height);
+        //tabBtn.frame = CGRectMake(SYPDefaultMargin * hierarchyNames.count + kTabButtonWidth * (hierarchyNames.count - 1), 0, kTabButtonWidth, self.height);
         [tabBtn setTitleColor:SYPColor_LineColor_Blue forState:UIControlStateSelected];
         [tabBtn setTitleColor:SYPColor_TextColor_Minor forState:UIControlStateNormal];
         [tabBtn addTarget:self action:@selector(selecteTab:) forControlEvents:UIControlEventTouchUpInside];
         [tabBtn setTitle:@"请选择" forState:UIControlStateNormal];
         tabBtn.tag = hierarchyNames.count - 10000;
         [self addSubview:tabBtn];
+        [tabBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(0);
+            make.left.mas_equalTo(previousBtn.mas_right).mas_equalTo(SYPDefaultMargin);
+            make.width.mas_equalTo(kTabButtonWidth);
+            make.height.mas_equalTo(self.mas_height);
+        }];
         
         [tabBtns addObject:tabBtn];
         // 只有一个使用首次调用时的传入的文字内容

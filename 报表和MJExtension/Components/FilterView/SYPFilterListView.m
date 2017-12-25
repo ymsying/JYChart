@@ -8,8 +8,10 @@
 
 #import "SYPFilterListView.h"
 #import "SYPConstantString.h"
+#import "SYPConstantSize.h"
 #import "UIView+Extension.h"
 #import "SYPFilterListViewCell.h"
+#import "Masonry.h"
 
 static NSString *cellIdentifer = @"SYPFilterListViewCell";
 
@@ -35,9 +37,16 @@ static NSString *cellIdentifer = @"SYPFilterListViewCell";
     return self;
 }
 
+- (void)updateConstraints {
+    [super updateConstraints];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.mas_equalTo(0);
+    }];
+}
+
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.bounds];
+        _tableView = [[UITableView alloc] init];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -49,8 +58,7 @@ static NSString *cellIdentifer = @"SYPFilterListViewCell";
 - (void)showFilterListViewWithOptions:(SYPFilterDataModel *)filterDataModel {
     
     self.filterDataModel = filterDataModel;
-    
-    self.x = self.width;
+    self.x = SYPScreenWidth;
     [UIView animateWithDuration:SYPAnimationToolDuration animations:^{
         self.x = originalX;
     }];

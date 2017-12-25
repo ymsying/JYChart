@@ -8,6 +8,7 @@
 
 #import "SYPTabButton.h"
 #import "SYPConstantColor.h"
+#import "Masonry.h"
 
 @interface SYPTabButton () {
     UIColor *indicatorColorNormal;
@@ -29,7 +30,12 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.indicatorLine.frame = CGRectMake(0, self.bounds.size.height - 2, self.bounds.size.width, 2);
+//    self.indicatorLine.frame = CGRectMake(0, self.bounds.size.height - 2, self.bounds.size.width, 2);
+    [self.indicatorLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(self.mas_bottom).mas_equalTo(-2);
+        make.height.mas_equalTo(2);
+    }];
 }
 
 - (UIView *)indicatorLine {

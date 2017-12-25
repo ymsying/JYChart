@@ -28,7 +28,7 @@
 
 @property (nonatomic, strong) SYPPageModel *pageModel;
 
-@property (weak, nonatomic) IBOutlet SYPCompareSaleView *SingeValueView;
+@property (weak, nonatomic) IBOutlet SYPCompareSaleView *SingleValueView;
 
 @property (weak, nonatomic) IBOutlet SYPInfoView *InfoView;
 
@@ -57,7 +57,7 @@
     NSString *currentTitle = sender.currentTitle;
     NSString *type = @"";
     if ([@"单值" isEqualToString:currentTitle]) {
-        type = @"SingeValue";
+        type = @"SingleValue";
     } else if ([@"大标题" isEqualToString:currentTitle]) {
         type = @"Banner";
     } else if ([@"副标题" isEqualToString:currentTitle]) {
@@ -76,11 +76,11 @@
     } else if ([@"表格" isEqualToString:currentTitle]) {
         type = @"Tables";
     }
-    
-    Class clazzModel = NSClassFromString([NSString stringWithFormat:@"SYP%@Model", type]);
-    
-    NSString *selfView = [NSString stringWithFormat:@"%@View", type];
-    SYPBaseComponentView *chartView = [self valueForKey:selfView];
+    NSString *classStr = [NSString stringWithFormat:@"SYP%@Model", type];
+    Class clazzModel = NSClassFromString(classStr);
+    NSAssert(clazzModel, @"无此类");
+    NSString *propertyView = [NSString stringWithFormat:@"%@View", type];
+    SYPBaseComponentView *chartView = [self valueForKey:propertyView];
     
     
     currentChart.hidden = YES;
@@ -99,8 +99,8 @@
 
 - (SYPPageModel *)pageModel {
     if (!_pageModel) {
-        // 数据准备
-        NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"template1_03" ofType:@"json"];
+        // 数据准备 3#数据大，1#筛选
+        NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"template1_01" ofType:@"json"];
         
         id data = [NSData dataWithContentsOfFile:dataPath];
         NSError *error = nil;
