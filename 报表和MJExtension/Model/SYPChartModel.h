@@ -50,7 +50,7 @@
 /**
  线和柱的集合，第一组数据为点及颜色的字典数组集合，其余为单个点的string集合
  */
-@property (nonatomic, copy) NSArray <SYPChartSeriesModel *> *series;
+@property (nonatomic, copy, getter=getSeries) NSArray <SYPChartSeriesModel *> *series;
 /**
  从series的第一个组数据获取颜色值
  */
@@ -60,9 +60,17 @@
  */
 @property (nonatomic, assign, readonly) NSInteger maxLength;
 /**
+ 几条线中，长度最长序列的index
+ */
+@property (nonatomic, assign, readonly) NSInteger maxLengthSeriesIdx;
+/**
  几条线中，长度最短的长度
  */
 @property (nonatomic, assign, readonly) NSInteger minLength;
+/**
+ 几条线中，长度最短的序列的index
+ */
+@property (nonatomic, assign, readonly) NSInteger minLengthSeriesIdx;
 
 /**
  几条线的标题

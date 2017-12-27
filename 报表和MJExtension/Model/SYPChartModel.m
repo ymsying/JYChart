@@ -9,8 +9,7 @@
 #import "SYPChartModel.h"
 
 
-#pragma mark - [C] SYPChartSeriesModel
-
+#pragma mark -
 @implementation SYPChartSeriesModel {
     NSString *maxValue;
     NSString *minValue;
@@ -82,14 +81,15 @@
 
 
 ////////////////////////////////////
-#pragma mark - [C] SYPChartModel
-
+#pragma mark -
 @implementation SYPChartModel {
     NSArray <NSNumber *> *seriesColor;
     CGFloat maxValue;
     CGFloat minValue;
     NSInteger maxLength;
+    NSInteger minLengthSeriesIdx;
     NSInteger minLength;
+    NSInteger maxLengthSeriesIdx;
     NSArray *seriesName;
     NSArray *floatRatio;
 }
@@ -126,6 +126,23 @@
     }];
     
     return integrality;
+}
+
+// 对已有series数据进行处理长度不一致，将所有线的长度按第一条的长度length0处理，大于length0的去掉多余的，小于的在后续中处理
+- (NSArray<SYPChartSeriesModel *> *)getSeries {
+    if (_series) {
+        if (_series.count == 1) return _series; // 大于两条的时候进行处理
+        
+        NSInteger destineLength = _series[0].data.count;
+        for (int i = 1; i < _series.count; i++) {
+            NSMutableArray *tempSeriesData = [NSMutableArray arrayWithArray:_series[i].data];
+            if (tempSeriesData.count > destineLength) {
+                NSArray *seriesData = [tempSeriesData subarrayWithRange:NSMakeRange(0, destineLength)];
+                _series[i].data = [seriesData copy];
+            }
+        }
+    }
+    return _series;
 }
 
 - (NSArray<NSNumber *> *)seriesColor {
@@ -193,6 +210,7 @@
         [self.series enumerateObjectsUsingBlock:^(SYPChartSeriesModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (obj.data.count > maxLength) {
                 maxLength = obj.data.count;
+                maxLengthSeriesIdx = idx;
             }
         }];
     }
@@ -205,10 +223,25 @@
         [self.series enumerateObjectsUsingBlock:^(SYPChartSeriesModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if (obj.data.count < minLength) {
                 minLength = obj.data.count;
+                minLengthSeriesIdx = idx;
             }
         }];
     }
     return minLength;
+}
+
+- (NSInteger)maxLengthSeriesIdx {
+    if (!maxLengthSeriesIdx) {
+        [self maxLength];
+    }
+    return maxLengthSeriesIdx;
+}
+
+- (NSInteger)minLengthSeriesIdx {
+    if (!minLengthSeriesIdx) {
+        [self minLength];
+    }
+    return minLengthSeriesIdx;
 }
 
 - (NSArray *)seriesName {
