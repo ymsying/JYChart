@@ -48,8 +48,6 @@
     
     self.seriesData = [destinationSeriesData copy];
     self.xAxisData = [destinationXAxisData copy];
-    
-    
 }
 
 - (void)sortedSeriesList:(SYPBargraphModelSortType)type {

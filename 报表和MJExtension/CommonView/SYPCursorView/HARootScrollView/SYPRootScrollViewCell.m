@@ -43,7 +43,9 @@
 }
 
 - (void)layoutSubviews{
-    UIView *pageView =  self.subviews[0];
-    pageView.frame = self.bounds;
+    if (self.subviews.count > 0) {
+        UIView *pageView = self.subviews[0];
+        pageView.frame = self.bounds;
+    }
 }
 @end

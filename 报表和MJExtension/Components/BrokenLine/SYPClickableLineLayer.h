@@ -8,6 +8,8 @@
 
 #import "SYPBaseComponentLayer.h"
 
+#define kBarMargin SYPDefaultMargin
+
 @class SYPClickableLineLayer;
 @protocol SYPClickableLineLayerDelegate <NSObject>
 

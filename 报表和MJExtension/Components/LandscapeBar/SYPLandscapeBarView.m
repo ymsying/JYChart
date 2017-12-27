@@ -21,6 +21,9 @@
     
     SYPInvertView *inverBtnFirst;
     SYPInvertView *inverBtnSecond;
+    
+    NSInteger crtSelectedIdx; // 当前选中下标
+    NSString *crtSelectedPro; // 当前选中产品名
 }
 
 
@@ -148,34 +151,28 @@
             make.width.height.mas_equalTo(10);
         }];
         
-        UIButton *proName = [UIButton buttonWithType:UIButtonTypeCustom];
+        NSString *proName = self.bargraphModel.xAxisData[i];
+        UIButton *proNameBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         //proName.frame = CGRectMake(CGRectGetMaxX(IV.frame) + SYPDefaultMargin / 2.0, 0, SYPViewWidth1(proInfoView) - (SYPViewWidth1(IV) + SYPDefaultMargin / 2.0) - SYPViewWidth / 5, kBarHeight);
-        [proName addTarget:self action:@selector(clickNameActive:) forControlEvents:UIControlEventTouchUpInside];
-        proName.tag = -10000 + i;
-        [proName setTitle:self.bargraphModel.xAxisData[i] forState:UIControlStateNormal];
-        [proName setTitleColor:SYPColor_TextColor_Chief forState:UIControlStateNormal];
-        proName.titleLabel.font = [UIFont systemFontOfSize:13];
-        proName.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        proName.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        [proInfoView addSubview:proName];
-        [proName mas_makeConstraints:^(MASConstraintMaker *make) {
+        [proNameBtn addTarget:self action:@selector(clickNameActive:) forControlEvents:UIControlEventTouchUpInside];
+        proNameBtn.tag = -10000 + i;
+        [proNameBtn setTitle:proName forState:UIControlStateNormal];
+        [proNameBtn setTitleColor:SYPColor_TextColor_Chief forState:UIControlStateNormal];
+        proNameBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        proNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        proNameBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        [proInfoView addSubview:proNameBtn];
+        [proNameBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(IV.mas_right).mas_equalTo(4);
             make.centerY.mas_equalTo(IV.mas_centerY);
             make.height.mas_equalTo(kBarHeight);
         }];
         
-//        center = proName.center;
-//        center.y = CGPointFromString(self.landscapeBar.pionts[i]).y;
-//        proName.center = center;
-        /*
-         proName.userInteractionEnabled = NO;
-        // 判断显示不全，用蓝色标示出来，并且点击时显示完整名称
-        CGSize size = [proName.currentTitle boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGRectGetHeight(proName.frame)) options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics attributes:@{NSFontAttributeName : proName.titleLabel.font} context:nil].size;
-        if (size.width > CGRectGetWidth(proName.frame)) {
-            proName.userInteractionEnabled = YES;
+        if ([proName isEqualToString:crtSelectedPro]) {
+            [proNameBtn setTitleColor:SYPColor_LineColor_LightBlue forState:UIControlStateNormal];
+            IV.hidden = NO;
+            crtSelectedIdx = i;
         }
-        */
-        
         
         UILabel *ratio = [[UILabel alloc] init];//WithFrame:CGRectMake(CGRectGetMaxX(proName.frame), CGRectGetMinY(proName.frame), SYPViewWidth/5, kBarHeight)
         ratio.text = self.bargraphModel.seriesData[i].value;
@@ -184,14 +181,14 @@
         ratio.font = [UIFont systemFontOfSize:12];
         [proInfoView addSubview:ratio];
         [ratio mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(proName.mas_right);
+            make.left.mas_equalTo(proNameBtn.mas_right);
             make.right.mas_equalTo(0);
-            make.top.mas_equalTo(proName.mas_top);
+            make.top.mas_equalTo(proNameBtn.mas_top);
             make.width.mas_equalTo(self.mas_width).dividedBy(5);
             make.height.mas_equalTo(kBarHeight);
         }];
         
-        [nameList addObject:proName];
+        [nameList addObject:proNameBtn];
         [rList addObject:ratio];
     }
     
@@ -205,24 +202,26 @@
 }
 
 - (void)clickNameActive:(UIButton *)sender {
-    NSInteger i = sender.tag + 10000;
+    NSInteger tag = sender.tag + 10000;
     if (self.delegate && [self.delegate respondsToSelector:@selector(moduleTwoBaseView:didSelectedAtIndex:data:)]) {
-        [self.delegate moduleTwoBaseView:self didSelectedAtIndex:i data:self.bargraphModel.xAxisData[i]];
+        [self.delegate moduleTwoBaseView:self didSelectedAtIndex:tag data:self.bargraphModel.xAxisData[tag]];
     }
     
     // 显示完整文字
-    [SYPHudView showHUDWithTitle:self.bargraphModel.xAxisData[i]];
-    // 箭头指示
-    for (int index = 0; index < self.bargraphModel.seriesData.count; index++) {
-        UIButton *proName = [[self viewWithTag:-3000] viewWithTag:-10000 + index];
-        [proName setTitleColor:SYPColor_TextColor_Chief forState:UIControlStateNormal];
-        
-        UIImageView *iv = [[self viewWithTag:-3000] viewWithTag:-11000 + index];
-        iv.hidden = YES;
-    }
+    [SYPHudView showHUDWithTitle:self.bargraphModel.xAxisData[tag]];
     
+    // 指示，恢复默认
+    UIButton *proName = [[self viewWithTag:-3000] viewWithTag:-10000 + crtSelectedIdx];
+    [proName setTitleColor:SYPColor_TextColor_Chief forState:UIControlStateNormal];
+    UIImageView *iv = [[self viewWithTag:-3000] viewWithTag:-11000 + crtSelectedIdx];
+    iv.hidden = YES;
+    
+    // 指示，选中状态
     [sender setTitleColor:SYPColor_LineColor_LightBlue forState:UIControlStateNormal];
-    [[self viewWithTag:-3000] viewWithTag:-11000 + i].hidden = NO;
+    [[self viewWithTag:-3000] viewWithTag:-11000 + tag].hidden = NO;
+    
+    crtSelectedIdx = tag;
+    crtSelectedPro = self.bargraphModel.xAxisData[crtSelectedIdx];
 }
 
 - (CGFloat)estimateViewHeight:(SYPBaseChartModel *)model {
@@ -233,28 +232,22 @@
 - (void)refreshSubViewData {
     self.landscapeBar.model = self.bargraphModel;
     
-    for (int i = 0; i < proNameList.count; i++) {
-        [proNameList[i] setTitle:self.bargraphModel.xAxisData[i] forState:UIControlStateNormal];
-        ratioList[i].text = self.bargraphModel.seriesData[i].value;
-    }
-    
     inverBtnFirst.typeName = self.bargraphModel.xAxisName;
     inverBtnSecond.typeName = self.bargraphModel.seriesName;
 }
 
 #pragma mark - <SYPLandscapeBarDelegate>
 - (void)landscapeBar:(SYPLandscapeBarLayer *)bar refreshHeight:(CGFloat)height {
-    // bar 布局完成后悔自动更新frame
+    // bar 布局完成后会自动更新frame
     
     if (self.autoLayoutHeight) {
         CGRect frame = self.frame;
         frame.size.height = CGRectGetHeight(self.landscapeBar.frame) + CGRectGetHeight(titleView.frame);
         self.frame = frame;
     }
-    [self initializeAxis];
-
     
-    // 视图布局完成后调用的代理方法，
+    // 重绘产品区域
+    [self initializeAxis];
 }
 
 - (void)invertActionWithType:(NSString *)type selected:(BOOL)isSelected{
@@ -267,7 +260,7 @@
         }
     }
     
-    // NSLog(@"TODO：排序 %@", type);
+    // 排序
     if ([type isEqualToString:self.bargraphModel.seriesName]) {
         if (isSelected) {
             [self.bargraphModel sortedSeriesList:SYPBargraphModelSortRatioUp];
@@ -285,13 +278,25 @@
         }
     }
     
-    //[proNameList makeObjectsPerformSelector:@selector(setTitle:forState:) withObject:self.bargraphModel.xAxisData];
-    for (int i = 0; i < proNameList.count; i++) {
-        [proNameList[i] setTitle:self.bargraphModel.xAxisData[i] forState:UIControlStateNormal];
-        ratioList[i].text = self.bargraphModel.seriesData[i].value;
-    }
+    // 更新页面展示
+    // 图形更新后，重绘标题区
     self.landscapeBar.model = self.bargraphModel;
+//    // 产品名、变化率更新
+//    for (int i = 0; i < proNameList.count; i++) {
+//        UIButton *proNameBtn = proNameList[i];
+//        NSString *proName = self.bargraphModel.xAxisData[i];
+//        [proNameBtn setTitle:proName forState:UIControlStateNormal];
+//        ratioList[i].text = self.bargraphModel.seriesData[i].value;
+//
+//        // 恢复上一次选中的产品标示
+//        if ([proName isEqualToString:crtSelectedPro]) {
+//            UIImageView *proNameIV = [[self viewWithTag:-3000] viewWithTag:-11000 + i];
+//            proNameIV.hidden = NO;
+//            [proNameBtn setTitleColor:SYPColor_LineColor_LightBlue forState:UIControlStateNormal];
+//        }
+//    }
     
 }
+
 
 @end
