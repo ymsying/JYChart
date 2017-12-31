@@ -13,6 +13,7 @@
 #import "SYPPageModel.h"
 #import "SYPPartViewCell.h"
 #import "UIView+Extension.h"
+#import "SYPSheetView.h"
 
 
 @interface SYPPartView () <UITableViewDelegate, UITableViewDataSource, SYPModuleTwoCellDelegate>
@@ -50,6 +51,7 @@
         [_tableView registerClass:[SYPPartViewCell class] forCellReuseIdentifier:@"SYPModuleTwoCell"];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         _tableView.backgroundColor = SYPColor_SepLineColor_LightGray;
+        _tableView.showsVerticalScrollIndicator = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }

@@ -16,7 +16,7 @@
 
 @interface SYPLandscapeBarView () <SYPLandscapeBarDelegate> {
     UIView *titleView;
-    NSArray <UIButton *> *proNameList;
+    NSArray <UILabel *> *proNameList;
     NSArray <UILabel *> *ratioList;
     
     SYPInvertView *inverBtnFirst;
@@ -52,7 +52,7 @@
 
 - (SYPLandscapeBarLayer *)landscapeBar {
     if (!_landscapeBar) {
-        _landscapeBar = [[SYPLandscapeBarLayer alloc] init];//WithFrame:CGRectMake(SYPViewWidth * 3/5, CGRectGetMaxY(titleView.frame), SYPViewWidth * 2/5, SYPViewHeight - SYPViewHeight1(titleView))
+        _landscapeBar = [[SYPLandscapeBarLayer alloc] init];
         _landscapeBar.delegate = self;
         [self addSubview:_landscapeBar];
         [_landscapeBar mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -122,7 +122,7 @@
 - (void)initializeAxis {
     
     [[self viewWithTag:-3000] removeFromSuperview];
-    UIView *proInfoView = [[UIView alloc] init];//WithFrame:CGRectMake(0, CGRectGetMinY(self.landscapeBar.frame), SYPViewWidth * 3 / 5, CGRectGetHeight(self.landscapeBar.frame))
+    UIView *proInfoView = [[UIView alloc] init];
     proInfoView.tag = -3000;
     [self addSubview:proInfoView];
     [proInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -137,11 +137,7 @@
     for (NSInteger i = 0; i < self.bargraphModel.seriesData.count; i++) {
         
         UIImageView *IV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"down_greenarrow"]];
-        //IV.frame = CGRectMake(0, 0, 10, 10);
         [proInfoView addSubview:IV];
-//        CGPoint center = IV.center;
-//        center.y = CGPointFromString(self.landscapeBar.pionts[i]).y;
-//        IV.center = center;
         IV.hidden = YES;
         IV.tag = -11000 + i;
         IV.layer.transform = CATransform3DMakeRotation(-M_PI_2, 0, 0, 1);
@@ -152,44 +148,52 @@
         }];
         
         NSString *proName = self.bargraphModel.xAxisData[i];
-        UIButton *proNameBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        //proName.frame = CGRectMake(CGRectGetMaxX(IV.frame) + SYPDefaultMargin / 2.0, 0, SYPViewWidth1(proInfoView) - (SYPViewWidth1(IV) + SYPDefaultMargin / 2.0) - SYPViewWidth / 5, kBarHeight);
-        [proNameBtn addTarget:self action:@selector(clickNameActive:) forControlEvents:UIControlEventTouchUpInside];
-        proNameBtn.tag = -10000 + i;
-        [proNameBtn setTitle:proName forState:UIControlStateNormal];
-        [proNameBtn setTitleColor:SYPColor_TextColor_Chief forState:UIControlStateNormal];
-        proNameBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-        proNameBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        proNameBtn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-        [proInfoView addSubview:proNameBtn];
-        [proNameBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        UILabel *proNameLB = [[UILabel alloc] init];
+        proNameLB.tag = -12000 + i;
+        proNameLB.text = proName;
+        proNameLB.textColor = SYPColor_TextColor_Chief;
+        proNameLB.font = [UIFont systemFontOfSize:13];
+        [proInfoView addSubview:proNameLB];
+        [proNameLB mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(IV.mas_right).mas_equalTo(4);
             make.centerY.mas_equalTo(IV.mas_centerY);
             make.height.mas_equalTo(kBarHeight);
         }];
         
-        if ([proName isEqualToString:crtSelectedPro]) {
-            [proNameBtn setTitleColor:SYPColor_LineColor_LightBlue forState:UIControlStateNormal];
-            IV.hidden = NO;
-            crtSelectedIdx = i;
-        }
-        
-        UILabel *ratio = [[UILabel alloc] init];//WithFrame:CGRectMake(CGRectGetMaxX(proName.frame), CGRectGetMinY(proName.frame), SYPViewWidth/5, kBarHeight)
+        UILabel *ratio = [[UILabel alloc] init];
+        ratio.tag = -13000 + i;
         ratio.text = self.bargraphModel.seriesData[i].value;
         ratio.textAlignment = NSTextAlignmentRight;
         ratio.textColor = SYPColor_TextColor_Chief;
-        ratio.font = [UIFont systemFontOfSize:12];
+        ratio.font = [UIFont systemFontOfSize:13];
         [proInfoView addSubview:ratio];
         [ratio mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(proNameBtn.mas_right);
+            make.left.mas_equalTo(proNameLB.mas_right);
             make.right.mas_equalTo(0);
-            make.top.mas_equalTo(proNameBtn.mas_top);
+            make.top.mas_equalTo(proNameLB.mas_top);
             make.width.mas_equalTo(self.mas_width).dividedBy(5);
             make.height.mas_equalTo(kBarHeight);
         }];
         
-        [nameList addObject:proNameBtn];
+        [nameList addObject:proNameLB];
         [rList addObject:ratio];
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn addTarget:self action:@selector(clickNameActive:) forControlEvents:UIControlEventTouchUpInside];
+        btn.tag = -10000 + i;
+        [proInfoView addSubview:btn];
+        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(0);
+            make.centerY.mas_equalTo(IV.mas_centerY);
+            make.height.mas_equalTo(kBarHeight);
+        }];
+        
+        if ([proName isEqualToString:crtSelectedPro]) {
+            IV.hidden = NO;
+            proNameLB.textColor = SYPColor_LineColor_LightBlue;
+            ratio.textColor = SYPColor_LineColor_LightBlue;
+            crtSelectedIdx = i;
+        }
     }
     
     proNameList = [nameList copy];
@@ -211,14 +215,17 @@
     [SYPHudView showHUDWithTitle:self.bargraphModel.xAxisData[tag]];
     
     // 指示，恢复默认
-    UIButton *proName = [[self viewWithTag:-3000] viewWithTag:-10000 + crtSelectedIdx];
-    [proName setTitleColor:SYPColor_TextColor_Chief forState:UIControlStateNormal];
+    UILabel *proName = [[self viewWithTag:-3000] viewWithTag:-12000 + crtSelectedIdx];
+    proName.textColor = SYPColor_TextColor_Chief;
+    UILabel *ratioLB = [[self viewWithTag:-3000] viewWithTag:-13000 + crtSelectedIdx];
+    ratioLB.textColor = SYPColor_TextColor_Chief;
     UIImageView *iv = [[self viewWithTag:-3000] viewWithTag:-11000 + crtSelectedIdx];
     iv.hidden = YES;
     
     // 指示，选中状态
-    [sender setTitleColor:SYPColor_LineColor_LightBlue forState:UIControlStateNormal];
     [[self viewWithTag:-3000] viewWithTag:-11000 + tag].hidden = NO;
+    proNameList[tag].textColor = SYPColor_LineColor_LightBlue;
+    ratioList[tag].textColor = SYPColor_LineColor_LightBlue;
     
     crtSelectedIdx = tag;
     crtSelectedPro = self.bargraphModel.xAxisData[crtSelectedIdx];

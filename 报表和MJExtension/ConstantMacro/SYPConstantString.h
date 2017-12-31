@@ -27,6 +27,5 @@
 #define SYPAnimationToolVelocity       0.3
 
 
-static NSNotificationName const SYPUpdateExcelHeadFrame;
 
 #endif /* SYPConstantString_h */

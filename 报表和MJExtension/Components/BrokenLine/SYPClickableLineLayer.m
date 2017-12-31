@@ -38,7 +38,7 @@
         
         maxValue = 0.0;
         minValue = CGFLOAT_MAX;
-        
+        currentBarIndex = NSIntegerMax;
         [self addGesture];
     }
     return self;
@@ -68,8 +68,8 @@
         for (UIColor *lineColor in self.lineColorList) {
             UIView *flagPoint = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
             flagPoint.layer.cornerRadius = 10;
+            flagPoint.layer.zPosition = 10;
             flagPoint.backgroundColor = [lineColor appendAlpha:0.15];
-            //flagPoint.hidden = YES;
             
             UIView *point = [[UIView alloc] initWithFrame:CGRectMake(5, 5, 10, 10)];
             point.backgroundColor = [UIColor whiteColor];
@@ -150,7 +150,7 @@
     CGFloat total = 0;
     if (minValue < 0) {
         total = fabs(minValue) + maxValue;
-        originalPointY = maxValue/total * SYPViewHeight;
+        originalPointY = maxValue / total * SYPViewHeight;
     }
     else {
         total = maxValue;
@@ -179,7 +179,6 @@
             CGFloat x = (margin * i + SYPDefaultMargin * 2) * 0.9; // 按比率缩小x轴，避免标记点显示不全的问题
             // 当图形是bar时进行相应的挪动
             if ([@"bar" isEqualToString:type]) {
-                
                 x = [self moveBarPointXaxisWithOriginalX:x index:tempBarGroupCount];
             }
             
@@ -237,10 +236,12 @@
         }
     }];
     
-    [self showFlagPoint];
     if (minValue < 0) {
         [self addOriginalPointLine];
     }
+    
+    // 默认显示第一个点
+    [self showFlagPointAtIndex:0];
 }
 
 // 柱子采用平铺方式，不进行重叠，平铺是平分重叠时柱子的宽度
@@ -290,6 +291,7 @@
     }
     layerPath.lineJoinStyle = kCGLineJoinRound;
     CAShapeLayer *linelayer = [CAShapeLayer layer];
+    linelayer.zPosition = 1; // 防止bar将line挡住
     linelayer.lineWidth = 2;
     linelayer.strokeEnd = 0.0;
     linelayer.strokeEnd = 1.0;
@@ -330,32 +332,57 @@
     [self.layer addSublayer:shape];
 }
 
-/**
- 默认显示第一个点
- */
-- (void)showFlagPoint {
-    
-    NSInteger maxLength = 0, maxIndex = 0;
-    for (int i = 0; i < self.flagPointList.count; i++) {
-        maxIndex = self.dataSource[i].data.count > maxLength ? i : maxIndex;
-        UIView *flagPoint = self.flagPointList[i];
-        if ([flagPoint isKindOfClass:[UIView class]]) {
-            
-            CGPoint destineCenter = CGPointFromString([self.keyPointsList[i] firstObject]);
-            CGPoint tmpCenter = CGPointMake(-10, destineCenter.y);
-            flagPoint.center = tmpCenter;
-            [UIView animateWithDuration:0.5 animations:^{
-                flagPoint.center = destineCenter;
-            }];
-        }
-    }
-    
-//    self.flagPointList[maxIndex].hidden = NO;
-}
-
 - (void)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
     
     [self findNearestKeyPointOfPoint:[gestureRecognizer locationInView:self]];
+}
+
+- (void)showFlagPointAtIndex:(NSInteger)idx {
+    
+    CGPoint keyPoint;
+    NSInteger pointIdx = idx;
+    for (int group = 0; group < self.flagPointList.count; group++) { // 寻组
+        
+        // 视觉处理
+        // 处理分组数据中长度不一致时，短分组无数据时有标记点
+        if (pointIdx > [self.keyPointsList[group] count] - 1) {
+            self.flagPointList[group].hidden = YES;
+            CGPoint tmpCenter = self.flagPointList[group].center;
+            tmpCenter.x = CGPointFromString(self.keyPointsList[0][pointIdx]).x;
+            self.flagPointList[group].center = tmpCenter;
+            continue;
+        } else {
+            self.flagPointList[group].hidden = NO;
+        }
+        
+        keyPoint = CGPointFromString(self.keyPointsList[group][pointIdx]);
+        
+        // 给指定bar上色，并记录其位置
+        NSString *barInfoKey = [NSString stringWithFormat:@"%zi", group];
+        if ([self.barLayerInfo.allKeys containsObject:barInfoKey]) {
+            
+            self.flagPointList[group].hidden = YES;
+            NSArray <CAShapeLayer *> *barList = [self.barLayerInfo objectForKey:barInfoKey];
+            UIColor *color = self.lineColorList[group];
+            barList[pointIdx].strokeColor = color.CGColor;
+        }
+        else { // 线条上加点
+            // 首次展现时从左进入视图增加视角效果
+            if (pointIdx == 0 && currentBarIndex == NSIntegerMax) {
+                CGPoint tmpCenter = CGPointMake(-10, keyPoint.y);
+                self.flagPointList[group].center = tmpCenter;
+            }
+            [UIView animateWithDuration:0.25 animations:^{
+                self.flagPointList[group].center = keyPoint;
+            }];
+        }
+        
+        
+        // 数据处理
+        if (self.delegate && [self.delegate respondsToSelector:@selector(clickableLine:didSelected:data:)]) {
+            [self.delegate clickableLine:self didSelected:pointIdx data:nil];
+        }
+    }
 }
 
 // 寻找最近的点
@@ -367,54 +394,21 @@
     
     // 取消上次bar颜色
     [[self.barLayerInfo allValues] enumerateObjectsUsingBlock:^(NSArray<CAShapeLayer *> * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        currentBarIndex = currentBarIndex == NSIntegerMax ? 0 : currentBarIndex;
         if (currentBarIndex < [obj count]) {
             obj[currentBarIndex].strokeColor = SYPColor_TextColor_Minor.CGColor;
         }
     }];
-//    currentBar.strokeColor = SYPColor_TextColor_Minor.CGColor;
+    
     // 将标记点进行位置移动，移动到点击处最近的一个关键点
-    CGPoint keyPoint;
     for (int pointIdx = 0; pointIdx < self.keyPointsList[0].count; pointIdx++) { // 寻点，找一次就行
-        keyPoint = CGPointFromString(self.keyPointsList[0][pointIdx]);
+        CGPoint keyPoint = CGPointFromString(self.keyPointsList[0][pointIdx]);
         
         // margin/2时表示中间位置，有多组柱状时会出现同时选中两组的问题，如果时margin/4时中间有部分无点击效果
         if (fabs(keyPoint.x - point.x) < (margin / 2)) {
             
-            for (int group = 0; group < self.flagPointList.count; group++) { // 寻组
-                
-                // 数据处理
-                if (self.delegate && [self.delegate respondsToSelector:@selector(clickableLine:didSelected:data:)]) {
-                    [self.delegate clickableLine:self didSelected:pointIdx data:nil];
-                }
-                
-                // 视觉处理
-                // 处理分组数据中长度不一致时，短分组无数据时有标记点
-                if (pointIdx > [self.keyPointsList[group] count] - 1) {
-                    self.flagPointList[group].hidden = YES;
-                    CGPoint tmpCenter = self.flagPointList[group].center;
-                    tmpCenter.x = CGPointFromString(self.keyPointsList[0][pointIdx]).x;
-                    self.flagPointList[group].center = tmpCenter;
-                    continue;
-                } else {
-                    self.flagPointList[group].hidden = NO;
-                }
-                
-                keyPoint = CGPointFromString(self.keyPointsList[group][pointIdx]);
-                
-                [UIView animateWithDuration:0.25 animations:^{
-                    self.flagPointList[group].center = keyPoint;
-                }];
-                
-                // 给指定bar上色，并记录其位置
-                NSString *barInfoKey = [NSString stringWithFormat:@"%zi", group];
-                if ([self.barLayerInfo.allKeys containsObject:barInfoKey]) {
-                    NSArray <CAShapeLayer *> *barList = [self.barLayerInfo objectForKey:barInfoKey];
-                    UIColor *color = self.lineColorList[group];
-                    barList[pointIdx].strokeColor = color.CGColor;
-                    currentBarIndex = pointIdx;
-                }
-            }
-            
+            [self showFlagPointAtIndex:pointIdx];
+            currentBarIndex = pointIdx;
             break;
         }
     }

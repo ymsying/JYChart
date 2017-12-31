@@ -97,13 +97,13 @@
 
 - (SYPClickableLineLayer *)lineView {
     if (!_lineView) {
-        _lineView = [[SYPClickableLineLayer alloc] init];//WithFrame:CGRectMake(CGRectGetWidth(self.infoView.bounds)/5, SYPDefaultMargin, CGRectGetWidth(self.infoView.bounds) * 4 / 5, SYPViewHeight1(self.infoView) - kAxisXViewHeight - SYPDefaultMargin)
+        _lineView = [[SYPClickableLineLayer alloc] init];
         _lineView.delegate = self;
         [self.infoView addSubview:_lineView];
         [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.infoView.mas_right).multipliedBy(0.2);
             make.top.mas_equalTo(SYPDefaultMargin);
-            make.width.mas_equalTo(self.infoView.mas_width).multipliedBy(0.8);
+            make.width.mas_equalTo(self.infoView.mas_width).mas_equalTo(-2).multipliedBy(0.8);
             make.height.mas_equalTo(self.infoView.mas_height).mas_equalTo(-kAxisXViewHeight - SYPDefaultMargin);
         }];
     }
@@ -309,7 +309,7 @@
     yAxisLabelList = [yAxisList copy];
     
     UIView *sepLine = [[UIView alloc] init];//WithFrame:CGRectMake(0, 0, SYPViewWidth, 0.5)
-    sepLine.backgroundColor = SYPColor_TextColor_Chief;
+    sepLine.backgroundColor = [SYPColor_TextColor_Chief colorWithAlphaComponent:0.5];
     [self addSubview:sepLine];
     [sepLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.mas_equalTo(0);
