@@ -11,6 +11,8 @@
 #define kMianCellHeight (44)
 #define kSheetHeadHeight (40)
 
+extern NSNotificationName const SYPUpdateExcelHeadFrame;
+
 /**
  Excel中的工作表
  */

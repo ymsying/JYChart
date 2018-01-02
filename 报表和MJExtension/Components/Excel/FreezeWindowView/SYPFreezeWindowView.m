@@ -10,10 +10,10 @@
 
 @interface SYPFreezeWindowView () <UIScrollViewDelegate>
 
-@property (strong, nonatomic) UIScrollView *mainScrollView;
-@property (strong, nonatomic) UIScrollView *sectionScrollView;
-@property (strong, nonatomic) UIScrollView *rowScrollView;
-@property (strong, nonatomic) SYPSignView *signView;
+@property (strong, nonatomic) UIScrollView *mainScrollView;  // 主数据区
+@property (strong, nonatomic) UIScrollView *sectionScrollView; // 表头
+@property (strong, nonatomic) UIScrollView *rowScrollView; // 表首列
+@property (strong, nonatomic) SYPSignView *signView; // 表左上角
 
 @property (assign, nonatomic) CGSize cellViewSize;
 @property (assign, nonatomic) CGPoint freezePoint;
@@ -55,15 +55,18 @@
         self.mainScrollView.delegate = self;
         self.sectionScrollView.delegate = self;
         self.rowScrollView.delegate = self;
+        
         _mainScrollView.bounces = NO;
         _sectionScrollView.bounces = NO;
         _rowScrollView.bounces = NO;
+        
         _mainScrollView.showsHorizontalScrollIndicator = NO;
         _mainScrollView.showsVerticalScrollIndicator = NO;
         _sectionScrollView.showsHorizontalScrollIndicator = NO;
         _sectionScrollView.showsVerticalScrollIndicator = NO;
         _rowScrollView.showsHorizontalScrollIndicator = NO;
         _rowScrollView.showsVerticalScrollIndicator = NO;
+        
         _mainScrollView.clipsToBounds = NO;
         _sectionScrollView.clipsToBounds = NO;
         _rowScrollView.clipsToBounds = NO;
@@ -72,6 +75,7 @@
 //        _rowScrollView.backgroundColor = [UIColor whiteColor];
         
         [self setContentSize];
+        
         _freezePoint = freezePoint;
         _cellViewSize = cellViewSize;
         _cellIdentifier = [[NSMutableDictionary alloc] init];

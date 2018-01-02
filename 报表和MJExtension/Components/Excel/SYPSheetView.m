@@ -14,7 +14,7 @@
 #import "SYPSubSheetView.h"
 #import "Masonry.h"
 
-static NSNotificationName const SYPUpdateExcelHeadFrame = @"updateExcelHeadFrame";
+NSNotificationName const SYPUpdateExcelHeadFrame = @"updateExcelHeadFrame";
 
 
 static NSString *mainCellID = @"mainCell";
@@ -43,7 +43,7 @@ static NSString *rowCellID = @"rowCell";
         self.clipsToBounds = YES;
         lastSortSection = 0;
         recoverFlag = YES;
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSectionViewFrame:) name:@"scrollUpOrDown" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSectionViewFrame:) name:SYPUpdateExcelHeadFrame object:nil];
     }
     return self;
 }

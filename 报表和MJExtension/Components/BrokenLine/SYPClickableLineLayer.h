@@ -8,7 +8,7 @@
 
 #import "SYPBaseComponentLayer.h"
 
-#define kBarMargin SYPDefaultMargin
+#define kBarMargin SYPDefaultMargin / 2
 
 @class SYPClickableLineLayer;
 @protocol SYPClickableLineLayerDelegate <NSObject>
@@ -31,6 +31,7 @@
  }
 */
 @property (nonatomic, strong) NSDictionary <NSString *, NSDictionary *> *lineParms; // 折线图的参数
+@property (nonatomic, assign) NSInteger keyPointCountMax; // 最大长度
 @property (nonatomic, weak) id <SYPClickableLineLayerDelegate> delegate;
 /**
  视图中关键点最多的一条折线的数据
