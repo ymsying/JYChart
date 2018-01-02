@@ -128,7 +128,7 @@
     return integrality;
 }
 
-// 对已有series数据进行处理长度不一致，将所有线的长度按第一条的长度length0处理，大于length0的去掉多余的，小于的在后续中处理
+// 对已有series数据进行处理长度不一致，将所有线的长度按x轴数量length0处理，大于length0的去掉多余的，小于的在后续中处理
 - (NSArray<SYPChartSeriesModel *> *)getSeries {
     if (_series) {
         if (_series.count == 1) return _series; // 大于两条的时候进行处理

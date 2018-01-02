@@ -17,6 +17,7 @@
 #define SYPColor_LightGray_White ([UIColor colorWithRed:250/255.0 green:250/255.0 blue:250/255.0 alpha:1.0])
 #define SYPColor_TextColor_Chief ([UIColor colorWithHexString:@"#595b57"]) // co3
 #define SYPColor_TextColor_Minor ([UIColor colorWithHexString:@"#bcbcbc"]) // co4
+#define SYPColor_TextColor_Black ([UIColor colorWithHexString:@"#2c3841"]) // co5
 
 #define SYPColor_ArrowColor_Red ([UIColor colorWithHexString:@"f44f4f"]) // co17
 #define SYPColor_ArrowColor_Yellow ([UIColor colorWithHexString:@"f4bc45"]) // co12

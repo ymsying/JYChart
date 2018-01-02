@@ -202,7 +202,7 @@
         make.height.mas_equalTo(0.5);
     }];
     
-    unitLB = [[UILabel alloc] initWithFrame:CGRectMake(SYPViewWidth / 10, CGRectGetMaxY(sepLine.frame) + 4, SYPViewWidth / 10, SYPViewHeight1(self.titleView) * 0.2)];
+    unitLB = [[UILabel alloc] init];//WithFrame:CGRectMake(SYPViewWidth / 10, CGRectGetMaxY(sepLine.frame) + 4, SYPViewWidth / 10, SYPViewHeight1(self.titleView) * 0.2)
     unitLB.text = self.chartModel.yAxisUnit;
     unitLB.font = [UIFont systemFontOfSize:12];
     unitLB.textAlignment = NSTextAlignmentRight;
@@ -271,8 +271,7 @@
         make.height.mas_equalTo(kAxisXViewHeight);
     }];
     
-//    CGFloat weekWidth = (SYPViewWidth1(axisXView) - SYPViewWidth1(axisYView)) / self.chartModel.xAxis.count;
-    lastLabel = nil;
+    // 只展示前后
     NSInteger xAxisCount = self.chartModel.xAxis.count;
     NSMutableArray *xAxisList = [NSMutableArray arrayWithCapacity:4];
     for (int i = 0; i < xAxisCount; i++) {
@@ -282,18 +281,17 @@
         label.textAlignment = NSTextAlignmentCenter;
         label.text = self.chartModel.xAxis[i];
         label.textColor = SYPColor_SubColor_LightGreen;
+        [label sizeToFit];
         [axisXView addSubview:label];
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.mas_equalTo(0);
-            if (lastLabel) {
-                make.left.mas_equalTo(lastLabel.mas_right).mas_equalTo(kBarMargin+SYPDefaultMargin);
-                make.width.mas_equalTo(lastLabel.mas_width);
-            }
-            else {
+            if (i == 0) {
+                label.textAlignment = NSTextAlignmentLeft;
                 make.left.mas_equalTo(0);
             }
             if (i == xAxisCount - 1) {
-                make.right.mas_equalTo(0);
+                make.right.mas_equalTo(-SYPDefaultMargin/2);
+                label.textAlignment = NSTextAlignmentRight;
             }
         }];
         
@@ -336,7 +334,8 @@
                                    @"color" : lineColors[i]};
             [lineParams setObject:line forKey:[NSString stringWithFormat:@"line%zi", i]];
         }
-        // 线
+        self.lineView.keyPointCountMax = self.chartModel.xAxis.count;
+        // 线，设置后即更新
         self.lineView.lineParms = lineParams;
     }
     // 横坐标需要根据折线图的点来布局
@@ -382,16 +381,14 @@
 // 拖拽时数据显示
 - (void)clickableLine:(SYPClickableLineLayer *)clickableLine didSelected:(NSInteger)index data:(id)data {
     
-    // 为保证两条线长度不一致时比较区域内数字有变化
-    if (index >= self.chartModel.maxLength) return;
-    //if (index >= self.chartModel.minLength) return; // 选中无数据时，显示无数据
-    
+    // 折线、柱状的长度按x轴数据量为准，
     timeLB.text = self.chartModel.xAxis[index];
+    
     // 更新横坐标高亮颜色
     [xAxisLabelList enumerateObjectsUsingBlock:^(UILabel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        obj.textColor = SYPColor_SubColor_LightGreen;
+        obj.textColor = SYPColor_SepLineColor_LightGray;
     }];
-    xAxisLabelList[index].textColor = self.chartModel.seriesColor[index];
+    xAxisLabelList[index].textColor = SYPColor_TextColor_Black;
     // 更新标题栏区域内容
     [self.chartModel.series enumerateObjectsUsingBlock:^(SYPChartSeriesModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (index < obj.data.count) {
@@ -402,10 +399,16 @@
     }];
     
     if (self.chartModel.series.count == 2) {
-        numberLabelList[2].text = self.chartModel.floatRatio[index];
-        numberLabelList[2].textColor = [self.chartModel seriesColor][index];
-        arrowView.arrow = [self.chartModel.series[0].colors[index] integerValue];
-    
+        if (index > self.chartModel.floatRatio.count-1) {
+            numberLabelList[2].text = @"暂无数据";
+            numberLabelList[2].textColor = SYPColor_SepLineColor_LightGray;
+            arrowView.arrow = TrendTypeArrowNoArrow;
+        }
+        else {
+            numberLabelList[2].text = self.chartModel.floatRatio[index];
+            numberLabelList[2].textColor = [self.chartModel seriesColor][index];
+            arrowView.arrow = [self.chartModel.series[0].colors[index] integerValue];
+        }
         // 更新箭头大小及位置
         CGSize size = [numberLabelList[2].text boundingRectWithSize:CGSizeMake(100, CGRectGetHeight(numberLabelList[2].frame)) options:0 attributes:@{NSFontAttributeName: numberLabelList[2].font} context:nil].size;
         [arrowView mas_updateConstraints:^(MASConstraintMaker *make) {

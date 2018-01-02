@@ -131,7 +131,7 @@
         make.width.mas_equalTo(self.mas_width).multipliedBy(0.6);
         make.bottom.mas_equalTo(self.landscapeBar.mas_bottom);
     }];
-    
+    UIButton *proBtn;
     NSMutableArray *nameList = [NSMutableArray arrayWithCapacity:self.bargraphModel.xAxisData.count];
     NSMutableArray *rList = [NSMutableArray arrayWithCapacity:self.bargraphModel.seriesData.count];
     for (NSInteger i = 0; i < self.bargraphModel.seriesData.count; i++) {
@@ -181,12 +181,22 @@
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn addTarget:self action:@selector(clickNameActive:) forControlEvents:UIControlEventTouchUpInside];
         btn.tag = -10000 + i;
-        [proInfoView addSubview:btn];
+        [self addSubview:btn];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.mas_equalTo(0);
-            make.centerY.mas_equalTo(IV.mas_centerY);
-            make.height.mas_equalTo(kBarHeight);
+            make.left.mas_equalTo(proInfoView.mas_left);
+            make.right.mas_equalTo(self.mas_right);
+            if (i == 0) {
+                make.top.mas_equalTo(proInfoView.mas_top);
+            }
+            else {
+                make.height.mas_equalTo(proBtn.mas_height);
+                make.top.mas_equalTo(proBtn.mas_bottom);
+            }
+            if (i == self.bargraphModel.seriesData.count-1) {
+                make.bottom.mas_equalTo(proInfoView.mas_bottom);
+            }
         }];
+        proBtn = btn;
         
         if ([proName isEqualToString:crtSelectedPro]) {
             IV.hidden = NO;
