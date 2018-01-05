@@ -25,6 +25,8 @@
 @property (nonatomic, copy, readonly) NSString *longestValue;
 @property (nonatomic, copy, readonly) NSString *rowTitle;
 
+- (NSArray<SYPColourPointModel *> *)allMainData;
+
 @end
 
 ////////////////////////////////////////////////////////////
@@ -40,6 +42,10 @@
  表格头标题
  */
 @property (nonatomic, copy) NSArray <NSString *> *head;
+/**
+ 左上角标示
+ */
+@property (nonatomic, copy) NSString *vertexName;
 /**
  表格行分组，表格中的 行 集合
  */
