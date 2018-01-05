@@ -21,15 +21,12 @@
 		2359ED2D1FD782A200AD4405 /* SYPPartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED211FD782A200AD4405 /* SYPPartModel.m */; };
 		2359ED2E1FD782A200AD4405 /* SYPInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED231FD782A200AD4405 /* SYPInfoModel.m */; };
 		2359ED431FD789FF00AD4405 /* SYPExcelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED321FD789FF00AD4405 /* SYPExcelView.m */; };
-		2359ED441FD789FF00AD4405 /* SYPSignView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED361FD789FF00AD4405 /* SYPSignView.m */; };
-		2359ED451FD789FF00AD4405 /* SYPFreezeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED371FD789FF00AD4405 /* SYPFreezeViewCell.m */; };
-		2359ED461FD789FF00AD4405 /* SYPFreezeWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED3A1FD789FF00AD4405 /* SYPFreezeWindowView.m */; };
-		2359ED471FD789FF00AD4405 /* SYPRowViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED3B1FD789FF00AD4405 /* SYPRowViewCell.m */; };
-		2359ED481FD789FF00AD4405 /* SYPSectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED3E1FD789FF00AD4405 /* SYPSectionViewCell.m */; };
-		2359ED491FD789FF00AD4405 /* SYPMainViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED3F1FD789FF00AD4405 /* SYPMainViewCell.m */; };
 		2359ED4A1FD789FF00AD4405 /* SYPSubSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED401FD789FF00AD4405 /* SYPSubSheetView.m */; };
 		2359ED4B1FD789FF00AD4405 /* SYPSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2359ED411FD789FF00AD4405 /* SYPSheetView.m */; };
 		2359ED531FD8241200AD4405 /* template1_03-1.json in Resources */ = {isa = PBXBuildFile; fileRef = 2359ED521FD8241200AD4405 /* template1_03-1.json */; };
+		236492DA1FFE2EF700BC6A87 /* UIView+XCMultiSortTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 236492D41FFE2EF700BC6A87 /* UIView+XCMultiSortTableView.m */; };
+		236492DB1FFE2EF700BC6A87 /* XCMultiSortTableViewBGScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 236492D71FFE2EF700BC6A87 /* XCMultiSortTableViewBGScrollView.m */; };
+		236492DC1FFE2EF700BC6A87 /* XCMultiSortTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 236492D91FFE2EF700BC6A87 /* XCMultiSortTableView.m */; };
 		236520601FD3106B006356A3 /* SYPLandscapeBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2365205C1FD3106B006356A3 /* SYPLandscapeBarLayer.m */; };
 		236520611FD3106B006356A3 /* SYPLandscapeBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2365205D1FD3106B006356A3 /* SYPLandscapeBarView.m */; };
 		236DA2931FEE611600D8342B /* UIButton+SYPPositionSwap.m in Sources */ = {isa = PBXBuildFile; fileRef = 236DA2921FEE611600D8342B /* UIButton+SYPPositionSwap.m */; };
@@ -143,22 +140,17 @@
 		2359ED301FD789FF00AD4405 /* SYPSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPSheetView.h; sourceTree = "<group>"; };
 		2359ED311FD789FF00AD4405 /* SYPSubSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPSubSheetView.h; sourceTree = "<group>"; };
 		2359ED321FD789FF00AD4405 /* SYPExcelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPExcelView.m; sourceTree = "<group>"; };
-		2359ED341FD789FF00AD4405 /* SYPFreezeWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPFreezeWindowView.h; sourceTree = "<group>"; };
-		2359ED351FD789FF00AD4405 /* SYPRowViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPRowViewCell.h; sourceTree = "<group>"; };
-		2359ED361FD789FF00AD4405 /* SYPSignView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPSignView.m; sourceTree = "<group>"; };
-		2359ED371FD789FF00AD4405 /* SYPFreezeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPFreezeViewCell.m; sourceTree = "<group>"; };
-		2359ED381FD789FF00AD4405 /* SYPMainViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPMainViewCell.h; sourceTree = "<group>"; };
-		2359ED391FD789FF00AD4405 /* SYPSectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPSectionViewCell.h; sourceTree = "<group>"; };
-		2359ED3A1FD789FF00AD4405 /* SYPFreezeWindowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPFreezeWindowView.m; sourceTree = "<group>"; };
-		2359ED3B1FD789FF00AD4405 /* SYPRowViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPRowViewCell.m; sourceTree = "<group>"; };
-		2359ED3C1FD789FF00AD4405 /* SYPFreezeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPFreezeViewCell.h; sourceTree = "<group>"; };
-		2359ED3D1FD789FF00AD4405 /* SYPSignView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPSignView.h; sourceTree = "<group>"; };
-		2359ED3E1FD789FF00AD4405 /* SYPSectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPSectionViewCell.m; sourceTree = "<group>"; };
-		2359ED3F1FD789FF00AD4405 /* SYPMainViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPMainViewCell.m; sourceTree = "<group>"; };
 		2359ED401FD789FF00AD4405 /* SYPSubSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPSubSheetView.m; sourceTree = "<group>"; };
 		2359ED411FD789FF00AD4405 /* SYPSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPSheetView.m; sourceTree = "<group>"; };
 		2359ED421FD789FF00AD4405 /* SYPExcelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPExcelView.h; sourceTree = "<group>"; };
 		2359ED521FD8241200AD4405 /* template1_03-1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "template1_03-1.json"; sourceTree = "<group>"; };
+		236492D31FFE2EF700BC6A87 /* XCMultiSortTableViewBGScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCMultiSortTableViewBGScrollView.h; sourceTree = "<group>"; };
+		236492D41FFE2EF700BC6A87 /* UIView+XCMultiSortTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XCMultiSortTableView.m"; sourceTree = "<group>"; };
+		236492D51FFE2EF700BC6A87 /* XCMultiSortTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCMultiSortTableView.h; sourceTree = "<group>"; };
+		236492D61FFE2EF700BC6A87 /* UIView+XCMultiSortTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XCMultiSortTableView.h"; sourceTree = "<group>"; };
+		236492D71FFE2EF700BC6A87 /* XCMultiSortTableViewBGScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCMultiSortTableViewBGScrollView.m; sourceTree = "<group>"; };
+		236492D81FFE2EF700BC6A87 /* XCMultiSortTableViewDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCMultiSortTableViewDefault.h; sourceTree = "<group>"; };
+		236492D91FFE2EF700BC6A87 /* XCMultiSortTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XCMultiSortTableView.m; sourceTree = "<group>"; };
 		2365205C1FD3106B006356A3 /* SYPLandscapeBarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPLandscapeBarLayer.m; sourceTree = "<group>"; };
 		2365205D1FD3106B006356A3 /* SYPLandscapeBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SYPLandscapeBarView.m; sourceTree = "<group>"; };
 		2365205E1FD3106B006356A3 /* SYPLandscapeBarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SYPLandscapeBarLayer.h; sourceTree = "<group>"; };
@@ -357,7 +349,7 @@
 		2359ED2F1FD789FF00AD4405 /* Excel */ = {
 			isa = PBXGroup;
 			children = (
-				2359ED331FD789FF00AD4405 /* FreezeWindowView */,
+				236492D21FFE2EF700BC6A87 /* XCMultiSortTableView */,
 				2359ED421FD789FF00AD4405 /* SYPExcelView.h */,
 				2359ED321FD789FF00AD4405 /* SYPExcelView.m */,
 				2359ED301FD789FF00AD4405 /* SYPSheetView.h */,
@@ -368,23 +360,18 @@
 			path = Excel;
 			sourceTree = "<group>";
 		};
-		2359ED331FD789FF00AD4405 /* FreezeWindowView */ = {
+		236492D21FFE2EF700BC6A87 /* XCMultiSortTableView */ = {
 			isa = PBXGroup;
 			children = (
-				2359ED341FD789FF00AD4405 /* SYPFreezeWindowView.h */,
-				2359ED3A1FD789FF00AD4405 /* SYPFreezeWindowView.m */,
-				2359ED3D1FD789FF00AD4405 /* SYPSignView.h */,
-				2359ED361FD789FF00AD4405 /* SYPSignView.m */,
-				2359ED3C1FD789FF00AD4405 /* SYPFreezeViewCell.h */,
-				2359ED371FD789FF00AD4405 /* SYPFreezeViewCell.m */,
-				2359ED351FD789FF00AD4405 /* SYPRowViewCell.h */,
-				2359ED3B1FD789FF00AD4405 /* SYPRowViewCell.m */,
-				2359ED381FD789FF00AD4405 /* SYPMainViewCell.h */,
-				2359ED3F1FD789FF00AD4405 /* SYPMainViewCell.m */,
-				2359ED391FD789FF00AD4405 /* SYPSectionViewCell.h */,
-				2359ED3E1FD789FF00AD4405 /* SYPSectionViewCell.m */,
+				236492D51FFE2EF700BC6A87 /* XCMultiSortTableView.h */,
+				236492D91FFE2EF700BC6A87 /* XCMultiSortTableView.m */,
+				236492D81FFE2EF700BC6A87 /* XCMultiSortTableViewDefault.h */,
+				236492D61FFE2EF700BC6A87 /* UIView+XCMultiSortTableView.h */,
+				236492D41FFE2EF700BC6A87 /* UIView+XCMultiSortTableView.m */,
+				236492D31FFE2EF700BC6A87 /* XCMultiSortTableViewBGScrollView.h */,
+				236492D71FFE2EF700BC6A87 /* XCMultiSortTableViewBGScrollView.m */,
 			);
-			path = FreezeWindowView;
+			path = XCMultiSortTableView;
 			sourceTree = "<group>";
 		};
 		2365205B1FD3106B006356A3 /* LandscapeBar */ = {
@@ -834,7 +821,6 @@
 				2359ED281FD782A200AD4405 /* SYPFilterModel.m in Sources */,
 				23EAD3221FD1309A00B8A488 /* SYPBlockButton.m in Sources */,
 				23D9AD781FDA6B8700DF93B6 /* SYPFilterListViewCell.m in Sources */,
-				2359ED481FD789FF00AD4405 /* SYPSectionViewCell.m in Sources */,
 				23A285991FD14DE600360E7E /* SYPHelpInfoView.m in Sources */,
 				23C20CEF1FD942DF001BC1FA /* SYPTabButton.m in Sources */,
 				2359ED2C1FD782A200AD4405 /* SYPChartModel.m in Sources */,
@@ -861,29 +847,27 @@
 				23C9B4351FD924A200CC57ED /* SYPFilterView.m in Sources */,
 				23EAD2881FD1305E00B8A488 /* NSObject+MJClass.m in Sources */,
 				23EAD3251FD1309A00B8A488 /* SYPInvertView.m in Sources */,
-				2359ED441FD789FF00AD4405 /* SYPSignView.m in Sources */,
 				23EAD2431FD1303100B8A488 /* ViewController.m in Sources */,
 				2359ED431FD789FF00AD4405 /* SYPExcelView.m in Sources */,
 				2359ED271FD782A200AD4405 /* SYPBargraphModel.m in Sources */,
 				23A146D41FD4E66700F9BC5B /* SYPClickableLineView.m in Sources */,
 				23EAD3231FD1309A00B8A488 /* SYPTrendTypeImageView.m in Sources */,
-				2359ED451FD789FF00AD4405 /* SYPFreezeViewCell.m in Sources */,
 				23F86BD01FECFEF900478027 /* View+MASAdditions.m in Sources */,
 				23C20CEC1FD93F0A001BC1FA /* SYPTabController.m in Sources */,
 				23D9AD8B1FDA873900DF93B6 /* SYPPartView.m in Sources */,
 				23EAD32B1FD1309A00B8A488 /* SYPCursor.m in Sources */,
+				236492DA1FFE2EF700BC6A87 /* UIView+XCMultiSortTableView.m in Sources */,
 				2359ED2A1FD782A200AD4405 /* SYPColourPointModel.m in Sources */,
-				2359ED491FD789FF00AD4405 /* SYPMainViewCell.m in Sources */,
 				236DA2931FEE611600D8342B /* UIButton+SYPPositionSwap.m in Sources */,
 				23EAD3241FD1309A00B8A488 /* SYPHudView.m in Sources */,
-				2359ED461FD789FF00AD4405 /* SYPFreezeWindowView.m in Sources */,
+				236492DB1FFE2EF700BC6A87 /* XCMultiSortTableViewBGScrollView.m in Sources */,
+				236492DC1FFE2EF700BC6A87 /* XCMultiSortTableView.m in Sources */,
 				23F86BCA1FECFEF900478027 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				2359ED2E1FD782A200AD4405 /* SYPInfoModel.m in Sources */,
 				23EAD2841FD1305E00B8A488 /* MJProperty.m in Sources */,
 				23EAD32D1FD1309A00B8A488 /* UIView+Extension.m in Sources */,
 				23F86BCE1FECFEF900478027 /* MASLayoutConstraint.m in Sources */,
 				23F86BCD1FECFEF900478027 /* MASConstraintMaker.m in Sources */,
-				2359ED471FD789FF00AD4405 /* SYPRowViewCell.m in Sources */,
 				23EAD28C1FD1305E00B8A488 /* MJFoundation.m in Sources */,
 				23EAD28A1FD1305E00B8A488 /* MJPropertyKey.m in Sources */,
 				23F86BD11FECFEF900478027 /* MASConstraint.m in Sources */,

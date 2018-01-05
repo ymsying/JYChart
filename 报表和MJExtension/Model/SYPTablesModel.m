@@ -38,6 +38,14 @@
     return longestValue;
 }
 
+- (NSArray<SYPColourPointModel *> *)mainData {
+    return [_mainData subarrayWithRange:NSMakeRange(1, _mainData.count-1)];
+}
+
+- (NSArray<SYPColourPointModel *> *)allMainData {
+    return _mainData;
+}
+
 - (NSString *)rowTitle {
     if (!rowTitle) {
         rowTitle = self.mainData[0].value;
@@ -72,7 +80,7 @@
     if (!leadLineTitle || sortIndexList.count) {
         NSMutableArray *leadTitle = [NSMutableArray arrayWithCapacity:self.data.count];
         [self.data enumerateObjectsUsingBlock:^(SYPTableRowModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSString *title = obj.mainData[0].value;
+            NSString *title = [obj allMainData][0].value;
             [leadTitle addObject:title];
         }];
         leadLineTitle = [leadTitle copy];
@@ -80,6 +88,13 @@
     return leadLineTitle;
 }
 
+- (NSArray<NSString *> *)head {
+    return [_head subarrayWithRange:NSMakeRange(1, _head.count-1)];
+}
+
+- (NSString *)vertexName {
+    return _head[0];
+}
 - (NSArray<NSString *> *)columnLongestValue {
     if (!columnLongestValue) {
         NSMutableArray *columnValue = [NSMutableArray arrayWithCapacity:self.head.count];

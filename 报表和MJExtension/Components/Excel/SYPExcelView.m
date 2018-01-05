@@ -29,6 +29,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         cursorScrollHeight = SYPViewHeight - kCursorNavHeight;
+        [self setClipsToBounds:YES];
         [self addSubview:self.cursor];
     }
     return self;
@@ -37,6 +38,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
         [self addSubview:self.cursor];
+        [self setClipsToBounds:YES];
     }
     return self;
 }
