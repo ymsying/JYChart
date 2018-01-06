@@ -15,12 +15,6 @@
 
 #define AddHeightTo(v, h) { CGRect f = v.frame; f.size.height += h; v.frame = f; }
 
-typedef NS_ENUM(NSUInteger, TableColumnSortType) {
-    TableColumnSortTypeAsc = 0,
-    TableColumnSortTypeDesc,
-    TableColumnSortTypeNone
-};
-
 @interface XCMultiTableView () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 
 - (void)reset;
@@ -36,11 +30,11 @@ typedef NS_ENUM(NSUInteger, TableColumnSortType) {
 @end
 
 @implementation XCMultiTableView {
-    XCMultiTableViewBGScrollView *topHeaderScrollView;
+    
     XCMultiTableViewBGScrollView *contentScrollView;
     UITableView *leftHeaderTableView;
     UITableView *contentTableView;
-    UIView *vertexView;
+    
     NSInteger contentTabelSelectedViewTag;
 
     UILabel *vertextLabel;
@@ -72,6 +66,8 @@ typedef NS_ENUM(NSUInteger, TableColumnSortType) {
 
 @synthesize datasource;
 
+@synthesize topHeaderScrollView, vertexView;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -85,6 +81,10 @@ typedef NS_ENUM(NSUInteger, TableColumnSortType) {
         self.contentMode = UIViewContentModeRedraw;
         
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        
+        
+        columnTapViewDict = [NSMutableDictionary dictionary];
+        columnSortedTapFlags = [NSMutableDictionary dictionary];
         
         cellWidth = XCMultiTableView_DefaultCellWidth;
         cellHeight = XCMultiTableView_DefaultCellHeight;
@@ -123,6 +123,7 @@ typedef NS_ENUM(NSUInteger, TableColumnSortType) {
         leftHeaderTableView = [[UITableView alloc] initWithFrame:CGRectZero];
         leftHeaderTableView.dataSource = self;
         leftHeaderTableView.delegate = self;
+        leftHeaderTableView.bounces = NO;
         leftHeaderTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         leftHeaderTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         leftHeaderTableView.backgroundColor = [UIColor clearColor];
@@ -138,6 +139,7 @@ typedef NS_ENUM(NSUInteger, TableColumnSortType) {
         contentTableView = [[UITableView alloc] initWithFrame:contentScrollView.bounds];
         contentTableView.dataSource = self;
         contentTableView.delegate = self;
+        contentTableView.bounces = NO;
         contentTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         contentTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         contentTableView.backgroundColor = [UIColor clearColor];
@@ -231,7 +233,7 @@ typedef NS_ENUM(NSUInteger, TableColumnSortType) {
         responseBgColorForColumn = [datasource_ respondsToSelector:@selector(tableView:bgColorInSection:InRow:InColumn:)];
         responseHeaderBgColorForColumn = [datasource_ respondsToSelector:@selector(tableView:headerBgColorInColumn:)];
         
-        [self reset];
+//        [self reset];
     }
 }
 
@@ -282,53 +284,6 @@ typedef NS_ENUM(NSUInteger, TableColumnSortType) {
     }
     [target selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, [tableView rectForHeaderInSection:section].size.height)];;
-//    if (tableView == leftHeaderTableView) {
-//        UITapGestureRecognizer *leftRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(leftHeaderTap:)];
-//        //view.backgroundColor = [UIColor yellowColor];
-//        view.tag = section;
-//        [view addGestureRecognizer:leftRecognizer];
-//    }else {
-//        NSUInteger count = [datasource arrayDataForTopHeaderInTableView:self].count;
-//        for (NSInteger i = 0; i < count; i++) {
-//            CGFloat cellW = [self accessContentTableViewCellWidth:i];
-//            CGFloat cellH = [tableView rectForHeaderInSection:section].size.height;
-//
-//            CGFloat width = [[columnPointCollection objectAtIndex:i] floatValue];
-//
-//            UIView *subView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cellW, cellH)];
-//            subView.center = CGPointMake(width, cellH / 2.0f);
-//            subView.clipsToBounds = YES;
-//            if (i == 1) {
-//                subView.backgroundColor = [UIColor grayColor];
-//            }else {
-//                subView.backgroundColor = [UIColor blackColor];
-//            }
-//
-//            NSString *tagStr = [NSString stringWithFormat:@"%@_%@", @(section), @(i)];
-//            subView.tag = (int)tagStr;
-//
-//            NSString *columnStr = [NSString stringWithFormat:@"%@_%@", @(section), @(i)];
-//            [columnTapViewDict setObject:subView forKey:columnStr];
-//
-//
-//            if ([columnSortedTapFlags objectForKey:columnStr] == nil) {
-//                [columnSortedTapFlags setObject:[NSNumber numberWithInt:TableColumnSortTypeNone] forKey:columnStr];
-//            }
-//
-//
-//            UITapGestureRecognizer *contentHeaderGecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(contentHeaderTap:)];
-//
-//            [subView addGestureRecognizer:contentHeaderGecognizer];
-//
-//            [view addSubview:subView];
-//        }
-//    }
-//    return view;
-//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 20.0f;
@@ -382,9 +337,6 @@ typedef NS_ENUM(NSUInteger, TableColumnSortType) {
 #pragma mark - private method
 
 - (void)reset {
-    
-    columnTapViewDict = [NSMutableDictionary dictionary];
-    columnSortedTapFlags = [NSMutableDictionary dictionary];
     
     [self accessDataSourceData];
     
@@ -487,7 +439,7 @@ typedef NS_ENUM(NSUInteger, TableColumnSortType) {
         
         [view addSubview:label];
         
-        UIImageView *sortIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_array"]];
+        UIImageView *sortIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_sort"]];
         sortIcon.tag = view.tag + 20000;
         sortIcon.frame = ({
             CGRect frame = label.frame;
@@ -498,17 +450,28 @@ typedef NS_ENUM(NSUInteger, TableColumnSortType) {
             frame;
         });
         [view addSubview:sortIcon];
+        NSLog(@"%@", sortIcon);
         
         
         UITapGestureRecognizer *topHeaderGecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(contentHeaderTap:)];
         
         [view addGestureRecognizer:topHeaderGecognizer];
         
-        NSString *columnStr = [NSString stringWithFormat:@"-1_%@", @(i)];
+        NSString *columnStr = [NSString stringWithFormat:@"-1_%@", @(view.tag)];
         [columnTapViewDict setObject:view forKey:columnStr];
         
         if ([columnSortedTapFlags objectForKey:columnStr] == nil) {
-            [columnSortedTapFlags setObject:[NSNumber numberWithInt:TableColumnSortTypeNone] forKey:columnStr];
+            [columnSortedTapFlags setObject:@(TableColumnSortTypeNone) forKey:columnStr];
+        } else {
+            sortIcon.image = [UIImage imageNamed:@"icon_array"];
+            TableColumnSortType type = [[columnSortedTapFlags objectForKey:columnStr] integerValue];
+            if (type == TableColumnSortTypeAsc) {
+                sortIcon.layer.transform = CATransform3DIdentity;
+            } else if (type == TableColumnSortTypeDesc) {
+                sortIcon.layer.transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
+            } else if (type == TableColumnSortTypeNone) {
+                sortIcon.image = [UIImage imageNamed:@"icon_sort"];
+            }
         }
         
         [topHeaderScrollView addSubview:view];
@@ -705,108 +668,32 @@ typedef NS_ENUM(NSUInteger, TableColumnSortType) {
     UIView *view = recognizer.view;
     
     NSIndexPath *indexPath = [self accessUIViewVirtualTag:view];
-    
+    indexPath = [NSIndexPath indexPathForRow:indexPath.row + 10000 inSection:indexPath.section];
     NSUInteger length = [indexPath length];
     
     if (length != 2) return;
-    //[self singleHeaderClick:indexPath];
     
-    if ([self.delegate respondsToSelector:@selector(tableView:didSelectHeadColumnAtIndexPath:)]) {
-        [((UIImageView *)[view viewWithTag:view.tag + 20000]) setImage:[UIImage imageNamed:@"icon_sort"]];
+    if ([self.delegate respondsToSelector:@selector(tableView:didSelectHeadColumnAtIndexPath:sortType:)]) {
+        NSString *columnStr = [NSString stringWithFormat:@"-1_%@", @(view.tag)];
+        for (NSString *columnStr1 in columnSortedTapFlags.allKeys) {
+            if (![columnStr1 isEqualToString:columnStr]) {
+                [columnSortedTapFlags setObject:@(TableColumnSortTypeNone) forKey:columnStr1];
+            } else {
+                NSLog(@"tag = %@", @(view.tag));
+            }
+        }
+        TableColumnSortType type = [[columnSortedTapFlags objectForKey:columnStr] integerValue];
+        if (type == TableColumnSortTypeNone) {
+            type = TableColumnSortTypeAsc;
+        } else if (type == TableColumnSortTypeAsc) {
+            type = TableColumnSortTypeDesc;
+        } else if (type == TableColumnSortTypeDesc) {
+            type = TableColumnSortTypeAsc;
+        }
+        [columnSortedTapFlags setObject:@(type) forKey:columnStr];
         
-//        iv.layer.transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
-        [self.delegate tableView:self didSelectHeadColumnAtIndexPath:indexPath];
+        [self.delegate tableView:self didSelectHeadColumnAtIndexPath:indexPath sortType:type];
     }
-    
-//    NSInteger section = indexPath.section;
-//    NSInteger column = indexPath.row;
-//
-//    NSString *columnStr = [NSString stringWithFormat:@"%@_%@", @(section), @(column)];
-//
-//    NSInteger columnFlag = [[columnSortedTapFlags objectForKey:columnStr] integerValue];
-//
-//    if (section == -1) {
-//        NSUInteger rows = [self numberOfSections];
-//
-//        TableColumnSortType newType = TableColumnSortTypeNone;
-//
-//        if (columnFlag == TableColumnSortTypeNone || columnFlag == TableColumnSortTypeDesc) {
-//            newType = TableColumnSortTypeAsc;
-//        }else {
-//            newType = TableColumnSortTypeDesc;
-//        }
-//
-//        for (NSInteger i = 0; i < rows; i++) {
-//            NSIndexPath *iPath = [NSIndexPath indexPathForRow:column inSection:i];
-//
-//            NSString *str = [NSString stringWithFormat:@"%@_%@", @(iPath.section), @(iPath.row)];
-//            [columnSortedTapFlags setObject:[NSNumber numberWithUnsignedInteger:columnFlag] forKey:str];
-//
-//            [self singleHeaderClick:iPath];
-//        }
-//        [columnSortedTapFlags setObject:[NSNumber numberWithInt:newType] forKey:columnStr];
-//
-//    }else {
-//        [self singleHeaderClick:indexPath];
-//    }
-//
-//
-//    [leftHeaderTableView reloadData];
-//    [contentTableView reloadData];
-
-}
-
-- (void)singleHeaderClick:(NSIndexPath *)indexPath {
-    
-//    NSInteger section = indexPath.section;
-//    NSInteger column = indexPath.row;
-//
-//    NSString *columnStr = [NSString stringWithFormat:@"%@_%@", @(section), @(column)];
-//    NSInteger columnFlag = [[columnSortedTapFlags objectForKey:columnStr] integerValue];
-//
-//    NSArray *leftHeaderDataInSection = [leftHeaderDataArray objectAtIndex:section];
-//    NSArray *contentDataInSection = [contentDataArray objectAtIndex:section];
-//
-//    NSArray *sortContentData = [contentDataInSection sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-//
-//        NSComparisonResult result =  [[obj1 objectAtIndex:column] compare:[obj2 objectAtIndex:column]];
-//
-//        return result;
-//    }];
-//
-//    NSMutableArray *sortIndexAry = [NSMutableArray array];
-//    for (int i = 0; i < sortContentData.count; i++) {
-//        id objI = [sortContentData objectAtIndex:i];
-//        for (int j = 0; j < contentDataInSection.count; j++) {
-//            id objJ = [contentDataInSection objectAtIndex:j];
-//            if (objI == objJ) {
-//                [sortIndexAry addObject:[NSNumber numberWithInt:j]];
-//                break;
-//            }
-//        }
-//    }
-//
-//    NSMutableArray *sortLeftHeaderData = [NSMutableArray array];
-//    for (id index in sortIndexAry) {
-//        int i = [index intValue];
-//        [sortLeftHeaderData addObject:[leftHeaderDataInSection objectAtIndex:i]];
-//    }
-//
-//    if (columnFlag == TableColumnSortTypeNone || columnFlag == TableColumnSortTypeDesc) {
-//        columnFlag = TableColumnSortTypeAsc;
-//    }else {
-//        columnFlag = TableColumnSortTypeDesc;
-//        NSEnumerator *leftReverseEnumerator = [sortLeftHeaderData reverseObjectEnumerator];
-//        NSEnumerator *contentReverseEvumerator = [sortContentData reverseObjectEnumerator];
-//        sortLeftHeaderData = [NSMutableArray arrayWithArray:[leftReverseEnumerator allObjects]];
-//        sortContentData = [NSArray arrayWithArray:[contentReverseEvumerator allObjects]];
-//    }
-//
-//    [leftHeaderDataArray replaceObjectAtIndex:section withObject:sortLeftHeaderData];
-//    [contentDataArray replaceObjectAtIndex:section withObject:sortContentData];
-//
-//    [columnSortedTapFlags setObject:[NSNumber numberWithUnsignedInteger:columnFlag] forKey:columnStr];
-    
 }
 
 #pragma mark - other method

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+@class XCMultiTableViewBGScrollView;
+
 typedef NS_ENUM(NSUInteger, SortColumnType) {
     SortColumnTypeInteger,
     SortColumnTypeFloat,
@@ -24,6 +26,12 @@ typedef NS_ENUM(NSUInteger, AlignHorizontalPosition) {
 typedef NS_ENUM(NSUInteger, MultiTableViewType) {
     MultiTableViewTypeLeft = 0,
     MultiTableViewTypeRight,
+};
+
+typedef NS_ENUM(NSUInteger, TableColumnSortType) {
+    TableColumnSortTypeAsc = 0,
+    TableColumnSortTypeDesc,
+    TableColumnSortTypeNone
 };
 
 @protocol XCMultiTableViewDataSource;
@@ -48,6 +56,8 @@ typedef NS_ENUM(NSUInteger, MultiTableViewType) {
 @property (nonatomic, weak) id<XCMultiTableViewDataSource> datasource;
 @property (nonatomic, weak) id<XCMultiTableViewDelegate> delegate;
 
+@property (nonatomic, strong, readonly) XCMultiTableViewBGScrollView *topHeaderScrollView;
+@property (nonatomic, strong, readonly) UIView *vertexView;
 
 - (void)reloadData;
 
@@ -56,7 +66,7 @@ typedef NS_ENUM(NSUInteger, MultiTableViewType) {
 @protocol XCMultiTableViewDelegate <NSObject>
 
 - (void)tableViewWithType:(MultiTableViewType)tableViewType didSelectRowAtIndexPath:(NSIndexPath *)indexPath InColumn:(NSInteger)column;
-- (void)tableView:(XCMultiTableView *)tableView didSelectHeadColumnAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(XCMultiTableView *)tableView didSelectHeadColumnAtIndexPath:(NSIndexPath *)indexPath sortType:(TableColumnSortType)type;
 
 @end
 
