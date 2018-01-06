@@ -7,7 +7,7 @@
 //
 
 #import "SYPExcelView.h"
-
+#import "Masonry.h"
 #import "SYPCursor.h"
 #import "SYPSheetView.h"
 
@@ -70,6 +70,9 @@
         //默认的最小值是5，小于默认值的话按默认值设置
         _cursor.minFontSize = _cursor.maxFontSize = 15;
         [self addSubview:_cursor];
+        [_cursor mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.bottom.right.mas_equalTo(0);
+        }];
     }
     return _cursor;
 }

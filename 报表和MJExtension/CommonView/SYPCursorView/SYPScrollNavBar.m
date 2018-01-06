@@ -417,7 +417,7 @@
         
         _currectItem = button;
     }
-    
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"updateExcelHeadFrame" object:self userInfo:@{@"origin": [NSString stringWithFormat:@"{0,%lf}", 64.0]}];
     CGFloat offX = button.tag * self.rootScrollView.width;
     //NSLog(@"off ---> %f",offX);
     [self buttonMoveAnimationWithIndex:button.tag];

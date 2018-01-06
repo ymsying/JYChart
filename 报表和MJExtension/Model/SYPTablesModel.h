@@ -9,6 +9,11 @@
 #import "SYPBaseChartModel.h"
 #import "SYPColourPointModel.h"
 
+typedef NS_ENUM(NSUInteger, TableModelSortType) {
+    TableModelSortTypeAsc = 0,
+    TableModelSortTypeDesc,
+    TableModelSortTypeNone
+};
 
 ////////////////////////////////////////////////////////////
 #pragma mark - SYPTableRowModel
@@ -59,7 +64,7 @@
  */
 @property (nonatomic, copy, readonly) NSArray <NSString *> *columnLongestValue;
 
-- (void)sortMainDataListWithSection:(NSInteger)section ascending:(BOOL)ascending;
+- (void)sortMainDataListWithSection:(NSInteger)section sortType:(TableModelSortType)sortType;
 
 @end
 

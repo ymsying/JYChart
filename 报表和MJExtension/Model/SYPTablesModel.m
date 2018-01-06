@@ -138,7 +138,7 @@
  1.取出对应列所有数据，组装成一个数组originList，2.对取出的数组进行按需排序sortList，3.逐一查找sortList在originList中对应的位置，并记录在sortIndexList中,
  4.如果sortList有相同数据，查找originList的下一个数据，直到找到相同数据，并记录位置，5.根据sortIndexList重新组装mianDataModelList，组装成功返回；
  */
-- (void)sortMainDataListWithSection:(NSInteger)section ascending:(BOOL)ascending {
+- (void)sortMainDataListWithSection:(NSInteger)section sortType:(TableModelSortType)sortType {
     
     //NSLog(@"第%zi列 %@", section, (ascending ? @"升序" : @"降序"));
     sortFinish = NO;
@@ -150,12 +150,14 @@
     NSMutableArray <NSNumber *> *mainDataAtSectionList = [NSMutableArray arrayWithCapacity:originMainData.count];
     // 从原始数组中提取出要排序列的一组数组，即提取出排序列数组
     for (int i = 0; i < originMainData.count; i++) {
-        [mainDataAtSectionList addObject:@([originMainData[i].mainData[section + 1].value floatValue])];
+        NSString *value = originMainData[i].mainData[section].value;
+        value = [value stringByReplacingOccurrencesOfString:@"%@" withString:@""];
+        [mainDataAtSectionList addObject:@([value floatValue])];
     }
     // 排序列数组进行排序，生成排后列数组
     NSArray *sortedMainDataAtSectionList = [mainDataAtSectionList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         NSComparisonResult result = [obj1 compare:obj2];;
-        if (!ascending) {
+        if (sortType == TableModelSortTypeDesc) {
             if (result != NSOrderedSame) {
                 result = result * (-1);
             }
