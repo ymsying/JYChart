@@ -50,7 +50,7 @@
 
 - (SYPCompareSaleView *)compareSaleView {
     if (!_compareSaleView) {
-        NSLog(@"cell %@", self);
+        //NSLog(@"cell %@", self);
         _compareSaleView = [[SYPCompareSaleView alloc] initWithFrame:CGRectMake(ToLeftMargin, 0, SYPViewWidth - ToLeftMargin * 2, SYPViewHeight)];
         _compareSaleView.moduleModel = self.viewModel;
         _compareSaleView.delegate = self;

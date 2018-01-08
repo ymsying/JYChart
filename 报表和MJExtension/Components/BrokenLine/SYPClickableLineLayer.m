@@ -233,14 +233,12 @@
 - (void)formatterPoints {
     
     NSInteger keyPointCountMax = 0; // 查找最长的线或柱状的点个数，最终长度按出入长度计算宽度
-    NSInteger pointsCount = 0;
     
     for (SYPChartSeriesModel *series in self.dataSource) {
         keyPointCountMax = series.data.count > keyPointCountMax ? series.data.count : keyPointCountMax;
         
         if ([@"bar" isEqualToString:series.type]) {
             barGroupCount++;
-            pointsCount = series.data.count; // 使用最后一份柱状的数据作为柱状的标准
         }
         
         for (NSNumber *number in series.data) {

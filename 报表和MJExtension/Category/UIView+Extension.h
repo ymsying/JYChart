@@ -26,4 +26,7 @@
 @property (nonatomic, assign, readonly) CGFloat stsH;
 @property (nonatomic, assign, readonly) CGFloat tabH;
 
+- (BOOL)isDisplayedInScreen;
+
+
 @end

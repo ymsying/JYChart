@@ -367,7 +367,7 @@
     NSMutableArray *tmpArray = [NSMutableArray array];
     self.rootScrollView.contentSize = CGSizeMake(self.tmpKeys.count * self.rootScrollView.width, 0);
     for (NSString *key in self.tmpKeys) {
-        NSLog(@"key ---> %@  count ---> %ld",key,self.tmpKeys.count);
+        //NSLog(@"key ---> %@  count ---> %zi",key,self.tmpKeys.count);
         UIView *pageView = [self.tmpPageViewDic objectForKey:key];
         [tmpArray addObject:pageView];
         i++;
@@ -417,7 +417,7 @@
         
         _currectItem = button;
     }
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"updateExcelHeadFrame" object:self userInfo:@{@"origin": [NSString stringWithFormat:@"{0,%lf}", 64.0]}];
+    
     CGFloat offX = button.tag * self.rootScrollView.width;
     //NSLog(@"off ---> %f",offX);
     [self buttonMoveAnimationWithIndex:button.tag];

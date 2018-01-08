@@ -40,7 +40,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="653.60000000000002" y="-416.0419790104948"/>
+            <point key="canvasLocation" x="654" y="-315"/>
         </scene>
         <!--First View Controller-->
         <scene sceneID="S5v-Zf-dkM">
@@ -234,7 +234,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="KiK-ed-LK8" kind="relationship" relationship="viewControllers" id="2r2-kd-oFh"/>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="dYT-pF-47u"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="d9e-8g-0Eb"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xB3-QF-UBn" userLabel="First Responder" sceneMemberID="firstResponder"/>

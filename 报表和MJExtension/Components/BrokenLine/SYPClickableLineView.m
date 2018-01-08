@@ -300,7 +300,6 @@
         }
         [xAxisList addObject:label];
         
-        lastLabel = label;
     }
     
     xAxisLabelList = [xAxisList copy];

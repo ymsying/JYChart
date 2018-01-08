@@ -111,6 +111,9 @@
                 }
             }
             
+            if (self.head[column].length > longestString.length) {
+                longestString = self.head[column];
+            }
             [columnValue addObject:longestString];
         }
         columnLongestValue = [columnValue copy];

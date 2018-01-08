@@ -13,6 +13,7 @@
 #import "SYPHudView.h"
 #import "SYPSubSheetView.h"
 #import "Masonry.h"
+#import "UIView+Extension.h"
 
 NSNotificationName const SYPUpdateExcelHeadFrame = @"updateExcelHeadFrame";
 
@@ -22,11 +23,7 @@ static NSString *sectionCellID = @"sectionCell";
 static NSString *rowCellID = @"rowCell";
 
 @interface SYPSheetView () <XCMultiTableViewDataSource, XCMultiTableViewDelegate> {
-    
-    NSInteger lastSortSection; // 上一步排序列数标志
-    BOOL recoverFlag; // YES时箭头向下、降序排列
-    
-    CGPoint freezePoint;
+    UIWindow *freezeWindow;
 }
 
 @property (nonatomic, strong) SYPTableConfigModel *sheetModel;
@@ -38,11 +35,10 @@ static NSString *rowCellID = @"rowCell";
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        freezeWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SYPViewWidth, kSheetHeadHeight)];
+        freezeWindow.hidden = YES;
         self.backgroundColor = [UIColor clearColor];
-        freezePoint =  CGPointMake(80, kSheetHeadHeight);
         self.clipsToBounds = YES;
-        lastSortSection = 0;
-        recoverFlag = YES;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSectionViewFrame:) name:SYPUpdateExcelHeadFrame object:nil];
     }
     return self;
@@ -50,6 +46,17 @@ static NSString *rowCellID = @"rowCell";
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SYPUpdateExcelHeadFrame object:nil];
+    
+    [freezeWindow removeFromSuperview];
+    freezeWindow = nil;
+}
+
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    if (newSuperview == nil || !newSuperview) {
+        [(UIScrollView *)self.multiTableView.topHeaderScrollView setHidden:YES];
+        [(UIView *)self.multiTableView.vertexView setHidden:YES];
+        [self.multiTableView setHidden:YES];
+    }
 }
 
 - (SYPTableConfigModel *)sheetModel {
@@ -91,6 +98,12 @@ static NSString *rowCellID = @"rowCell";
 // 需要在特定的scrollview的滚动事件代理方法中设置通知源
 - (void)refreshSectionViewFrame:(NSNotification *)nt {
     
+    UIScrollView *topHeaderView = (UIScrollView *)self.multiTableView.topHeaderScrollView;
+    UIView *vertexView = self.multiTableView.vertexView;
+    if ([@"stop scroll" isEqualToString:[nt.userInfo objectForKey:@"status"]]) {
+        freezeWindow.hidden = YES;
+        return;
+    }
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     CGRect toWindowFrame = [self convertRect:self.frame toView:keyWindow];
     CGFloat offset = CGPointFromString([nt.userInfo objectForKey:@"origin"]).y;
@@ -103,34 +116,31 @@ static NSString *rowCellID = @"rowCell";
         // 在toWindowFrame.origin.y 小于默认偏移时才开启悬浮
         // 当视图还未进入视觉区域时，由于视图已经贴在屏幕上了，所以 toWindowFrame.origin.y == 0，此时不应将表头悬浮
         // 当视图向上滑动toWindowFrame.origin.y会变成负无穷大，所以在大于本身高度后，取消悬浮
-        if (toWindowFrame.origin.y < offset && toWindowFrame.origin.y != 0 && toWindowFrame.origin.y > -(CGRectGetHeight(self.frame) - offset)) {
+        if (toWindowFrame.origin.y < offset && toWindowFrame.origin.y != 0 && toWindowFrame.origin.y > -(CGRectGetHeight(self.frame) - offset) && toWindowFrame.origin.x >= 0) {
             //NSLog(@"区域内悬浮 %@", NSStringFromCGRect(toWindowFrame));
             if (toWindowFrame.origin.y == 53) { // 值为53时特殊处理
                 return;
             }
-            UIScrollView *topHeaderView = (UIScrollView *)self.multiTableView.topHeaderScrollView;
-            UIView *vertexView = self.multiTableView.vertexView;
-            [keyWindow addSubview:topHeaderView];
-            CGRect frame = topHeaderView.frame;
-            frame.origin.y = offset;
-            frame.origin.x = SYPDefaultMargin * 2 + freezePoint.x;
-            topHeaderView.frame = frame;
             
-            [keyWindow addSubview:vertexView];
-            frame = vertexView.frame;
+            CGRect frame = freezeWindow.frame;
             frame.origin.y = offset;
-            frame.origin.x = 0;
-            vertexView.frame = frame;
-            //printf("＋＋＋retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self.freezeView.sectionView)));
+            freezeWindow.frame = frame;
+            [freezeWindow addSubview:topHeaderView];
+            
+            [freezeWindow addSubview:vertexView];
+            
+            freezeWindow.hidden = NO;
+            [freezeWindow makeKeyAndVisible];
+//            printf("＋＋＋retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(topHeaderView)));
         }
         else {
-            UIScrollView *topHeaderView = (UIScrollView *)self.multiTableView.topHeaderScrollView;
-            UIView *vertexView = self.multiTableView.vertexView;
-            //NSLog(@"外部复原");
+            [freezeWindow.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            
+            //NSLog(@"超出边界复原");
+            
             [self.multiTableView addSubview:topHeaderView];
             CGRect frame = topHeaderView.frame;
             frame.origin.y = 0;
-            frame.origin.x = freezePoint.x;
             topHeaderView.frame = frame;
             
             [self.multiTableView addSubview:vertexView];
@@ -138,17 +148,17 @@ static NSString *rowCellID = @"rowCell";
             frame.origin.y = 0;
             frame.origin.x = 0;
             vertexView.frame = frame;
-            //printf("……………………retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self.freezeView.sectionView)));
+//            printf("*****retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(topHeaderView)));
         }
     }
     else { // 其他页面中进行滑动时复原表头位置
-        UIScrollView *topHeaderView = (UIScrollView *)self.multiTableView.topHeaderScrollView;
-        UIView *vertexView = self.multiTableView.vertexView;
+        [freezeWindow.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        
         //NSLog(@"外部复原");
+        
         [self.multiTableView addSubview:topHeaderView];
         CGRect frame = topHeaderView.frame;
         frame.origin.y = 0;
-        frame.origin.x = freezePoint.x;
         topHeaderView.frame = frame;
         
         [self.multiTableView addSubview:vertexView];
@@ -156,7 +166,7 @@ static NSString *rowCellID = @"rowCell";
         frame.origin.y = 0;
         frame.origin.x = 0;
         vertexView.frame = frame;
-        //printf("……………………retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self.freezeView.sectionView)));
+//        printf("………………retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(topHeaderView)));
     }
 }
 
@@ -253,21 +263,13 @@ static NSString *rowCellID = @"rowCell";
 }
 
 - (void)tableView:(XCMultiTableView *)tableView didSelectHeadColumnAtIndexPath:(NSIndexPath *)indexPath sortType:(TableColumnSortType)type{
-//    // 0.处理标志信息
-//    if (indexPath.section == lastSortSection) {
-//        recoverFlag = !recoverFlag;
-//    }
-//    else {
-//        recoverFlag = NO;
-//    }
+    
     // 1.排序
     // 降序/升序排序
     [self.sheetModel sortMainDataListWithSection:indexPath.row sortType:(int)type];
     // 2.刷新页面
     [self.multiTableView reloadData];
     
-    // 记录最近一次排序的所在列
-    lastSortSection = indexPath.row;
 }
 
 
