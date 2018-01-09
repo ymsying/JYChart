@@ -7,6 +7,8 @@
 //
 
 #import "SYPSheetView.h"
+#import "SYPPageView.h"
+#import "SYPPartView.h"
 #import "SYPConstantString.h"
 #import "SYPTablesModel.h"
 #import "XCMultiSortTableView.h"
@@ -34,7 +36,7 @@ static NSString *rowCellID = @"rowCell";
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        freezeWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SYPViewWidth, kSheetHeadHeight)];
+        freezeWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 0, kSheetHeadHeight)];
         freezeWindow.hidden = YES;
         self.backgroundColor = [UIColor clearColor];
         self.clipsToBounds = YES;
@@ -45,7 +47,6 @@ static NSString *rowCellID = @"rowCell";
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SYPUpdateExcelHeadFrame object:nil];;
-    [freezeWindow resignKeyWindow];
 }
 
 - (SYPTableConfigModel *)sheetModel {
@@ -91,11 +92,13 @@ static NSString *rowCellID = @"rowCell";
     UIView *vertexView = self.multiTableView.vertexView;
     [freezeWindow.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     freezeWindow.y = -100; // 移除屏幕防止阻碍点击事件
-    CGRect toVCFrame = [self convertRect:self.frame toView:self.viewController.view];
-    frezzWindowOffset = CGPointFromString([nt.userInfo objectForKey:@"origin"]).y;
+    
+    SYPPageView *pageView = (SYPPageView *)nt.object; // 表头相对pageview顶部悬浮
+    SYPPartView *partView = [nt.userInfo objectForKey:@"PartView"];
+    CGRect toVCFrame = [self convertRect:self.frame toView:pageView];
+    frezzWindowOffset = CGPointFromString([nt.userInfo objectForKey:@"origin"]).y; // 相对pageview的偏移量
     BOOL canScroll = NO;
-    [self canBeScroller:(UIView *)nt.object canBeScroll:&canScroll];
-    //NSLog(@"can scroll:%d", canScroll);
+    [self canBeScroller:partView canBeScroll:&canScroll]; // self为通知中partview的子视图时表示需要显示表头
     if (canScroll) { // 防止在其他报表中滑动时影响self
         //NSLog(@"self：%p,%@", self, NSStringFromCGRect(toWindowFrame));
         
@@ -105,9 +108,8 @@ static NSString *rowCellID = @"rowCell";
         // 滑动时切换cursor视图，self所在x值进行变化
         if (toVCFrame.origin.y < frezzWindowOffset && toVCFrame.origin.y != 0 && toVCFrame.origin.y > -(CGRectGetHeight(self.frame) - frezzWindowOffset) && toVCFrame.origin.x >= 0) {
             //NSLog(@"区域内悬浮 %@", NSStringFromCGRect(toWindowFrame));
-//            if (toWindowFrame.origin.y == 53) return; // 值为53时特殊处理
             
-            freezeWindow.y = frezzWindowOffset;
+            freezeWindow.y = frezzWindowOffset + pageView.y;
             freezeWindow.width = SYPViewWidth;
             
             [freezeWindow addSubview:topHeaderView];
@@ -222,7 +224,7 @@ static NSString *rowCellID = @"rowCell";
             [subView showSubSheetView];
             // 消除遮挡
             for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
-                if (!window.keyWindow && (window.y == frezzWindowOffset)) {
+                if (!window.keyWindow) {
                     window.hidden = YES;
                 }
             }
