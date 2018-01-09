@@ -101,12 +101,7 @@
 }
 
 - (void)closeSubSheetView {
-    // 恢复悬浮显示
-    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
-        if (!window.keyWindow) {
-            window.hidden = NO;
-        }
-    }
+   
     __block CGRect frame = self.frame;
     [UIView animateWithDuration:0.25 animations:^{
         frame.origin.y = SYPScreenHeight;
@@ -114,6 +109,13 @@
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
     }];
+    
+    // 恢复悬浮显示
+    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
+        if (!window.keyWindow) {
+            window.hidden = NO;
+        }
+    }
 }
 
 
