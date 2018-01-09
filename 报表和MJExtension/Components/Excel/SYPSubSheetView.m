@@ -9,6 +9,8 @@
 #import "SYPSubSheetView.h"
 #import "SYPSheetView.h"
 #import "Masonry.h"
+#import "UIView+Extension.h"
+
 @interface SYPSubSheetView ()
 
 @property (nonatomic, strong) SYPSheetView *sheetView;
@@ -23,25 +25,8 @@
     if (self = [super initWithFrame:frame]) {
         
         [self addSubview:self.sheetTitleLabel];
-        [self.sheetTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(20);
-            make.left.right.mas_equalTo(0);
-            make.height.mas_equalTo(44);
-        }];
-        
         [self addSubview:self.sheetView];
-        [self.sheetView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.mas_equalTo(0);
-            make.top.mas_equalTo(self.sheetTitleLabel.mas_bottom);
-            make.bottom.mas_equalTo(self.mas_bottom);
-        }];
-        
-        [self addSubview:self.closePageBtn];
-        [self.closePageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.mas_equalTo(0);
-            make.bottom.mas_equalTo(self.mas_bottom).mas_equalTo(-30);
-            make.width.height.mas_equalTo(36);
-        }];
+        [self addSubview:self.closePageBtn];        
     }
     return self;
 }
@@ -75,6 +60,25 @@
     return _closePageBtn;
 }
 
+- (void)updateConstraints {
+    [super updateConstraints];
+    [self.sheetTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(20);
+        make.left.right.mas_equalTo(0);
+        make.height.mas_equalTo(44);
+    }];
+    [self.sheetView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(0);
+        make.top.mas_equalTo(self.sheetTitleLabel.mas_bottom);
+        make.bottom.mas_equalTo(self.mas_bottom);
+    }];
+    [self.closePageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(0);
+        make.bottom.mas_equalTo(self.mas_bottom).mas_equalTo(-30);
+        make.width.height.mas_equalTo(36);
+    }];    
+}
+
 - (void)setSheetModel:(SYPTableConfigModel *)sheetModel {
     if (![_sheetModel isEqual:sheetModel]) {
         _sheetModel = sheetModel;
@@ -97,6 +101,12 @@
 }
 
 - (void)closeSubSheetView {
+    // 恢复悬浮显示
+    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
+        if (!window.keyWindow) {
+            window.hidden = NO;
+        }
+    }
     __block CGRect frame = self.frame;
     [UIView animateWithDuration:0.25 animations:^{
         frame.origin.y = SYPScreenHeight;

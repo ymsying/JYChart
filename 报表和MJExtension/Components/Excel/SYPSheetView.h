@@ -19,5 +19,7 @@ extern NSNotificationName const SYPUpdateExcelHeadFrame;
 @interface SYPSheetView : SYPBaseComponentView
 
 @property (nonatomic, assign) BOOL flexibleHeight;
+@property (nonatomic, assign, readonly) CGFloat frezzWindowOffset;
+@property (nonatomic, strong, readonly) UIWindow *freezeWindow;
 
 @end
