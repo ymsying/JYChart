@@ -285,11 +285,6 @@
     [target selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 20.0f;
-}
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [self cellHeightInIndexPath:indexPath];
 }
@@ -359,7 +354,7 @@
         }
     }
     
-    NSLog(@"width:%f, height:%f", self.frame.size.width, self.frame.size.height);
+    //NSLog(@"width:%f, height:%f", self.frame.size.width, self.frame.size.height);
     
     topHeaderScrollView.contentSize = CGSizeMake(width, topHeaderHeight);
     contentScrollView.contentSize = CGSizeMake(width, self.bounds.size.height - topHeaderHeight - boldSeperatorLineWidth);
@@ -450,7 +445,6 @@
             frame;
         });
         [view addSubview:sortIcon];
-        NSLog(@"%@", sortIcon);
         
         
         UITapGestureRecognizer *topHeaderGecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(contentHeaderTap:)];
@@ -679,7 +673,7 @@
             if (![columnStr1 isEqualToString:columnStr]) {
                 [columnSortedTapFlags setObject:@(TableColumnSortTypeNone) forKey:columnStr1];
             } else {
-                NSLog(@"tag = %@", @(view.tag));
+                //NSLog(@"tag = %@", @(view.tag));
             }
         }
         TableColumnSortType type = [[columnSortedTapFlags objectForKey:columnStr] integerValue];

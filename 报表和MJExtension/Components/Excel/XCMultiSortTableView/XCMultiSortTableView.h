@@ -56,8 +56,8 @@ typedef NS_ENUM(NSUInteger, TableColumnSortType) {
 @property (nonatomic, weak) id<XCMultiTableViewDataSource> datasource;
 @property (nonatomic, weak) id<XCMultiTableViewDelegate> delegate;
 
-@property (nonatomic, strong, readonly) XCMultiTableViewBGScrollView *topHeaderScrollView;
-@property (nonatomic, strong, readonly) UIView *vertexView;
+@property (nonatomic, strong) XCMultiTableViewBGScrollView *topHeaderScrollView;
+@property (nonatomic, strong) UIView *vertexView;
 
 - (void)reloadData;
 
