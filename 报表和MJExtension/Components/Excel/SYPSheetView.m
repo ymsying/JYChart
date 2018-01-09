@@ -91,22 +91,21 @@ static NSString *rowCellID = @"rowCell";
     UIView *vertexView = self.multiTableView.vertexView;
     [freezeWindow.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    CGRect toWindowFrame = [self convertRect:self.frame toView:keyWindow];
+    CGRect toVCFrame = [self convertRect:self.frame toView:self.viewController.view];
     CGFloat offset = CGPointFromString([nt.userInfo objectForKey:@"origin"]).y;
     BOOL canScroll = NO;
     [self canBeScroller:(UIView *)nt.object canBeScroll:&canScroll];
     //NSLog(@"can scroll:%d", canScroll);
     if (canScroll) { // 防止在其他报表中滑动时影响self
-        //NSLog(@"%@", NSStringFromCGRect(toWindowFrame));
+        //NSLog(@"self：%p,%@", self, NSStringFromCGRect(toWindowFrame));
         
         // 在toWindowFrame.origin.y 小于默认偏移时才开启悬浮
         // 当视图还未进入视觉区域时，由于视图已经贴在屏幕上了，所以 toWindowFrame.origin.y == 0，此时不应将表头悬浮
         // 当视图向上滑动toWindowFrame.origin.y会变成负无穷大，所以在大于本身高度后，取消悬浮
-        // 切换cursor视图时所在x值进行变化
-        if (toWindowFrame.origin.y < offset && toWindowFrame.origin.y != 0 && toWindowFrame.origin.y > -(CGRectGetHeight(self.frame) - offset) && toWindowFrame.origin.x >= 0) {
+        // 滑动时切换cursor视图，self所在x值进行变化
+        if (toVCFrame.origin.y < offset && toVCFrame.origin.y != 0 && toVCFrame.origin.y > -(CGRectGetHeight(self.frame) - offset) && toVCFrame.origin.x >= 0) {
             //NSLog(@"区域内悬浮 %@", NSStringFromCGRect(toWindowFrame));
-            if (toWindowFrame.origin.y == 53) return; // 值为53时特殊处理
+//            if (toWindowFrame.origin.y == 53) return; // 值为53时特殊处理
             
             CGRect frame = freezeWindow.frame;
             frame.origin.y = offset;
