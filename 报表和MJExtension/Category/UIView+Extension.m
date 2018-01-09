@@ -7,12 +7,13 @@
 //
 
 #import "UIView+Extension.h"
+#import <objc/runtime.h>
 
-UIViewController *vc;
-CGFloat navBarH;
+CGFloat navStsH;
 CGFloat navH;
 CGFloat stsH;
 CGFloat tabH;
+static char *ViewController = "viewControllerFlag";
 
 @implementation UIView (Extension)
 
@@ -105,12 +106,15 @@ CGFloat tabH;
 
 #pragma mark -
 
-- (UIViewController *)vc {
+- (UIViewController *)viewController {
+    
+    UIViewController *vc = objc_getAssociatedObject(self, ViewController);
     if (!vc) {
         for (UIView* next = [self superview]; next; next = next.superview) {
             UIResponder *nextResponder = [next nextResponder];
             if ([nextResponder isKindOfClass:[UIViewController class]]) {
                 vc = (UIViewController *)nextResponder;
+                objc_setAssociatedObject(self, ViewController, vc, OBJC_ASSOCIATION_ASSIGN);
                 break;
             }
         }
@@ -119,11 +123,9 @@ CGFloat tabH;
 }
 
 - (CGFloat)navStsH {
-    if (!navBarH) {
-        
-        navBarH = self.navH + self.stsH;
-    }
-    return navBarH;
+    
+    navStsH = self.navH + self.stsH;
+    return navStsH;
 }
 
 - (CGFloat)stsH {
@@ -135,17 +137,24 @@ CGFloat tabH;
 
 - (CGFloat)navH {
     if (!navH) {
-        navH = self.vc.navigationController.navigationBar.frame.size.height;
+        navH = self.viewController.navigationController.navigationBar.frame.size.height;
     }
     return navH;
 }
 
 - (CGFloat)tabH {
     if (!tabH) {
-        tabH = self.vc.tabBarController.tabBar.frame.size.height;
+        tabH = self.viewController.tabBarController.tabBar.frame.size.height;
     }
     return tabH;
 }
+
+// 通过归解档的方式来复制UIView
+- (UIView *)copy {
+    NSData * tempArchive = [NSKeyedArchiver archivedDataWithRootObject:self];
+    return [NSKeyedUnarchiver unarchiveObjectWithData:tempArchive];
+}
+
 
 // 判断View是否显示在屏幕上
 - (BOOL)isDisplayedInScreen

@@ -118,7 +118,8 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGFloat offset = self.offsetExcelHead ? (self.offsetExcelHead) : 0;
-    [[NSNotificationCenter defaultCenter] postNotificationName:SYPUpdateExcelHeadFrame object:self userInfo:@{@"origin": [NSString stringWithFormat:@"{0,%lf}", self.navStsH +offset]}];
+    offset += self.navStsH;
+    [[NSNotificationCenter defaultCenter] postNotificationName:SYPUpdateExcelHeadFrame object:self userInfo:@{@"origin": [NSString stringWithFormat:@"{0,%lf}", offset]}];
 }
 
 #pragma mark - <SYPModuleTwoCellDelegate>

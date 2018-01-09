@@ -45,18 +45,7 @@ static NSString *rowCellID = @"rowCell";
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SYPUpdateExcelHeadFrame object:nil];
-    
-    [freezeWindow removeFromSuperview];
-    freezeWindow = nil;
-}
-
-- (void)willMoveToSuperview:(UIView *)newSuperview {
-    if (newSuperview == nil || !newSuperview) {
-        [(UIScrollView *)self.multiTableView.topHeaderScrollView setHidden:YES];
-        [(UIView *)self.multiTableView.vertexView setHidden:YES];
-        [self.multiTableView setHidden:YES];
-    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SYPUpdateExcelHeadFrame object:nil];;
 }
 
 - (SYPTableConfigModel *)sheetModel {
@@ -100,10 +89,8 @@ static NSString *rowCellID = @"rowCell";
     
     UIScrollView *topHeaderView = (UIScrollView *)self.multiTableView.topHeaderScrollView;
     UIView *vertexView = self.multiTableView.vertexView;
-    if ([@"stop scroll" isEqualToString:[nt.userInfo objectForKey:@"status"]]) {
-        freezeWindow.hidden = YES;
-        return;
-    }
+    [freezeWindow.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     CGRect toWindowFrame = [self convertRect:self.frame toView:keyWindow];
     CGFloat offset = CGPointFromString([nt.userInfo objectForKey:@"origin"]).y;
@@ -116,17 +103,17 @@ static NSString *rowCellID = @"rowCell";
         // 在toWindowFrame.origin.y 小于默认偏移时才开启悬浮
         // 当视图还未进入视觉区域时，由于视图已经贴在屏幕上了，所以 toWindowFrame.origin.y == 0，此时不应将表头悬浮
         // 当视图向上滑动toWindowFrame.origin.y会变成负无穷大，所以在大于本身高度后，取消悬浮
+        // 切换cursor视图时所在x值进行变化
         if (toWindowFrame.origin.y < offset && toWindowFrame.origin.y != 0 && toWindowFrame.origin.y > -(CGRectGetHeight(self.frame) - offset) && toWindowFrame.origin.x >= 0) {
             //NSLog(@"区域内悬浮 %@", NSStringFromCGRect(toWindowFrame));
-            if (toWindowFrame.origin.y == 53) { // 值为53时特殊处理
-                return;
-            }
+            if (toWindowFrame.origin.y == 53) return; // 值为53时特殊处理
             
             CGRect frame = freezeWindow.frame;
             frame.origin.y = offset;
+            frame.size.width = SYPViewWidth;
             freezeWindow.frame = frame;
-            [freezeWindow addSubview:topHeaderView];
             
+            [freezeWindow addSubview:topHeaderView];
             [freezeWindow addSubview:vertexView];
             
             freezeWindow.hidden = NO;
@@ -134,10 +121,8 @@ static NSString *rowCellID = @"rowCell";
 //            printf("＋＋＋retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(topHeaderView)));
         }
         else {
-            [freezeWindow.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-            
             //NSLog(@"超出边界复原");
-            
+
             [self.multiTableView addSubview:topHeaderView];
             CGRect frame = topHeaderView.frame;
             frame.origin.y = 0;
@@ -152,15 +137,14 @@ static NSString *rowCellID = @"rowCell";
         }
     }
     else { // 其他页面中进行滑动时复原表头位置
-        [freezeWindow.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         
         //NSLog(@"外部复原");
-        
+
         [self.multiTableView addSubview:topHeaderView];
         CGRect frame = topHeaderView.frame;
         frame.origin.y = 0;
         topHeaderView.frame = frame;
-        
+
         [self.multiTableView addSubview:vertexView];
         frame = vertexView.frame;
         frame.origin.y = 0;
@@ -202,7 +186,6 @@ static NSString *rowCellID = @"rowCell";
 - (NSArray *)arrayDataForContentInTableView:(XCMultiTableView *)tableView InSection:(NSUInteger)section {
     return self.sheetModel.data;
 }
-
 
 - (NSUInteger)numberOfSectionsInTableView:(XCMultiTableView *)tableView {
     return 1;
