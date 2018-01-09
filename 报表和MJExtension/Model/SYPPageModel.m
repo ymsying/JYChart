@@ -29,6 +29,9 @@
     return [NSString stringWithFormat:@"<%@ %p> %@", [self class], self, [self mj_keyValues]];
 }
 
+- (void)dealloc {
+    [self.filter removeObserver:self forKeyPath:@"display" context:NULL];
+}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"display"]) {
@@ -36,30 +39,6 @@
     }
 }
 
-/*
- ///////////////////////////////////////////////////////////////
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- //                                                           //
- ///////////////////////////////////////////////////////////////
- */
 + (instancetype)pageModel:(NSDictionary *)info {
 
     NSArray *parts = info[@"parts"];
@@ -75,11 +54,6 @@
             [tabTitles addObject:partKey];
         }
         
-        SYPPartModel *part = nil;//[partCategory objectForKey:partKey];
-        if (!part) {
-            part = [[SYPPartModel alloc] init];
-        }
-
         NSString *type = [dic[@"type"] capitalizedString];
         type = [type mj_camelFromUnderline];
         Class klass = NSClassFromString([NSString stringWithFormat:@"SYP%@Model", type]);
@@ -128,6 +102,7 @@
     else {
         self.filteredList = [_parts copy];;
     }
+    
     lastestFilter = filter.display;
 }
 

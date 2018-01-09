@@ -197,7 +197,7 @@
     if (!filterListView.filterDataModel.data[index].data.count) {
         NSString *result = [self.tabContorller.hierarchyName componentsJoinedByString:@"||"];
         result = [result stringByReplacingOccurrencesOfString:@"请选择||" withString:@""];
-        NSLog(@"%@", result);
+        //NSLog(@"%@", result);
         [self hiddenFilterListView];
         self.filterCompletionHandler(result);
         return;

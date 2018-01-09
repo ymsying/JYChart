@@ -65,7 +65,7 @@
     } else if ([@"折线图" isEqualToString:currentTitle]) {
         type = @"Chart";
     } else if ([@"筛选" isEqualToString:currentTitle]) {
-        type = @"Filter";
+        
         currentChart.hidden = YES;
         self.FilterView.filterModel = self.pageModel.filter;
         self.FilterView.hidden = NO;

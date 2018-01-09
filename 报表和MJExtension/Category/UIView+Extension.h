@@ -17,7 +17,6 @@
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, assign) CGSize  size;
 
-
 /**
  nav + status bar
  */
@@ -25,5 +24,12 @@
 @property (nonatomic, assign, readonly) CGFloat navH;
 @property (nonatomic, assign, readonly) CGFloat stsH;
 @property (nonatomic, assign, readonly) CGFloat tabH;
+@property (nonatomic, weak, readonly) UIViewController *viewController;
+
+
+- (UIView *)copy;
+
+- (BOOL)isDisplayedInScreen;
+
 
 @end

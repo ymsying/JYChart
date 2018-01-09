@@ -13,6 +13,7 @@
 #import "SYPFilterView.h"
 #import "UIView+Extension.h"
 #import "SYPPartView.h"
+#import "Masonry.h"
 
 @interface SYPPageView () <SYPFilterViewProtocol> {
     NSString *currentFilterString;
@@ -55,9 +56,11 @@
     // 此时的height是设置nav的高，固定高度是45
     self.cursor.frame = CGRectMake(0, cursorY, SYPViewWidth, cursorNavBarH);
     //设置根滚动视图的高度，然后更新整个Cursor的高度
-    CGFloat rootScrollViewHeight = SYPViewHeight - (cursorNavBarH + cursorY) - self.navH;
+    CGFloat rootScrollViewHeight = SYPViewHeight - (cursorNavBarH + cursorY);
+    if ([[UIDevice currentDevice].systemVersion floatValue] <= 10.0) {
+//        rootScrollViewHeight -= self.navH;
+    }
     self.cursor.rootScrollViewHeight = rootScrollViewHeight;
-    
 }
 
 - (SYPFilterView *)filterView {
