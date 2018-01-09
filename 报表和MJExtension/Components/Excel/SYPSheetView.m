@@ -7,6 +7,8 @@
 //
 
 #import "SYPSheetView.h"
+#import "SYPPageView.h"
+#import "SYPPartView.h"
 #import "SYPConstantString.h"
 #import "SYPTablesModel.h"
 #import "XCMultiSortTableView.h"
@@ -22,9 +24,7 @@ static NSString *mainCellID = @"mainCell";
 static NSString *sectionCellID = @"sectionCell";
 static NSString *rowCellID = @"rowCell";
 
-@interface SYPSheetView () <XCMultiTableViewDataSource, XCMultiTableViewDelegate> {
-    UIWindow *freezeWindow;
-}
+@interface SYPSheetView () <XCMultiTableViewDataSource, XCMultiTableViewDelegate>
 
 @property (nonatomic, strong) SYPTableConfigModel *sheetModel;
 @property (nonatomic, strong) XCMultiTableView *multiTableView;
@@ -32,10 +32,11 @@ static NSString *rowCellID = @"rowCell";
 @end
 
 @implementation SYPSheetView
+@synthesize freezeWindow, frezzWindowOffset;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        freezeWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, SYPViewWidth, kSheetHeadHeight)];
+        freezeWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 0, kSheetHeadHeight)];
         freezeWindow.hidden = YES;
         self.backgroundColor = [UIColor clearColor];
         self.clipsToBounds = YES;
@@ -90,12 +91,14 @@ static NSString *rowCellID = @"rowCell";
     UIScrollView *topHeaderView = (UIScrollView *)self.multiTableView.topHeaderScrollView;
     UIView *vertexView = self.multiTableView.vertexView;
     [freezeWindow.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    freezeWindow.y = -100; // 移除屏幕防止阻碍点击事件
     
-    CGRect toVCFrame = [self convertRect:self.frame toView:self.viewController.view];
-    CGFloat offset = CGPointFromString([nt.userInfo objectForKey:@"origin"]).y;
+    SYPPageView *pageView = (SYPPageView *)nt.object; // 表头相对pageview顶部悬浮
+    SYPPartView *partView = [nt.userInfo objectForKey:@"PartView"];
+    CGRect toVCFrame = [self convertRect:self.frame toView:pageView];
+    frezzWindowOffset = CGPointFromString([nt.userInfo objectForKey:@"origin"]).y; // 相对pageview的偏移量
     BOOL canScroll = NO;
-    [self canBeScroller:(UIView *)nt.object canBeScroll:&canScroll];
-    //NSLog(@"can scroll:%d", canScroll);
+    [self canBeScroller:partView canBeScroll:&canScroll]; // self为通知中partview的子视图时表示需要显示表头
     if (canScroll) { // 防止在其他报表中滑动时影响self
         //NSLog(@"self：%p,%@", self, NSStringFromCGRect(toWindowFrame));
         
@@ -103,35 +106,27 @@ static NSString *rowCellID = @"rowCell";
         // 当视图还未进入视觉区域时，由于视图已经贴在屏幕上了，所以 toWindowFrame.origin.y == 0，此时不应将表头悬浮
         // 当视图向上滑动toWindowFrame.origin.y会变成负无穷大，所以在大于本身高度后，取消悬浮
         // 滑动时切换cursor视图，self所在x值进行变化
-        if (toVCFrame.origin.y < offset && toVCFrame.origin.y != 0 && toVCFrame.origin.y > -(CGRectGetHeight(self.frame) - offset) && toVCFrame.origin.x >= 0) {
+        if (toVCFrame.origin.y < frezzWindowOffset && toVCFrame.origin.y != 0 && toVCFrame.origin.y > -(CGRectGetHeight(self.frame) - frezzWindowOffset) && toVCFrame.origin.x >= 0) {
             //NSLog(@"区域内悬浮 %@", NSStringFromCGRect(toWindowFrame));
-//            if (toWindowFrame.origin.y == 53) return; // 值为53时特殊处理
             
-            CGRect frame = freezeWindow.frame;
-            frame.origin.y = offset;
-            frame.size.width = SYPViewWidth;
-            freezeWindow.frame = frame;
+            freezeWindow.y = frezzWindowOffset + pageView.y;
+            freezeWindow.width = SYPViewWidth;
             
             [freezeWindow addSubview:topHeaderView];
             [freezeWindow addSubview:vertexView];
             
             freezeWindow.hidden = NO;
-            [freezeWindow makeKeyAndVisible];
+            
 //            printf("＋＋＋retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(topHeaderView)));
         }
         else {
             //NSLog(@"超出边界复原");
 
             [self.multiTableView addSubview:topHeaderView];
-            CGRect frame = topHeaderView.frame;
-            frame.origin.y = 0;
-            topHeaderView.frame = frame;
+            topHeaderView.y = 0;
             
             [self.multiTableView addSubview:vertexView];
-            frame = vertexView.frame;
-            frame.origin.y = 0;
-            frame.origin.x = 0;
-            vertexView.frame = frame;
+            vertexView.x = vertexView.y = 0;
 //            printf("*****retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(topHeaderView)));
         }
     }
@@ -227,6 +222,12 @@ static NSString *rowCellID = @"rowCell";
             SYPSubSheetView *subView = [[SYPSubSheetView alloc] initWithFrame:CGRectMake(0,0,SYPScreenWidth,SYPScreenHeight)];
             subView.sheetModel = subSheetModel;
             [subView showSubSheetView];
+            // 消除遮挡
+            for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
+                if (!window.keyWindow) {
+                    window.hidden = YES;
+                }
+            }
         } else {
             
             [SYPHudView showHUDWithTitle:self.sheetModel.leadLineTitle[indexPath.row]];

@@ -7,10 +7,10 @@
 //
 
 #import "SYPPartView.h"
+#import "SYPPageView.h"
 #import "SYPConstantString.h"
 #import "SYPBaseChartModel.h"
 #import "SYPTablesModel.h"
-#import "SYPPageModel.h"
 #import "SYPPartViewCell.h"
 #import "UIView+Extension.h"
 #import "SYPSheetView.h"
@@ -118,8 +118,22 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGFloat offset = self.offsetExcelHead ? (self.offsetExcelHead) : 0;
-    offset += self.navStsH;
-    [[NSNotificationCenter defaultCenter] postNotificationName:SYPUpdateExcelHeadFrame object:self userInfo:@{@"origin": [NSString stringWithFormat:@"{0,%lf}", offset]}];
+//    offset += self.navStsH;
+    SYPPageView *pageView = nil;
+    NSInteger maxLoop = 10;
+    [self getPageView:&pageView startView:self maxLoop:&maxLoop];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SYPUpdateExcelHeadFrame object:pageView userInfo:@{@"origin": [NSString stringWithFormat:@"{0,%lf}", offset], @"PartView": self}];
+}
+
+- (void)getPageView:(UIView **)view startView:(UIView *)startView maxLoop:(NSInteger *)maxLoop{
+    if (maxLoop > 0) {
+        if ([startView isKindOfClass:[SYPPageView class]] && startView) {
+            *view = startView;
+        } else {
+            maxLoop--;
+            [self getPageView:view startView:startView.superview maxLoop:maxLoop];
+        }
+    }
 }
 
 #pragma mark - <SYPModuleTwoCellDelegate>
