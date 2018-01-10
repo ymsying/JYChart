@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zoe-OE-1Jh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tQi-Aq-vXO" customClass="SYPPageView">
-                                <rect key="frame" x="0.0" y="304" width="414" height="383"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tQi-Aq-vXO" customClass="SYPPageView">
+                                <rect key="frame" x="0.0" y="296" width="414" height="391"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -27,7 +27,7 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tQi-Aq-vXO" secondAttribute="bottom" id="AlN-Ca-W6k"/>
                             <constraint firstItem="tQi-Aq-vXO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IH8-iI-t7e"/>
-                            <constraint firstItem="tQi-Aq-vXO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="240" id="Xlr-34-eZN"/>
+                            <constraint firstItem="tQi-Aq-vXO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Xlr-34-eZN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tQi-Aq-vXO" secondAttribute="trailing" id="ZVA-PO-mQc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -40,7 +40,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2495.6521739130435" y="-250.27173913043481"/>
+            <point key="canvasLocation" x="2494.202898550725" y="-250.27173913043481"/>
         </scene>
         <!--First View Controller-->
         <scene sceneID="S5v-Zf-dkM">

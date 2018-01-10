@@ -25,8 +25,7 @@
 @property (nonatomic, strong) SYPPageModel *pageModel;
 
 
-@property (weak, nonatomic) IBOutlet SYPPageView *PageView;
-
+@property (nonatomic, strong) SYPPageView *pageView;
 
 @end
 
@@ -36,9 +35,13 @@
     [super viewDidLoad];
     
     // 整体数据测试
-    self.PageView.pageModel = self.pageModel;
+    [self.view addSubview:self.pageView];
+    self.pageView.pageModel = self.pageModel;
     
 }
+
+
+#pragma mark - Getter/Setter
 
 - (SYPPageModel *)pageModel {
     if (!_pageModel) {
@@ -55,7 +58,12 @@
     return _pageModel;
 }
 
-
+-(SYPPageView *)pageView {
+    if (!_pageView) {
+        _pageView = [[SYPPageView alloc]initWithFrame:self.view.frame];
+    }
+    return _pageView;
+}
 
 
 @end
