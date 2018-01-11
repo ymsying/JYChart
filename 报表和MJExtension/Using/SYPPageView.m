@@ -15,6 +15,8 @@
 #import "SYPPartView.h"
 #import "Masonry.h"
 
+#define kFilterViewHeight 40
+
 @interface SYPPageView () <SYPFilterViewProtocol> {
     NSString *currentFilterString;
     CGFloat cursorNavBarH;
@@ -48,10 +50,17 @@
     return self;
 }
 
+- (void)updateConstraints {
+    [super updateConstraints];
+    [self.filterView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.mas_equalTo(0);
+        make.height.mas_equalTo(kFilterViewHeight);
+    }];
+}
+
 - (void)layoutSubviews {
     
     [super layoutSubviews];
-    
     self.cursor.navBarH = cursorNavBarH;
     // 此时的height是设置nav的高，固定高度是45
     self.cursor.frame = CGRectMake(0, cursorY, SYPViewWidth, cursorNavBarH);
@@ -66,17 +75,9 @@
 - (SYPFilterView *)filterView {
     if (!_filterView) {
         
-        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SYPViewWidth, 40 * SYPScreenRatio)];
-        bgView.backgroundColor = SYPColor_BackgroudColor_White;
-        [self addSubview:bgView];
-        
-        _filterView = [[SYPFilterView alloc] initWithFrame:CGRectMake(SYPDefaultMargin * 2, 0, SYPViewWidth - SYPDefaultMargin * 4, 39 * SYPScreenRatio)];
+        _filterView = [[SYPFilterView alloc] init];//WithFrame:CGRectMake(SYPDefaultMargin * 2, 0, SYPViewWidth - SYPDefaultMargin * 4, 39 * SYPScreenRatio)
         _filterView.backgroundColor = SYPColor_BackgroudColor_White;
         _filterView.delegate = self;
-        
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, _filterView.y + _filterView.height, SYPViewWidth, 1)];
-        line.backgroundColor = SYPColor_SepLineColor_LightGray;
-        [self addSubview:line];
     }
     return _filterView;
 }
@@ -128,7 +129,7 @@
 - (void)refreshSubViewData {
     // 1. 计算表头偏移量
     cursorNavBarH = (self.pageModel.tabControl.count > 1) ? 45 : 0;
-    cursorY = self.pageModel.filter.display.length> 1 ? (self.filterView.y + self.filterView.height + 1) : self.filterView.y;
+    cursorY = self.pageModel.filter.display.length > 1 ? (kFilterViewHeight) : self.filterView.y;
     // 2. 设置多页及选项卡
     self.cursor.titles = self.pageModel.tabControl;
     self.cursor.pageViews = self.partViews;

@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tQi-Aq-vXO" customClass="SYPPageView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tQi-Aq-vXO" customClass="SYPPageView">
                                 <rect key="frame" x="0.0" y="296" width="414" height="391"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -27,7 +27,7 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tQi-Aq-vXO" secondAttribute="bottom" id="AlN-Ca-W6k"/>
                             <constraint firstItem="tQi-Aq-vXO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IH8-iI-t7e"/>
-                            <constraint firstItem="tQi-Aq-vXO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Xlr-34-eZN"/>
+                            <constraint firstItem="tQi-Aq-vXO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="232" id="Xlr-34-eZN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tQi-Aq-vXO" secondAttribute="trailing" id="ZVA-PO-mQc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

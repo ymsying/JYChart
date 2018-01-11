@@ -7,8 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "Masonry.h"
 #import "SYPConstantSize.h"
-
 #import "SYPPageModel.h"
 
 #import "SYPCompareSaleView.h"
@@ -19,6 +19,8 @@
 #import "SYPExcelView.h"
 #import "SYPFilterView.h"
 #import "SYPPageView.h"
+
+
 
 @interface ViewController ()
 
@@ -34,8 +36,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    CGFloat navStsH = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+    
     // 整体数据测试
     [self.view addSubview:self.pageView];
+    [self.pageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(navStsH);
+        make.left.bottom.right.mas_equalTo(0);
+    }];
+    
     self.pageView.pageModel = self.pageModel;
     
 }
@@ -45,8 +54,8 @@
 
 - (SYPPageModel *)pageModel {
     if (!_pageModel) {
-        // 数据准备
-        NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"template1_03" ofType:@"json"];
+        // 数据准备// 数据准备 3#数据大，1#筛选
+        NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"template1_01" ofType:@"json"];
         
         id data = [NSData dataWithContentsOfFile:dataPath];
         NSError *error = nil;
@@ -60,7 +69,7 @@
 
 -(SYPPageView *)pageView {
     if (!_pageView) {
-        _pageView = [[SYPPageView alloc]initWithFrame:self.view.frame];
+        _pageView = [[SYPPageView alloc]init];
     }
     return _pageView;
 }

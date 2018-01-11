@@ -40,11 +40,24 @@
     return self;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self.filterBtn updateBtnContentPosition];
+}
+
 - (void)addSubviews {
+    
+    UIView *bgView = [[UIView alloc] init];
+    bgView.backgroundColor = SYPColor_BackgroudColor_White;
+    [self addSubview:bgView];
+    [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.mas_equalTo(self).mas_equalTo(0);
+    }];
     
     [self addSubview:self.filterLabel];
     [self.filterLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.mas_equalTo(0);
+        make.top.bottom.mas_equalTo(0);
+        make.left.mas_equalTo(SYPDefaultMargin);
         make.width.mas_equalTo(self.mas_width).multipliedBy(0.7);
     }];
     
@@ -52,10 +65,17 @@
     [self.filterBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.mas_equalTo(0);
         make.width.mas_equalTo(self.mas_width).multipliedBy(0.3);
-        make.right.mas_equalTo(0);
+        make.right.mas_equalTo(-SYPDefaultMargin);
     }];
     
-    [self.filterBtn updateBtnContentPosition];
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = SYPColor_SepLineColor_LightGray;
+    [self addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(self).mas_equalTo(0);
+        make.bottom.mas_equalTo(self.mas_bottom).mas_equalTo(-1);
+        make.height.mas_equalTo(1);
+    }];
 }
 
 #pragma mark - lazy
