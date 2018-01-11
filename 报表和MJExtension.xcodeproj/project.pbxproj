@@ -110,11 +110,6 @@
 		23F86BD21FECFEF900478027 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F86BC71FECFEF800478027 /* MASViewConstraint.m */; };
 		23F86BD31FECFEF900478027 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F86BC81FECFEF800478027 /* MASViewAttribute.m */; };
 		23F86BD41FECFEF900478027 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23F86BC91FECFEF800478027 /* Info.plist */; };
-		91D39DF12005C5CA00482375 /* StartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D39DF02005C5CA00482375 /* StartVC.m */; };
-		91D39DF52005C6B000482375 /* StartVCAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D39DF42005C6B000482375 /* StartVCAPI.m */; };
-		91D39DF92005C90300482375 /* ListPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D39DF82005C90300482375 /* ListPage.m */; };
-		91D39DFD2005D58400482375 /* ViewControllerAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D39DFC2005D58400482375 /* ViewControllerAPI.m */; };
-		98A337C23A5B3B0A41E8A344 /* libPods-CommonPods-报表和MJExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 438FC10C7FC812177338BB35 /* libPods-CommonPods-报表和MJExtension.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -310,16 +305,6 @@
 		23F86BC81FECFEF800478027 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
 		23F86BC91FECFEF800478027 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		438FC10C7FC812177338BB35 /* libPods-CommonPods-报表和MJExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CommonPods-报表和MJExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B23A2DF7137C3089CC7EBE6 /* Pods-CommonPods-报表和MJExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommonPods-报表和MJExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-CommonPods-报表和MJExtension/Pods-CommonPods-报表和MJExtension.release.xcconfig"; sourceTree = "<group>"; };
-		62744BBA9610D1509424FC50 /* Pods-CommonPods-报表和MJExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommonPods-报表和MJExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CommonPods-报表和MJExtension/Pods-CommonPods-报表和MJExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		91D39DEF2005C5CA00482375 /* StartVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartVC.h; sourceTree = "<group>"; };
-		91D39DF02005C5CA00482375 /* StartVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StartVC.m; sourceTree = "<group>"; };
-		91D39DF32005C6B000482375 /* StartVCAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartVCAPI.h; sourceTree = "<group>"; };
-		91D39DF42005C6B000482375 /* StartVCAPI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StartVCAPI.m; sourceTree = "<group>"; };
-		91D39DF72005C90300482375 /* ListPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListPage.h; sourceTree = "<group>"; };
-		91D39DF82005C90300482375 /* ListPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListPage.m; sourceTree = "<group>"; };
-		91D39DFB2005D58400482375 /* ViewControllerAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewControllerAPI.h; sourceTree = "<group>"; };
-		91D39DFC2005D58400482375 /* ViewControllerAPI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewControllerAPI.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,7 +312,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98A337C23A5B3B0A41E8A344 /* libPods-CommonPods-报表和MJExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,7 +461,6 @@
 			children = (
 				23EAD23D1FD1303100B8A488 /* 报表和MJExtension */,
 				23EAD23C1FD1303100B8A488 /* Products */,
-				E3D85445A012CEB182DD2C56 /* Pods */,
 				3C0B1C78F59EC548AC42E8E3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -495,10 +478,6 @@
 			children = (
 				23EAD23E1FD1303100B8A488 /* AppDelegate.h */,
 				23EAD23F1FD1303100B8A488 /* AppDelegate.m */,
-				91D39DF62005C8F200482375 /* InvaliableModel */,
-				91D39DF22005C69900482375 /* API */,
-				91D39DEF2005C5CA00482375 /* StartVC.h */,
-				91D39DF02005C5CA00482375 /* StartVC.m */,
 				23EAD2411FD1303100B8A488 /* ViewController.h */,
 				23EAD2421FD1303100B8A488 /* ViewController.m */,
 				23D9AD911FDC3F2F00DF93B6 /* SYPFirstViewController.h */,
@@ -745,35 +724,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		91D39DF22005C69900482375 /* API */ = {
-			isa = PBXGroup;
-			children = (
-				91D39DF32005C6B000482375 /* StartVCAPI.h */,
-				91D39DF42005C6B000482375 /* StartVCAPI.m */,
-				91D39DFB2005D58400482375 /* ViewControllerAPI.h */,
-				91D39DFC2005D58400482375 /* ViewControllerAPI.m */,
-			);
-			path = API;
-			sourceTree = "<group>";
-		};
-		91D39DF62005C8F200482375 /* InvaliableModel */ = {
-			isa = PBXGroup;
-			children = (
-				91D39DF72005C90300482375 /* ListPage.h */,
-				91D39DF82005C90300482375 /* ListPage.m */,
-			);
-			path = InvaliableModel;
-			sourceTree = "<group>";
-		};
-		E3D85445A012CEB182DD2C56 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				62744BBA9610D1509424FC50 /* Pods-CommonPods-报表和MJExtension.debug.xcconfig */,
-				4B23A2DF7137C3089CC7EBE6 /* Pods-CommonPods-报表和MJExtension.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -781,12 +731,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 23EAD2511FD1303100B8A488 /* Build configuration list for PBXNativeTarget "报表和MJExtension" */;
 			buildPhases = (
-				F191771400FD3AD47B1613FC /* [CP] Check Pods Manifest.lock */,
 				23EAD2371FD1303100B8A488 /* Sources */,
 				23EAD2381FD1303100B8A488 /* Frameworks */,
 				23EAD2391FD1303100B8A488 /* Resources */,
-				4EDDDD88AF2AEE3D27345D08 /* [CP] Embed Pods Frameworks */,
-				A9E0DD965FDD01C473A9496E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -869,54 +816,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		4EDDDD88AF2AEE3D27345D08 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CommonPods-报表和MJExtension/Pods-CommonPods-报表和MJExtension-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A9E0DD965FDD01C473A9496E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CommonPods-报表和MJExtension/Pods-CommonPods-报表和MJExtension-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F191771400FD3AD47B1613FC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		23EAD2371FD1303100B8A488 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -924,7 +823,6 @@
 			files = (
 				23F86BCF1FECFEF900478027 /* NSArray+MASAdditions.m in Sources */,
 				23F86BD31FECFEF900478027 /* MASViewAttribute.m in Sources */,
-				91D39DFD2005D58400482375 /* ViewControllerAPI.m in Sources */,
 				23A2859D1FD15B7C00360E7E /* SYPInfoView.m in Sources */,
 				23EAD2861FD1305E00B8A488 /* MJExtensionConst.m in Sources */,
 				23F86BD21FECFEF900478027 /* MASViewConstraint.m in Sources */,
@@ -949,7 +847,6 @@
 				2359ED251FD782A200AD4405 /* SYPPageModel.m in Sources */,
 				23EAD2891FD1305E00B8A488 /* NSString+MJExtension.m in Sources */,
 				23EAD2E11FD1309500B8A488 /* SYPBaseComponentView.m in Sources */,
-				91D39DF92005C90300482375 /* ListPage.m in Sources */,
 				23F86BCC1FECFEF900478027 /* MASCompositeConstraint.m in Sources */,
 				2359ED261FD782A200AD4405 /* SYPSingleValueModel.m in Sources */,
 				23EAD32A1FD1309A00B8A488 /* SYPAnimationTool.m in Sources */,
@@ -995,9 +892,7 @@
 				2359ED4B1FD789FF00AD4405 /* SYPSheetView.m in Sources */,
 				23EAD2821FD1305E00B8A488 /* MJPropertyType.m in Sources */,
 				23EAD24E1FD1303100B8A488 /* main.m in Sources */,
-				91D39DF12005C5CA00482375 /* StartVC.m in Sources */,
 				23EAD2831FD1305E00B8A488 /* NSObject+MJKeyValue.m in Sources */,
-				91D39DF52005C6B000482375 /* StartVCAPI.m in Sources */,
 				2359ED241FD782A200AD4405 /* SYPBaseChartModel.m in Sources */,
 				23EAD2401FD1303100B8A488 /* AppDelegate.m in Sources */,
 				2359ED2D1FD782A200AD4405 /* SYPPartModel.m in Sources */,
@@ -1132,7 +1027,6 @@
 		};
 		23EAD2521FD1303100B8A488 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 62744BBA9610D1509424FC50 /* Pods-CommonPods-报表和MJExtension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1148,7 +1042,6 @@
 		};
 		23EAD2531FD1303100B8A488 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B23A2DF7137C3089CC7EBE6 /* Pods-CommonPods-报表和MJExtension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
