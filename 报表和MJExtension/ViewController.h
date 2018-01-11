@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ListPage.h"
+
 
 @interface ViewController : UIViewController
 
-@property (nonatomic, strong) ListItem *listItem;
+
 
 @end
 

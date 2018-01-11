@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "StartVC.h"
 
 @interface AppDelegate ()
 
@@ -18,10 +17,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
-    StartVC *rootVC = [[StartVC alloc]init];
-    UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:rootVC];
-    self.window.rootViewController = rootNav;
+//    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
+//    StartVC *rootVC = [[StartVC alloc]init];
+//    UINavigationController *rootNav = [[UINavigationController alloc]initWithRootViewController:rootVC];
+//    self.window.rootViewController = rootNav;
     [self.window makeKeyWindow];
     return YES;
 }
